@@ -1,0 +1,50 @@
+EDUCATION
+
+
+Purdue University	West Lafayette, IN
+B.S. Industrial Engineering 	Graduated May 2023 
+Relevant Coursework: Operation Research; Supply Chain Management; Machine Learning; Inventory Management; Quality Engineering; Lean Six Sigma; Material Planning; Layout Design
+
+WORK EXPERIENCE	
+
+
+Brobridge Co.    	Taipei, Taiwan
+Product Manager 	 November 2023 – Present
+	Spearheaded the new product introduction (NPI) for the flagship product Gravity Portal.
+	Conducted market research, including competitive analysis and five-force analysis, informing product strategy and positioning.
+	Introduced Scrum processes, developed comprehensive specifications, and enhancing team efficiency by 50%.
+	Facilitated sprint review and retrospectives, driving continuous refinements and boosting sprint velocity by 25%.
+	Led Proof of Concept (PoC) projects to validate new features.
+	Directed the NHI (National Health Insurance) Digital Transformation Project
+	Collaborated with diverse stakeholders to ensure all deliverables met defined acceptance criteria.
+	Facilitated efficient, consensus-building meetings, and improved overall service satisfaction by 25%.
+
+MPI, Small Parts Inc.     	Logansport, IN
+Industrial Engineer	Jan 2023 – May 2023
+	Conducted field research, collecting transportation data and identifying high-runner materials.
+	Redesigned raw material transportation schedules using Arena Simulator, optimizing layout, inventory replenishment, and job prioritization to enhance production flow by reducing idle time by 1.5 hours per week.
+	Engineered layout and shelves area designs that optimized storage spaces, based on increased raw material and work in process (WIP) storage capacity by 20%. 
+	Introduced barcode and color labeling system for inventory management that improves efficiency and accuracy, reducing restocking and replenishing times by 5 man-hours per week.
+
+Optoma Technology	Taipei, Taiwan
+SWE Intern   	Jun 2022 – Aug 2022
+	Developed a command line interface (CLI) tool with Python that streamlined data processes from Google Firebase.
+	Utilize Pandas libraries to perform statistical analysis, generating customized reports.
+	Leveraged google cloud APIs to schedule SQL queries, eliminating the need for manual configurations.
+
+KEY SKILLS	
+
+
+Programming Language: Python, C, C++, SQL, Shell Script
+Software Tools: Linux (I use Arch btw), vim, Docker, Kubernetes, Microsoft Excel, Jira, Confluence
+Languages: Native fluency in English and Chinese
+Certifications & Training: Data Analytics Fundamentals (Google); Python (Codecademy); Scrum Processes; Lean Six Sigma
+
+PERSONAL PROJECTS
+
+
+Stock Prediction ML project 	July 2024 – Present
+	Conducted statistical analysis on various financial and technical indicators, ensure training data are relevant to the model.
+	Leveraged Pandas, NumPy library to perform statistical analysis, and Tensorflow, PyTorch libraries to build a LSTM model.
+	Experimented different learning rates, number of epochs, activation functions, loss optimizers and batch sizes, attempting to find the best configurations while keeping track of training loss, validation loss and potential overfitting issues.
+	Utilized Docker containers to create isolated DevOps environment, ensuring a reproducible workspace.

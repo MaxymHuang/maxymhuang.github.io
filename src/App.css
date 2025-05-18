@@ -1,0 +1,495 @@
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Modern Portfolio Design */
+:root {
+  --primary: #000000;
+  --primary-dark: #333333;
+  --secondary: #666666;
+  --background: #ffffff;
+  --surface: #f5f5f5;
+  --text: #000000;
+  --text-light: #666666;
+  --border: #e0e0e0;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --font-mono: 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+}
+
+/* Global monospace font */
+body {
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.portfolio-root {
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--text);
+  font-family: var(--font-mono);
+  line-height: 1.6;
+}
+
+/* Navigation */
+.navbar {
+  background-color: var(--background);
+  padding: 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+}
+
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  font-family: var(--font-mono);
+}
+
+.nav-links {
+  display: flex;
+  gap: 3rem;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  position: relative;
+  letter-spacing: 0.05em;
+  font-family: var(--font-mono);
+}
+
+.nav-btn::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--text);
+  transition: width 0.3s ease;
+}
+
+.nav-btn:hover::after {
+  width: 100%;
+}
+
+/* Main Content */
+main {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 80px;
+}
+
+.section {
+  min-height: calc(100vh - 80px);
+  padding: 6rem 2rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.section-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.section h2 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+}
+
+/* Project Cards */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.project-card {
+  background-color: var(--surface);
+  padding: 2rem;
+  transition: all 0.2s;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+}
+
+.project-card h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.project-card p {
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.project-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.project-link {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  position: relative;
+}
+
+.project-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--text);
+  transition: width 0.3s ease;
+}
+
+.project-link:hover::after {
+  width: 100%;
+}
+
+/* Skills List */
+.skills-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.skills-list li {
+  padding: 1rem 0;
+  color: var(--text);
+  font-weight: 400;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.05em;
+}
+
+/* Connect Section */
+.connect-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.connect-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 1.25rem;
+  transition: all 0.2s;
+  letter-spacing: 0.05em;
+}
+
+.connect-link:hover {
+  color: var(--text-light);
+}
+
+.connect-icon {
+  font-size: 1.25rem;
+  opacity: 0.7;
+}
+
+.connect-label {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #000000;
+    --surface: #111111;
+    --text: #ffffff;
+    --text-light: #999999;
+    --border: #333333;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1.5rem;
+  }
+
+  .nav-links {
+    gap: 1.5rem;
+  }
+
+  .section {
+    padding: 4rem 1.5rem;
+  }
+
+  .section h2 {
+    font-size: 2rem;
+  }
+
+  .connect-link {
+    font-size: 1.1rem;
+  }
+}
+
+/* Terminal-like styling for About section */
+.terminal-window {
+  background-color: #1a1a1a;
+  border-radius: 6px;
+  padding: 2rem;
+  font-family: var(--font-mono);
+  color: #f8f8f2;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  margin: 2rem 0;
+}
+
+.terminal-window::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: #2d2d2d;
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.terminal-window::after {
+  content: '● ● ●';
+  position: absolute;
+  top: 8px;
+  left: 1rem;
+  color: #ff5f56;
+  text-shadow: 0 0 2px rgba(255, 95, 86, 0.5);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+}
+
+.terminal-content {
+  margin-top: 1.5rem;
+  padding: 0 1rem;
+}
+
+.terminal-prompt {
+  color: #50fa7b;
+  margin-right: 0.5rem;
+}
+
+.terminal-command {
+  color: #f8f8f2;
+  margin-bottom: 1rem;
+}
+
+.terminal-output {
+  color: #6272a4;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.terminal-list {
+  list-style: none;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.terminal-list li {
+  color: #6272a4;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.terminal-list li::before {
+  content: '>';
+  color: #50fa7b;
+  position: absolute;
+  left: -1.5rem;
+}
+
+.terminal-header {
+  color: #ff79c6;
+  margin: 1.5rem 0 1rem;
+  font-size: 1.2rem;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .terminal-window {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .terminal-window {
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  
+  .terminal-content {
+    padding: 0 0.5rem;
+  }
+}
+
+/* Whoami section specific styling */
+.whoami-section {
+  background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+  border-left: 4px solid #50fa7b;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 0 6px 6px 0;
+}
+
+.whoami-name {
+  color: #ff79c6;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.whoami-title {
+  color: #50fa7b;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.whoami-education {
+  color: #6272a4;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.whoami-description {
+  color: #f8f8f2;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+.whoami-description li {
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.whoami-description li::before {
+  content: '>';
+  color: #50fa7b;
+  position: absolute;
+  left: 0;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .terminal-window {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+  }
+  
+  .whoami-section {
+    background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+    border-left-color: #50fa7b;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .terminal-window {
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  
+  .terminal-content {
+    padding: 0 0.5rem;
+  }
+  
+  .whoami-section {
+    padding: 1rem;
+  }
+  
+  .whoami-name {
+    font-size: 1.2rem;
+  }
+  
+  .whoami-title {
+    font-size: 1rem;
+  }
+}
