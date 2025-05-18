@@ -1,4 +1,6 @@
 import './App.css';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import ProjectDetails from './components/ProjectDetails';
 
 const sections = [
   { id: 'about', label: 'About' },
@@ -11,28 +13,118 @@ const projects = [
     id: 'esp32',
     title: 'ESP32 Projects',
     description: 'Collection of IoT projects using ESP32 microcontrollers, including home automation, sensor networks, and custom firmware development.',
+    logo: '/esp32.svg',
     links: [
       { label: 'GitHub', url: 'https://github.com/MaxymHuang/v2t' },
       { label: 'Documentation', url: '#' }
-    ]
+    ],
+    details: {
+      overview: 'A comprehensive collection of IoT projects leveraging ESP32 microcontrollers for various applications, from home automation to environmental monitoring.',
+      technologies: [
+        'ESP32 Microcontrollers',
+        'Arduino Framework',
+        'MQTT Protocol',
+        'Home Assistant Integration',
+        'Custom PCB Design'
+      ],
+      features: [
+        'Real-time sensor data collection',
+        'Automated home control systems',
+        'Energy monitoring solutions',
+        'Custom firmware development',
+        'Integration with existing smart home platforms'
+      ],
+      challenges: [
+        'Power consumption optimization',
+        'Reliable wireless communication',
+        'Secure data transmission',
+        'Hardware constraints management'
+      ],
+      solutions: [
+        'Implemented deep sleep modes',
+        'Developed robust error handling',
+        'Utilized encryption for data security',
+        'Optimized code for limited resources'
+      ]
+    }
   },
   {
     id: 'homelab',
     title: 'Homelab Setup',
     description: 'Personal homelab infrastructure with Proxmox, Docker containers, and automated deployment pipelines. Includes monitoring, backup solutions, and network configuration.',
+    logo: '/linux.svg',
     links: [
       { label: 'Setup Guide', url: '#' },
       { label: 'Hardware Specs', url: '#' }
-    ]
+    ],
+    details: {
+      overview: 'A robust homelab environment built for learning, development, and personal use, featuring virtualization, containerization, and automated workflows.',
+      technologies: [
+        'Proxmox VE',
+        'Docker & Docker Compose',
+        'Kubernetes',
+        'Traefik Reverse Proxy',
+        'Prometheus & Grafana'
+      ],
+      features: [
+        'Virtual machine management',
+        'Container orchestration',
+        'Automated backups',
+        'Network monitoring',
+        'Resource optimization'
+      ],
+      challenges: [
+        'Resource allocation',
+        'Network security',
+        'Backup reliability',
+        'Service availability'
+      ],
+      solutions: [
+        'Implemented resource quotas',
+        'Set up VLANs and firewalls',
+        'Developed automated backup scripts',
+        'Configured high availability'
+      ]
+    }
   },
   {
     id: 'tailscale',
-    title: 'NextCloud with Tailscale',
+    title: 'Nextcloud with Tailscale',
     description: 'Secure private cloud setup using Tailscale for remote access, with encrypted tunnels and zero-trust networking principles.',
+    logo: '/ncloud.svg',
     links: [
       { label: 'Configuration', url: '#' },
       { label: 'Security Notes', url: '#' }
-    ]
+    ],
+    details: {
+      overview: 'A secure private cloud solution combining NextCloud for file storage and Tailscale for secure remote access, implementing zero-trust networking principles.',
+      technologies: [
+        'NextCloud',
+        'Tailscale',
+        'Docker',
+        'Nginx',
+        'Let\'s Encrypt'
+      ],
+      features: [
+        'Secure file sharing',
+        'Remote access',
+        'End-to-end encryption',
+        'Cross-platform sync',
+        'Automated backups'
+      ],
+      challenges: [
+        'Security configuration',
+        'Performance optimization',
+        'Backup management',
+        'Access control'
+      ],
+      solutions: [
+        'Implemented zero-trust networking',
+        'Optimized caching and compression',
+        'Set up automated backup systems',
+        'Configured granular access controls'
+      ]
+    }
   }
 ];
 
@@ -64,7 +156,9 @@ function scrollToSection(id: string) {
   }
 }
 
-export default function App() {
+function Home() {
+  const navigate = useNavigate();
+
   return (
     <div className="portfolio-root">
       <nav className="navbar">
@@ -139,7 +233,12 @@ export default function App() {
             <h2>Projects</h2>
             <div className="project-grid">
               {projects.map((project) => (
-                <div key={project.id} className="project-card">
+                <div 
+                  key={project.id} 
+                  className="project-card"
+                  onClick={() => navigate(`/project/${project.id}`)}
+                >
+                  <img src={project.logo} alt={`${project.title} logo`} className="project-logo" />
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
                   <div className="project-links">
@@ -150,6 +249,7 @@ export default function App() {
                         className="project-link"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                       >
                         {link.label}
                       </a>
@@ -182,5 +282,16 @@ export default function App() {
         </section>
       </main>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/project/:id" element={<ProjectDetails projects={projects} />} />
+      </Routes>
+    </Router>
   );
 }

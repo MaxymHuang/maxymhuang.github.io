@@ -171,10 +171,32 @@ main {
   background-color: var(--surface);
   padding: 2rem;
   transition: all 0.2s;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .project-card:hover {
   transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--text);
+}
+
+.project-logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1.5rem;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-logo {
+  transform: scale(1.1);
 }
 
 .project-card h3 {
@@ -193,6 +215,7 @@ main {
 .project-links {
   display: flex;
   gap: 1.5rem;
+  margin-top: auto;
 }
 
 .project-link {
@@ -216,6 +239,64 @@ main {
 
 .project-link:hover::after {
   width: 100%;
+}
+
+/* Project Details Page */
+.project-details {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.project-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.project-logo-large {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.project-section {
+  margin-bottom: 2rem;
+}
+
+.project-section h3 {
+  color: #50fa7b;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.project-section h4 {
+  color: #ff79c6;
+  font-size: 1.1rem;
+  margin: 1rem 0;
+}
+
+.challenges-section,
+.solutions-section {
+  margin-bottom: 1.5rem;
+}
+
+.back-button {
+  background: none;
+  border: 1px solid #50fa7b;
+  color: #50fa7b;
+  padding: 0.5rem 1rem;
+  margin-top: 2rem;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  transition: all 0.2s;
+}
+
+.back-button:hover {
+  background: #50fa7b;
+  color: #1a1a1a;
 }
 
 /* Skills List */
@@ -280,6 +361,10 @@ main {
     --text-light: #999999;
     --border: #333333;
   }
+  .project-logo,
+  .project-logo-large {
+    filter: brightness(0) invert(1);
+  }
 }
 
 /* Responsive Design */
@@ -302,6 +387,25 @@ main {
 
   .connect-link {
     font-size: 1.1rem;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .project-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .project-logo-large {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .project-section {
+    margin-bottom: 1.5rem;
   }
 }
 
