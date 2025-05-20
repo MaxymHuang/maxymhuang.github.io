@@ -1,9 +1,11 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import ProjectDetails from './components/ProjectDetails';
+import Timeline from './components/Timeline';
 
 const sections = [
   { id: 'about', label: 'About' },
+  { id: 'journey', label: 'Journey' },
   { id: 'projects', label: 'Projects' },
   { id: 'connect', label: 'Connect' },
 ];
@@ -206,25 +208,17 @@ function Home() {
                 </ul>
 
                 <div className="terminal-command">
-                  <span className="terminal-prompt">$</span> cat linux_iot_journey.txt
-                </div>
-                <div className="terminal-output">
-                  Started with Arch Linux, exploring system administration and customization.
-                  Current projects include:
-                </div>
-                <ul className="terminal-list">
-                  <li>Homelab: Proxmox + Docker containers</li>
-                  <li>IoT: ESP32 microcontrollers for home automation</li>
-                  <li>Cloud: Tailscale + NextCloud private infrastructure</li>
-                  <li>DevOps: Automated deployment pipelines</li>
-                  <li>Firmware: Custom solutions for environmental monitoring</li>
-                </ul>
-
-                <div className="terminal-command">
                   <span className="terminal-prompt">$</span> echo "Passionate about creating efficient, secure, and scalable solutions that bridge hardware and software."
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section id="journey" className="section">
+          <div className="section-content">
+            <h2>My Journey</h2>
+            <Timeline />
           </div>
         </section>
 
@@ -295,3 +289,4 @@ export default function App() {
     </Router>
   );
 }
+

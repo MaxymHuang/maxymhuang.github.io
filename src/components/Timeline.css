@@ -1,0 +1,138 @@
+.timeline-container {
+  width: 100%;
+  padding: 2rem 0;
+  margin: 2rem 0;
+}
+
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  background-color: #39ff14;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -2px;
+  border-radius: 2px;
+  opacity: 0.3;
+}
+
+.timeline-item {
+  padding: 10px 40px;
+  position: relative;
+  width: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.timeline-item:nth-child(odd) {
+  left: 0;
+  padding-right: 60px;
+  text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+  left: 50%;
+  padding-left: 60px;
+}
+
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #39ff14;
+  border-radius: 50%;
+  top: 15px;
+  z-index: 1;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.timeline-item:nth-child(odd)::after {
+  right: -10px;
+}
+
+.timeline-item:nth-child(even)::after {
+  left: -10px;
+}
+
+.timeline-item.active::after {
+  background-color: #39ff14;
+  transform: scale(1.2);
+  opacity: 1;
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+}
+
+.timeline-content {
+  padding: 20px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: inline-block;
+  width: 100%;
+  border: 1px solid transparent;
+}
+
+.timeline-item.active .timeline-content {
+  transform: scale(1.05);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  border-color: #39ff14;
+}
+
+.timeline-icon {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.timeline-date {
+  color: #39ff14;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.timeline-title {
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+}
+
+.timeline-description {
+  color: #a0a0a0;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+@media screen and (max-width: 768px) {
+  .timeline::after {
+    left: 31px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+    text-align: left;
+  }
+
+  .timeline-item:nth-child(even) {
+    left: 0;
+  }
+
+  .timeline-item::after {
+    left: 21px;
+  }
+
+  .timeline-item:nth-child(odd)::after {
+    right: auto;
+  }
+} 

@@ -112,6 +112,11 @@ body {
   position: relative;
   letter-spacing: 0.05em;
   font-family: var(--font-mono);
+  transition: color 0.3s ease;
+}
+
+.nav-btn:hover {
+  color: #39ff14;
 }
 
 .nav-btn::after {
@@ -121,7 +126,7 @@ body {
   height: 1px;
   bottom: 0;
   left: 0;
-  background-color: var(--text);
+  background-color: #39ff14;
   transition: width 0.3s ease;
 }
 

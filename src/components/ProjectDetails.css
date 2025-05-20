@@ -1,0 +1,235 @@
+.project-details {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem 8rem;
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.project-header {
+  margin-bottom: 3rem;
+  text-align: center;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.project-logo-large {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.project-header h2 {
+  font-size: 2.5rem;
+  margin: 0;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.project-meta {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  color: #a0a0a0;
+  font-size: 0.9rem;
+}
+
+.project-section {
+  margin-bottom: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 3rem;
+  align-items: start;
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.project-section h3 {
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+  grid-column: 1;
+}
+
+.project-section h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+
+.project-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #e0e0e0;
+  margin-bottom: 1.5rem;
+  grid-column: 2;
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+  grid-column: 2;
+}
+
+.tech-item {
+  background-color: #1a1a1a;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.tech-item:hover {
+  transform: translateY(-2px);
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  grid-column: 2;
+}
+
+.feature-item {
+  background-color: #1a1a1a;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateX(5px);
+}
+
+.challenges-section, .solutions-section {
+  background-color: #1a1a1a;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  grid-column: 2;
+}
+
+.challenges-section h4, .solutions-section h4 {
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.challenge-item, .solution-item {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.challenge-item::before, .solution-item::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #ffffff;
+}
+
+.project-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 3rem;
+  justify-content: center;
+  grid-column: 1 / -1;
+}
+
+.project-link {
+  background-color: transparent;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0;
+}
+
+.project-link:hover {
+  color: #39ff14;
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.back-button {
+  display: block;
+  margin: 2rem auto;
+  background-color: transparent;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  grid-column: 1 / -1;
+  border-radius: 0;
+}
+
+.back-button:hover {
+  color: #39ff14;
+  border-color: transparent;
+  background-color: transparent;
+}
+
+@media screen and (max-width: 1600px) {
+  .project-details {
+    padding: 2rem 4rem;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .project-details {
+    padding: 2rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .project-details {
+    padding: 1rem;
+  }
+
+  .project-section {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .project-section h3,
+  .project-section p,
+  .tech-grid,
+  .feature-list,
+  .challenges-section,
+  .solutions-section {
+    grid-column: 1;
+  }
+
+  .project-header h2 {
+    font-size: 2rem;
+  }
+
+  .tech-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+} 
