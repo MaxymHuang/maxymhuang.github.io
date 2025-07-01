@@ -2,6 +2,12 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import ProjectDetails from './components/ProjectDetails';
 import Timeline from './components/Timeline';
+// @ts-expect-error: No type declaration for ScrollVelocity
+import ScrollVelocity from './blocks/TextAnimations/ScrollVelocity/ScrollVelocity';
+// @ts-expect-error: No type declaration for BlurText
+import BlurText from './blocks/TextAnimations/BlurText/BlurText';
+// @ts-expect-error: No type declaration for SpotlightCard
+import SpotlightCard from './blocks/Components/SpotlightCard/SpotlightCard';
 
 const sections = [
   { id: 'about', label: 'About' },
@@ -177,39 +183,62 @@ function Home() {
           ))}
         </div>
       </nav>
+      <div style={{ position: 'relative', width: '100vw', left: '50%', transform: 'translateX(-50%)', zIndex: 1, marginTop: '100px', marginBottom: '40px', display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
+        <ScrollVelocity
+          texts={["MAXYM HUANG"]}
+          velocity={120}
+          className="scroller"
+          numCopies={8}
+          parallaxStyle={{ width: '100vw', maxWidth: '100vw', overflow: 'hidden' }}
+          scrollerStyle={{ fontSize: 'clamp(3rem, 14vw, 12rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
+        />
+        <ScrollVelocity
+          texts={["MAXYM HUANG"]}
+          velocity={-100}
+          className="scroller"
+          numCopies={8}
+          parallaxStyle={{ width: '100vw', maxWidth: '100vw', overflow: 'hidden' }}
+          scrollerStyle={{ fontSize: 'clamp(3.5rem, 16vw, 13rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
+        />
+        <ScrollVelocity
+          texts={["MAXYM HUANG"]}
+          velocity={140}
+          className="scroller"
+          numCopies={8}
+          parallaxStyle={{ width: '100vw', maxWidth: '100vw', overflow: 'hidden' }}
+          scrollerStyle={{ fontSize: 'clamp(4rem, 18vw, 14rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
+        />
+      </div>
       <main>
         <section id="about" className="section">
           <div className="section-content">
-            <h2>About</h2>
-            <div className="terminal-window">
-              <div className="terminal-content">
-                <div className="terminal-command">
-                  <span className="terminal-prompt">$</span> whoami
-                </div>
-                <div className="whoami-section">
-                  <div className="whoami-name">Maxym Huang</div>
-                  <div className="whoami-title">Field Application Engineer @ Test Research, Inc.</div>
-                  <div className="whoami-education">B.S. Industrial Engineering, Purdue University</div>
-                  <ul className="whoami-description">
-                    <li>Passionate about technology innovation and continuous learning.</li>
-                    <li>My work involves both technical implementation and knowledge sharing, helping organizations adopt and optimize modern technology solutions.</li>
-                    <li>I believe in creating robust, scalable, and secure systems that drive business value and technological advancement.</li>
-                  </ul>
-                </div>
-
-                <div className="terminal-command">
-                  <span className="terminal-prompt">$</span> cat skills.txt
-                </div>
-                <ul className="terminal-list">
+            <BlurText text="Who is MAXYM HUANG?" className="about-blur-heading" animateBy="words" direction="top" />
+            <div className="about-content">
+              <div className="about-section">
+                <h3>Who I Am</h3>
+                <p>Field Application Engineer at Test Research, Inc., passionate about technology innovation and continuous learning. My work involves both technical implementation and knowledge sharing, helping organizations adopt and optimize modern technology solutions.</p>
+                <p>I believe in creating robust, scalable, and secure systems that drive business value and technological advancement.</p>
+              </div>
+              
+              <div className="about-section">
+                <h3>Education</h3>
+                <h4>Purdue University</h4>
+                <p>B.S. Industrial Engineering</p>
+              </div>
+              
+              <div className="about-section">
+                <h3>Technical Skills</h3>
+                <ul>
                   <li>Programming Languages: Python, C, C++, SQL, Shell Script</li>
                   <li>Software Tools: Linux (Arch), vim, Docker, Kubernetes, Microsoft Excel, Jira, Confluence</li>
                   <li>Languages: Native fluency in English and Chinese</li>
                   <li>Certifications: Data Analytics Fundamentals (Google), Python (Codecademy), Scrum Processes, Lean Six Sigma</li>
                 </ul>
-
-                <div className="terminal-command">
-                  <span className="terminal-prompt">$</span> echo "Passionate about creating efficient, secure, and scalable solutions that bridge hardware and software."
-                </div>
+              </div>
+              
+              <div className="about-section">
+                <h3>Mission</h3>
+                <p>Passionate about creating efficient, secure, and scalable solutions that bridge hardware and software.</p>
               </div>
             </div>
           </div>
@@ -227,29 +256,30 @@ function Home() {
             <h2>Projects</h2>
             <div className="project-grid">
               {projects.map((project) => (
-                <div 
-                  key={project.id} 
+                <SpotlightCard
+                  key={project.id}
                   className="project-card"
-                  onClick={() => navigate(`/project/${project.id}`)}
                 >
-                  <img src={project.logo} alt={`${project.title} logo`} className="project-logo" />
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className="project-links">
-                    {project.links.map((link) => (
-                      <a
-                        key={link.label}
-                        href={link.url}
-                        className="project-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        {link.label}
-                      </a>
-                    ))}
+                  <div onClick={() => navigate(`/project/${project.id}`)}>
+                    <img src={project.logo} alt={`${project.title} logo`} className="project-logo" />
+                    <h3>{project.title}</h3>
+                    <p>{project.description}</p>
+                    <div className="project-links">
+                      {project.links.map((link) => (
+                        <a
+                          key={link.label}
+                          href={link.url}
+                          className="project-link"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                </SpotlightCard>
               ))}
             </div>
           </div>

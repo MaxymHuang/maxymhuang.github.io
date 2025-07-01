@@ -175,7 +175,7 @@ main {
 .project-card {
   background-color: var(--surface);
   padding: 2rem;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
   cursor: pointer;
   border-radius: 8px;
   border: 1px solid var(--border);
@@ -186,9 +186,8 @@ main {
 }
 
 .project-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--text);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
 }
 
 .project-logo {
@@ -566,39 +565,254 @@ main {
   left: 0;
 }
 
+/* Modern About section styling */
+.about-content {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-radius: 16px;
+  padding: 3rem;
+  margin: 2rem 0;
+  border: 1px solid #333;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(57, 255, 20, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 121, 198, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.about-section {
+  margin-bottom: 2.5rem;
+}
+
+.about-section:last-child {
+  margin-bottom: 0;
+}
+
+.about-section h3 {
+  color: #39ff14;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.about-section h4 {
+  color: #ff79c6;
+  font-size: 1.2rem;
+  margin: 1.5rem 0 0.5rem;
+  font-weight: 500;
+}
+
+.about-section p {
+  color: #f8f8f2;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.about-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.about-section li {
+  color: #6272a4;
+  margin-bottom: 0.8rem;
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.about-section li::before {
+  content: '→';
+  color: #39ff14;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+/* Timeline styling updates */
+.timeline-container {
+  position: relative;
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+.scroll-list-container {
+  flex: 1;
+  max-width: 800px;
+}
+
+.scroll-list {
+  max-height: 600px !important;
+  padding: 2rem !important;
+}
+
+.item {
+  padding: 2rem !important;
+  background-color: #1a1a1a !important;
+  border-radius: 12px !important;
+  margin-bottom: 1.5rem !important;
+  border: 1px solid #333 !important;
+  transition: all 0.3s ease !important;
+  font-size: 1.1rem !important;
+  line-height: 1.6 !important;
+}
+
+.item.selected {
+  background-color: #271E37 !important;
+  border-color: #39ff14 !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 8px 24px rgba(57, 255, 20, 0.2) !important;
+}
+
+.item-text {
+  color: white !important;
+  margin: 0 !important;
+  font-size: 1.1rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Timeline dots */
+.timeline-dots {
+  position: sticky;
+  top: 100px;
+  width: 200px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem 0;
+}
+
+.timeline-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #333;
+  border: 2px solid #666;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.timeline-dot.active {
+  background-color: #39ff14;
+  border-color: #39ff14;
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.6);
+  transform: scale(1.2);
+}
+
+.timeline-dot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #1a1a1a;
+  transition: all 0.3s ease;
+}
+
+.timeline-dot.active::before {
+  background-color: #1a1a1a;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #333;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+/* Blur heading styling */
+.about-blur-heading {
+  font-size: clamp(4rem, 15vw, 20rem) !important;
+  font-weight: 900 !important;
+  text-align: center !important;
+  width: 100vw !important;
+  margin-left: 50% !important;
+  transform: translateX(-50%) !important;
+  color: #39ff14 !important;
+  text-transform: uppercase !important;
+  letter-spacing: -0.02em !important;
+  line-height: 0.8 !important;
+  margin-bottom: 2rem !important;
+  filter: drop-shadow(0 4px 12px rgba(57, 255, 20, 0.3)) !important;
+}
+
 /* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
-  .terminal-window {
-    background-color: #1a1a1a;
-    border: 1px solid #333;
-  }
-  
-  .whoami-section {
-    background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
-    border-left-color: #50fa7b;
+  .about-content {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    border-color: #444;
   }
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .terminal-window {
-    padding: 1.5rem;
+  .about-content {
+    padding: 2rem;
     margin: 1rem 0;
   }
   
-  .terminal-content {
-    padding: 0 0.5rem;
-  }
-  
-  .whoami-section {
-    padding: 1rem;
-  }
-  
-  .whoami-name {
+  .about-section h3 {
     font-size: 1.2rem;
   }
   
-  .whoami-title {
-    font-size: 1rem;
+  .about-section h4 {
+    font-size: 1.1rem;
+  }
+  
+  .about-section p,
+  .about-section li {
+    font-size: 0.95rem;
+  }
+
+  .about-blur-heading {
+    font-size: clamp(3rem, 12vw, 15rem) !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .timeline-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .timeline-dots {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: center;
+    padding: 1rem 0;
+  }
+
+  .timeline-line {
+    top: 50%;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: 2px;
+    transform: translateY(-50%);
   }
 }

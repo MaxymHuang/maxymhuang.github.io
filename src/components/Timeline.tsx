@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './Timeline.css';
+// @ts-expect-error: No type declaration for AnimatedList
+import AnimatedList from '../blocks/Components/AnimatedList/AnimatedList';
 
 interface TimelineEvent {
   date: string;
@@ -44,22 +46,29 @@ const timelineEvents: TimelineEvent[] = [
 const Timeline: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
+  const items = timelineEvents.map(
+    (event) => `${event.icon} ${event.date} — ${event.title}: ${event.description}`
+  );
+
   return (
     <div className="timeline-container">
-      <div className="timeline">
+      <AnimatedList
+        items={items}
+        onItemSelect={(item: string, index: number) => setActiveIndex(index)}
+        showGradients={true}
+        enableArrowNavigation={true}
+        displayScrollbar={true}
+        initialSelectedIndex={activeIndex ?? -1}
+      />
+      <div className="timeline-dots">
+        <div className="timeline-line"></div>
         {timelineEvents.map((event, index) => (
           <div
             key={index}
-            className={`timeline-item ${activeIndex === index ? 'active' : ''}`}
+            className={`timeline-dot ${activeIndex === index ? 'active' : ''}`}
             onClick={() => setActiveIndex(index)}
-          >
-            <div className="timeline-icon">{event.icon}</div>
-            <div className="timeline-content">
-              <div className="timeline-date">{event.date}</div>
-              <h3 className="timeline-title">{event.title}</h3>
-              <p className="timeline-description">{event.description}</p>
-            </div>
-          </div>
+            title={`${event.date} - ${event.title}`}
+          />
         ))}
       </div>
     </div>
