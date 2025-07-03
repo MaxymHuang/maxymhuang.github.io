@@ -8,6 +8,10 @@ import ScrollVelocity from './blocks/TextAnimations/ScrollVelocity/ScrollVelocit
 import BlurText from './blocks/TextAnimations/BlurText/BlurText';
 // @ts-expect-error: No type declaration for SpotlightCard
 import SpotlightCard from './blocks/Components/SpotlightCard/SpotlightCard';
+// @ts-expect-error: No type declaration for FlowingMenu
+import FlowingMenu from './blocks/Components/FlowingMenu/FlowingMenu';
+// @ts-expect-error: No type declaration for DecryptedText
+import DecryptedText from './blocks/TextAnimations/DecryptedText/DecryptedText';
 
 const sections = [
   { id: 'about', label: 'About' },
@@ -157,6 +161,13 @@ const socialLinks = [
   }
 ];
 
+const flowingMenuItems = [
+  { link: '#about', text: 'About', image: '/esp32.svg' },
+  { link: '#journey', text: 'Journey', image: '/linux.svg' },
+  { link: '#projects', text: 'Projects', image: '/ncloud.svg' },
+  { link: '#connect', text: 'Connect' },
+];
+
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
   if (el) {
@@ -167,79 +178,63 @@ function scrollToSection(id: string) {
 function Home() {
   const navigate = useNavigate();
 
+  // Handler for FlowingMenu navigation
+  const handleMenuClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
+    if (link.startsWith('#')) {
+      e.preventDefault();
+      scrollToSection(link.substring(1));
+    }
+  };
+
   return (
     <div className="portfolio-root">
-      <nav className="navbar">
-        <div className="logo-text">Maxym Huang</div>
-        <div className="nav-links">
-          {sections.map((section) => (
-            <button
-              key={section.id}
-              className="nav-btn"
-              onClick={() => scrollToSection(section.id)}
-            >
-              {section.label}
-            </button>
-          ))}
-        </div>
-      </nav>
-      <div style={{ position: 'relative', width: '100vw', left: '50%', transform: 'translateX(-50%)', zIndex: 1, marginTop: '100px', marginBottom: '40px', display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
-        <ScrollVelocity
-          texts={["MAXYM HUANG"]}
-          velocity={120}
-          className="scroller"
-          numCopies={8}
-          parallaxStyle={{ width: '100vw', maxWidth: '100vw', overflow: 'hidden' }}
-          scrollerStyle={{ fontSize: 'clamp(3rem, 14vw, 12rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
-        />
-        <ScrollVelocity
-          texts={["MAXYM HUANG"]}
-          velocity={-100}
-          className="scroller"
-          numCopies={8}
-          parallaxStyle={{ width: '100vw', maxWidth: '100vw', overflow: 'hidden' }}
-          scrollerStyle={{ fontSize: 'clamp(3.5rem, 16vw, 13rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
-        />
-        <ScrollVelocity
-          texts={["MAXYM HUANG"]}
-          velocity={140}
-          className="scroller"
-          numCopies={8}
-          parallaxStyle={{ width: '100vw', maxWidth: '100vw', overflow: 'hidden' }}
-          scrollerStyle={{ fontSize: 'clamp(4rem, 18vw, 14rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
+      <div style={{ width: '100vw', maxWidth: '100vw', position: 'relative', zIndex: 10 }}>
+        <FlowingMenu
+          items={flowingMenuItems.map(item => ({
+            ...item,
+            link: item.link,
+            // Override onClick for smooth scroll
+            onClick: (e: any) => handleMenuClick(e, item.link)
+          }))}
         />
       </div>
-      <main>
-        <section id="about" className="section">
+      <main style={{ paddingTop: 0 }}>
+        <section id="about" className="section" style={{ padding: '1rem 2rem 0', justifyContent: 'flex-start' }}>
           <div className="section-content">
-            <BlurText text="Who is MAXYM HUANG?" className="about-blur-heading" animateBy="words" direction="top" />
-            <div className="about-content">
-              <div className="about-section">
-                <h3>Who I Am</h3>
-                <p>Field Application Engineer at Test Research, Inc., passionate about technology innovation and continuous learning. My work involves both technical implementation and knowledge sharing, helping organizations adopt and optimize modern technology solutions.</p>
-                <p>I believe in creating robust, scalable, and secure systems that drive business value and technological advancement.</p>
-              </div>
-              
-              <div className="about-section">
-                <h3>Education</h3>
-                <h4>Purdue University</h4>
-                <p>B.S. Industrial Engineering</p>
-              </div>
-              
-              <div className="about-section">
-                <h3>Technical Skills</h3>
-                <ul>
-                  <li>Programming Languages: Python, C, C++, SQL, Shell Script</li>
-                  <li>Software Tools: Linux (Arch), vim, Docker, Kubernetes, Microsoft Excel, Jira, Confluence</li>
-                  <li>Languages: Native fluency in English and Chinese</li>
-                  <li>Certifications: Data Analytics Fundamentals (Google), Python (Codecademy), Scrum Processes, Lean Six Sigma</li>
-                </ul>
-              </div>
-              
-              <div className="about-section">
-                <h3>Mission</h3>
-                <p>Passionate about creating efficient, secure, and scalable solutions that bridge hardware and software.</p>
-              </div>
+            <BlurText text="MAXYM HUANG?" className="about-blur-heading" animateBy="words" direction="top" />
+            <div className="about-content" style={{ marginTop: '1.5em', display: 'flex', flexDirection: 'column', gap: '1.2em' }}>
+              <DecryptedText
+                text="Field Application Engineer. Tech explorer. Problem solver."
+                speed={40}
+                maxIterations={18}
+                className="about-decrypt"
+                animateOn="view"
+                revealDirection="center"
+              />
+              <DecryptedText
+                text="B.S. Industrial Engineering, Purdue University."
+                speed={50}
+                maxIterations={15}
+                className="about-decrypt"
+                animateOn="view"
+                revealDirection="center"
+              />
+              <DecryptedText
+                text="Skills: Python, C/C++, SQL, Linux, Docker, Kubernetes, Data Analytics, Bilingual (EN/中文)."
+                speed={30}
+                maxIterations={20}
+                className="about-decrypt"
+                animateOn="view"
+                revealDirection="center"
+              />
+              <DecryptedText
+                text="Mission: Build secure, scalable, and efficient solutions that bridge hardware and software."
+                speed={40}
+                maxIterations={18}
+                className="about-decrypt"
+                animateOn="view"
+                revealDirection="center"
+              />
             </div>
           </div>
         </section>
@@ -252,8 +247,34 @@ function Home() {
         </section>
 
         <section id="projects" className="section">
-          <div className="section-content">
-            <h2>Projects</h2>
+          <div className="section-content" style={{ padding: 0 }}>
+            {/* Three rows of ScrollVelocity with increased velocity, spanning full width */}
+            <div style={{ width: '100vw', position: 'relative', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', gap: '0.2em', marginBottom: '1em' }}>
+              <ScrollVelocity
+                texts={["cool projects"]}
+                velocity={200}
+                className="scroller"
+                numCopies={8}
+                parallaxStyle={{ width: '100vw', overflow: 'hidden' }}
+                scrollerStyle={{ fontSize: 'clamp(3rem, 14vw, 6rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
+              />
+              <ScrollVelocity
+                texts={["cool projects"]}
+                velocity={-200}
+                className="scroller"
+                numCopies={8}
+                parallaxStyle={{ width: '100vw', overflow: 'hidden' }}
+                scrollerStyle={{ fontSize: 'clamp(3rem, 14vw, 6rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
+              />
+              <ScrollVelocity
+                texts={["cool projects"]}
+                velocity={200}
+                className="scroller"
+                numCopies={8}
+                parallaxStyle={{ width: '100vw', overflow: 'hidden' }}
+                scrollerStyle={{ fontSize: 'clamp(3rem, 14vw, 6rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
+              />
+            </div>
             <div className="project-grid">
               {projects.map((project) => (
                 <SpotlightCard
