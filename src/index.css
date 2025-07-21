@@ -32,9 +32,9 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-weight: 400;
 }
 
 button {
@@ -54,6 +54,123 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.markdown-project-details {
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-size: 1.15em;
+}
+
+.markdown-project-details p,
+.markdown-project-details li,
+.markdown-project-details td {
+  font-size: 1.08em;
+}
+
+.markdown-project-details table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5em 0;
+  background: #181a20;
+  color: #f1f1f1;
+}
+
+.markdown-project-details th,
+.markdown-project-details td {
+  border: 1px solid #333;
+  padding: 0.5em 1em;
+  text-align: left;
+}
+
+.markdown-project-details th {
+  background: #23272f;
+  color: #fff;
+}
+
+.markdown-project-details tr:nth-child(even) td {
+  background: #23272f;
+}
+
+.markdown-project-details tr:nth-child(odd) td {
+  background: #181a20;
+}
+
+.markdown-project-details pre {
+  background: #23272f !important;
+  border-radius: 10px;
+  padding: 1.2em 1.5em;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  color: #f8f8f2;
+}
+
+.markdown-project-details code {
+  background: #23272f !important;
+  border-radius: 6px;
+  padding: 0.2em 0.5em;
+  font-size: 1em;
+  color: #f8f8f2;
+}
+
+.markdown-project-details pre code {
+  background: none !important;
+  border-radius: 0;
+  padding: 0;
+  font-size: 1em;
+  line-height: 1.8;
+  display: block;
+  color: #f8f8f2;
+}
+
+.markdown-project-details ul,
+.markdown-project-details ol {
+  margin-left: 2em;
+  margin-bottom: 1.2em;
+  padding-left: 1.2em;
+}
+
+.markdown-project-details ul {
+  list-style-type: disc;
+}
+
+.markdown-project-details ol {
+  list-style-type: decimal;
+}
+
+.markdown-project-details li {
+  margin-bottom: 0.5em;
+  line-height: 1.7;
+}
+
+.markdown-project-details h1,
+.markdown-project-details h2,
+.markdown-project-details h3 {
+  margin-top: 2.5em;
+  margin-bottom: 1.2em;
+  padding-top: 1.2em;
+  padding-bottom: 0.5em;
+  color: #39ff14;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 8px #000a;
+  border-bottom: 2px solid #39ff14;
+}
+
+.markdown-project-details h1 {
+  font-size: 2.2em;
+  border-width: 3px;
+}
+
+.markdown-project-details h2 {
+  font-size: 1.7em;
+  border-width: 2px;
+}
+
+.markdown-project-details h3 {
+  font-size: 1.3em;
+  border-width: 1.5px;
 }
 
 @media (prefers-color-scheme: light) {

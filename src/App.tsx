@@ -12,6 +12,7 @@ import SpotlightCard from './blocks/Components/SpotlightCard/SpotlightCard';
 import FlowingMenu from './blocks/Components/FlowingMenu/FlowingMenu';
 // @ts-expect-error: No type declaration for DecryptedText
 import DecryptedText from './blocks/TextAnimations/DecryptedText/DecryptedText';
+import MarkdownRenderer from "./components/MarkdownRenderer";
 
 const sections = [
   { id: 'about', label: 'About' },
@@ -22,7 +23,7 @@ const sections = [
 
 const projects = [
   {
-    id: 'esp32',
+    id: 'esp32', // This will load public/projects/esp32.md as the markdown content
     title: 'ESP32 Projects',
     description: 'Collection of IoT projects using ESP32 microcontrollers, including home automation, sensor networks, and custom firmware development.',
     logo: '/esp32.svg',
@@ -332,12 +333,14 @@ function Home() {
 
 export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/project/:id" element={<ProjectDetails projects={projects} />} />
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/project/:id" element={<ProjectDetails projects={projects} />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 

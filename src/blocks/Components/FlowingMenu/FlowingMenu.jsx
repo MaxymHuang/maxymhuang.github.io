@@ -67,13 +67,16 @@ function MenuItem({ link, text, image }) {
       .to(marqueeInnerRef.current, { y: edge === "top" ? "101%" : "-101%" }, 0);
   };
 
-  const repeatedMarqueeContent = Array.from({ length: 4 }).map((_, idx) => (
+  // Repeat marquee content more times to ensure seamless infinite scroll
+  const repeatedMarqueeContent = Array.from({ length: 20 }).map((_, idx) => (
     <React.Fragment key={idx}>
       <span>{text}</span>
-      <div
-        className="marquee__img"
-        style={{ backgroundImage: `url(${image})` }}
-      />
+      {image && (
+        <div
+          className="marquee__img"
+          style={{ backgroundImage: `url(${image})` }}
+        />
+      )}
     </React.Fragment>
   ));
 

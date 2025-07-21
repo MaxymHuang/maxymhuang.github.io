@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import './Timeline.css';
 // @ts-expect-error: No type declaration for AnimatedList
 import AnimatedList from '../blocks/Components/AnimatedList/AnimatedList';
@@ -44,33 +44,55 @@ const timelineEvents: TimelineEvent[] = [
 ];
 
 const Timeline: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [selected, setSelected] = useState(0);
 
-  const items = timelineEvents.map(
-    (event) => `${event.icon} ${event.date} — ${event.title}: ${event.description}`
-  );
+  const handleDateClick = (idx: number) => setSelected(idx);
+  const handlePrev = () => setSelected((prev) => (prev > 0 ? prev - 1 : prev));
+  const handleNext = () => setSelected((prev) => (prev < timelineEvents.length - 1 ? prev + 1 : prev));
 
   return (
-    <div className="timeline-container">
-      <AnimatedList
-        items={items}
-        onItemSelect={(item: string, index: number) => setActiveIndex(index)}
-        showGradients={true}
-        enableArrowNavigation={true}
-        displayScrollbar={true}
-        initialSelectedIndex={activeIndex ?? -1}
-      />
-      <div className="timeline-dots">
-        <div className="timeline-line"></div>
-        {timelineEvents.map((event, index) => (
-          <div
-            key={index}
-            className={`timeline-dot ${activeIndex === index ? 'active' : ''}`}
-            onClick={() => setActiveIndex(index)}
-            title={`${event.date} - ${event.title}`}
-          />
+    <div id="timeline">
+      <ul id="dates">
+        {timelineEvents.map((event, idx) => (
+          <li key={event.date}>
+            <a
+              href={`#${event.date}`}
+              className={selected === idx ? 'selected' : ''}
+              onClick={(e) => { e.preventDefault(); handleDateClick(idx); }}
+            >
+              {event.date}
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
+      <ul id="issues">
+        {timelineEvents.map((event, idx) => (
+          <li
+            key={event.date}
+            id={event.date}
+            className={selected === idx ? 'selected' : ''}
+            style={{ display: selected === idx ? 'block' : 'none' }}
+          >
+            <div style={{ fontSize: '64px', margin: '20px 0' }}>{event.icon}</div>
+            <h1>{event.title}</h1>
+            <p>{event.description}</p>
+          </li>
+        ))}
+      </ul>
+      <a
+        href="#"
+        id="prev"
+        className={selected === 0 ? 'disabled' : ''}
+        onClick={e => { e.preventDefault(); handlePrev(); }}
+        aria-label="Previous"
+      >-</a>
+      <a
+        href="#"
+        id="next"
+        className={selected === timelineEvents.length - 1 ? 'disabled' : ''}
+        onClick={e => { e.preventDefault(); handleNext(); }}
+        aria-label="Next"
+      >+</a>
     </div>
   );
 };
