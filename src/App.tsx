@@ -1,7 +1,9 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import ProjectDetails from './components/ProjectDetails';
 import Timeline from './components/Timeline';
+import PDFViewer from './components/PDFViewer';
 // @ts-expect-error: No type declaration for ScrollVelocity
 import ScrollVelocity from './blocks/TextAnimations/ScrollVelocity/ScrollVelocity';
 // @ts-expect-error: No type declaration for BlurText
@@ -12,6 +14,8 @@ import SpotlightCard from './blocks/Components/SpotlightCard/SpotlightCard';
 import FlowingMenu from './blocks/Components/FlowingMenu/FlowingMenu';
 // @ts-expect-error: No type declaration for DecryptedText
 import DecryptedText from './blocks/TextAnimations/DecryptedText/DecryptedText';
+// @ts-expect-error: No type declaration for ProfileCard
+import ProfileCard from './blocks/Components/ProfileCard/ProfileCard';
 import MarkdownRenderer from "./components/MarkdownRenderer";
 
 const sections = [
@@ -101,41 +105,43 @@ const projects = [
     }
   },
   {
-    id: 'tailscale',
-    title: 'Nextcloud with Tailscale',
-    description: 'Secure private cloud setup using Tailscale for remote access, with encrypted tunnels and zero-trust networking principles.',
+    id: 'filefinder',
+    title: 'File Finder Pro RAG System',
+    description: 'AI-powered file search and summarization system using RAG (Retrieval-Augmented Generation) with semantic search, natural language queries, and modern web interface.',
     logo: '/ncloud.svg',
     links: [
-      { label: 'Configuration', url: '#' },
-      { label: 'Security Notes', url: '#' }
+      { label: 'GitHub', url: 'https://github.com/MaxymHuang/file_finder_pro_maaaax' },
+      { label: 'Live Demo', url: '#' }
     ],
     details: {
-      overview: 'A secure private cloud solution combining NextCloud for file storage and Tailscale for secure remote access, implementing zero-trust networking principles.',
+      overview: 'A revolutionary file search system that uses AI and semantic understanding to help users find files using natural language queries, with built-in summarization and chat capabilities.',
       technologies: [
-        'NextCloud',
-        'Tailscale',
-        'Docker',
-        'Nginx',
-        'Let\'s Encrypt'
+        'Python & Flask',
+        'Ollama LLM Models', 
+        'FAISS Vector Search',
+        'Sentence Transformers',
+        'Docker & Docker Compose',
+        'Semantic Embeddings'
       ],
       features: [
-        'Secure file sharing',
-        'Remote access',
-        'End-to-end encryption',
-        'Cross-platform sync',
-        'Automated backups'
+        'Semantic file search with natural language',
+        'AI-powered file summarization',
+        'Interactive chat interface',
+        'Multi-format support (PDF, Word, PowerPoint)',
+        'Real-time search results',
+        'Modern responsive UI'
       ],
       challenges: [
-        'Security configuration',
-        'Performance optimization',
-        'Backup management',
-        'Access control'
+        'Semantic understanding vs exact matching',
+        'Large-scale vector indexing performance',
+        'Local LLM model optimization',
+        'Multi-user thread safety'
       ],
       solutions: [
-        'Implemented zero-trust networking',
-        'Optimized caching and compression',
-        'Set up automated backup systems',
-        'Configured granular access controls'
+        'Implemented FAISS for efficient similarity search',
+        'Used Ollama for local AI model deployment',
+        'Built RAG pipeline for context-aware responses',
+        'Optimized embedding generation and caching'
       ]
     }
   }
@@ -157,7 +163,7 @@ const socialLinks = [
   {
     id: 'resume',
     label: 'RESUME',
-    url: '/resume.pdf',
+    url: '/Resume.pdf',
     icon: '→'
   }
 ];
@@ -178,6 +184,7 @@ function scrollToSection(id: string) {
 
 function Home() {
   const navigate = useNavigate();
+  const [isPDFViewerOpen, setIsPDFViewerOpen] = useState(false);
 
   // Handler for FlowingMenu navigation
   const handleMenuClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
@@ -185,6 +192,17 @@ function Home() {
       e.preventDefault();
       scrollToSection(link.substring(1));
     }
+  };
+
+  // Handler for resume link click
+  const handleResumeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setIsPDFViewerOpen(true);
+  };
+
+  // Handler for ProfileCard contact click
+  const handleContactClick = () => {
+    scrollToSection('connect');
   };
 
   return (
@@ -200,42 +218,70 @@ function Home() {
         />
       </div>
       <main style={{ paddingTop: 0 }}>
-        <section id="about" className="section" style={{ padding: '1rem 2rem 0', justifyContent: 'flex-start' }}>
+                <section id="about" className="section" style={{ padding: '1rem 2rem 0', justifyContent: 'flex-start' }}>
           <div className="section-content">
             <BlurText text="MAXYM HUANG?" className="about-blur-heading" animateBy="words" direction="top" />
-            <div className="about-content" style={{ marginTop: '1.5em', display: 'flex', flexDirection: 'column', gap: '1.2em' }}>
-              <DecryptedText
-                text="Field Application Engineer. Tech explorer. Problem solver."
-                speed={40}
-                maxIterations={18}
-                className="about-decrypt"
-                animateOn="view"
-                revealDirection="center"
-              />
-              <DecryptedText
-                text="B.S. Industrial Engineering, Purdue University."
-                speed={50}
-                maxIterations={15}
-                className="about-decrypt"
-                animateOn="view"
-                revealDirection="center"
-              />
-              <DecryptedText
-                text="Skills: Python, C/C++, SQL, Linux, Docker, Kubernetes, Data Analytics, Bilingual (EN/中文)."
-                speed={30}
-                maxIterations={20}
-                className="about-decrypt"
-                animateOn="view"
-                revealDirection="center"
-              />
-              <DecryptedText
-                text="Mission: Build secure, scalable, and efficient solutions that bridge hardware and software."
-                speed={40}
-                maxIterations={18}
-                className="about-decrypt"
-                animateOn="view"
-                revealDirection="center"
-              />
+            <div className="about-container" style={{ marginTop: '1.5em', display: 'flex', gap: '3rem', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+              <div className="about-text-content" style={{ flex: '1', maxWidth: '600px' }}>
+                <p style={{ 
+                  fontFamily: 'Metropolis, Arial, Helvetica, sans-serif', 
+                  fontWeight: 400,
+                  fontSize: '1.2rem',
+                  lineHeight: '1.7',
+                  color: '#f8f8f2',
+                  marginBottom: '1.5rem',
+                  textAlign: 'left'
+                }}>
+                  Field Application Engineer. Tech explorer. Problem solver.
+                </p>
+                <p style={{ 
+                  fontFamily: 'Metropolis, Arial, Helvetica, sans-serif', 
+                  fontWeight: 400,
+                  fontSize: '1.1rem',
+                  lineHeight: '1.6',
+                  color: '#c0c0c0',
+                  marginBottom: '1.5rem',
+                  textAlign: 'left'
+                }}>
+                  B.S. Industrial Engineering, Purdue University.
+                </p>
+                <p style={{ 
+                  fontFamily: 'Metropolis, Arial, Helvetica, sans-serif', 
+                  fontWeight: 400,
+                  fontSize: '1rem',
+                  lineHeight: '1.6',
+                  color: '#a0a0a0',
+                  marginBottom: '1.5rem',
+                  textAlign: 'left'
+                }}>
+                  Skills: Python, C/C++, SQL, Linux, Docker, Kubernetes, Data Analytics, Bilingual (EN/中文).
+                </p>
+                <p style={{ 
+                  fontFamily: 'Metropolis, Arial, Helvetica, sans-serif', 
+                  fontWeight: 400,
+                  fontSize: '1.1rem',
+                  lineHeight: '1.6',
+                  color: '#39ff14',
+                  marginBottom: '0',
+                  textAlign: 'left'
+                }}>
+                  Mission: Build secure, scalable, and efficient solutions that bridge hardware and software.
+                </p>
+              </div>
+              <div className="profile-card-container" style={{ flexShrink: 0 }}>
+                <ProfileCard
+                  name="Maxym Huang"
+                  title="Field Application Engineer"
+                  handle="maxymhuang"
+                  status="Available for Opportunities"
+                  contactText="Get In Touch"
+                  avatarUrl="/profilepic.JPG"
+                  miniAvatarUrl="/profilepic.JPG"
+                  showUserInfo={true}
+                  enableTilt={true}
+                  onContactClick={handleContactClick}
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -302,8 +348,9 @@ function Home() {
                   key={link.id}
                   href={link.url}
                   className="connect-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={link.id === 'resume' ? undefined : "_blank"}
+                  rel={link.id === 'resume' ? undefined : "noopener noreferrer"}
+                  onClick={link.id === 'resume' ? handleResumeClick : undefined}
                 >
                   <span className="connect-icon">{link.icon}</span>
                   <span className="connect-label">{link.label}</span>
@@ -313,6 +360,12 @@ function Home() {
           </div>
         </section>
       </main>
+      <PDFViewer
+        isOpen={isPDFViewerOpen}
+        onClose={() => setIsPDFViewerOpen(false)}
+        pdfUrl="/Resume.pdf"
+        title="Maxym Huang - Resume"
+      />
     </div>
   );
 }

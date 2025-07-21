@@ -26,7 +26,13 @@ The storage setup is split for different purposes — general files, RAID array 
 
 ## Operating System
 
-The server runs **Arch Linux LTS**, which gives me a lean, customizable environment with long-term stability. I chose Arch because it’s simple, transparent, and gives full control over package management and service configuration. The LTS kernel provides a good balance between upstream updates and long-term support.
+The server runs **Arch Linux LTS**, which gives me a lean, customizable environment with long-term stability. 
+
+When I got started with linux, I tried ubuntu like everyone else, thinking it is going to be a easy transition. At firt it really was, everything worked like a charm without any additional settings to be worried about, all I have to do is run `sudo apt update && sudo apt upgrade -y` occationally to feel like a hacker. 
+
+As I dive deeper into the linux world, I realize I haven't really learned much from using ubuntu everything is within a google search away, all I have to do is copy and paste, and I still lack the ability to debug or troubleshoot if any issue arises. 
+
+I ended up choosing Arch because it’s simple, transparent, and gives full control over package management and service configuration, but more importantly I can tell people "I use arch btw". People often say Arch linux is not for the beginner, but I think it's quite the contrary. The arch community has, in my opinion, one of the best documentation on every single aspect of administering a linux system, from installation to how everything works. It encourages you to The LTS kernel provides a good balance between upstream updates and long-term support so that I don't accidentally break one of my services if the new update breaks it.
 
 
 

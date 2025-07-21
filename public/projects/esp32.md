@@ -217,10 +217,12 @@ The psychological difference is huge. The old system felt like using a fax machi
 
 The memory usage comparison speaks for itself:
 
+
 | Approach | RAM Usage | Max Recording | Flexibility |
 |----------|-----------|---------------|-------------|
 | Static Buffer | 256KB+ | 8 seconds | None |
 | WebSocket Streaming | ~16KB | Unlimited | Total |
+
 
 **Design Decision #5: Small Chunks, Big Impact**
 
@@ -352,6 +354,7 @@ The HTTP POST version was "wrong" in many ways, but it was a working foundation 
 
 ## Performance Comparison: Then vs Now
 
+
 | Metric | Original HTTP | Final WebSocket |
 |--------|---------------|-----------------|
 | **Audio Quality** | 4kHz (phone quality) | 16kHz (premium) |
@@ -361,6 +364,7 @@ The HTTP POST version was "wrong" in many ways, but it was a working foundation 
 | **User Experience** | Clunky | Smooth |
 | **Reliability** | Prayers | Rock solid |
 | **Real-time Feedback** | None | Live streaming |
+
 
 ## What's Next?
 

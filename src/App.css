@@ -790,7 +790,46 @@ main {
   }
 }
 
+/* About section with ProfileCard responsive layout */
+.about-container {
+  width: 100%;
+}
+
+.profile-card-container {
+  width: 300px;
+  max-width: 300px;
+}
+
 /* Responsive adjustments */
+@media (max-width: 1200px) {
+  .about-container {
+    gap: 2rem !important;
+  }
+  
+  .profile-card-container {
+    width: 280px;
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 992px) {
+  .about-container {
+    flex-direction: column !important;
+    gap: 2rem !important;
+    align-items: center !important;
+  }
+  
+  .about-content {
+    max-width: none !important;
+    text-align: center;
+  }
+  
+  .profile-card-container {
+    width: 300px;
+    max-width: 300px;
+  }
+}
+
 @media (max-width: 768px) {
   .about-content {
     padding: 2rem;
@@ -813,6 +852,16 @@ main {
   .about-blur-heading {
     font-size: clamp(3rem, 12vw, 15rem) !important;
     margin-bottom: 1rem !important;
+  }
+  
+  .about-container {
+    margin-top: 1rem !important;
+    gap: 1.5rem !important;
+  }
+  
+  .profile-card-container {
+    width: 260px;
+    max-width: 260px;
   }
 
   .timeline-container {
@@ -837,5 +886,16 @@ main {
     width: auto;
     height: 2px;
     transform: translateY(-50%);
+  }
+}
+
+@media (max-width: 480px) {
+  .about-container {
+    gap: 1rem !important;
+  }
+  
+  .profile-card-container {
+    width: 240px;
+    max-width: 240px;
   }
 }

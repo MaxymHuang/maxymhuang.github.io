@@ -240,9 +240,15 @@ const ProfileCardComponent = ({
               src={avatarUrl}
               alt={`${name || "User"} avatar`}
               loading="lazy"
+              onLoad={(e) => {
+                console.log('Avatar loaded successfully:', avatarUrl);
+              }}
               onError={(e) => {
+                console.error('Avatar failed to load:', avatarUrl, e);
                 const target = e.target;
-                target.style.display = "none";
+                // Instead of hiding completely, show a fallback or placeholder
+                target.style.opacity = "0.3";
+                target.src = "data:image/svg+xml,%3Csvg width='400' height='600' viewBox='0 0 400 600' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='600' fill='%23333'/%3E%3Ctext x='200' y='300' text-anchor='middle' fill='%2339ff14' font-size='24'%3EImage Failed to Load%3C/text%3E%3C/svg%3E";
               }}
             />
             {showUserInfo && (
@@ -253,10 +259,14 @@ const ProfileCardComponent = ({
                       src={miniAvatarUrl || avatarUrl}
                       alt={`${name || "User"} mini avatar`}
                       loading="lazy"
+                      onLoad={(e) => {
+                        console.log('Mini avatar loaded successfully:', miniAvatarUrl || avatarUrl);
+                      }}
                       onError={(e) => {
+                        console.error('Mini avatar failed to load:', miniAvatarUrl || avatarUrl, e);
                         const target = e.target;
-                        target.style.opacity = "0.5";
-                        target.src = avatarUrl;
+                        target.style.opacity = "0.3";
+                        target.src = "data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='24' cy='24' r='24' fill='%23333'/%3E%3Ctext x='24' y='28' text-anchor='middle' fill='%2339ff14' font-size='8'%3E?%3C/text%3E%3C/svg%3E";
                       }}
                     />
                   </div>
