@@ -286,20 +286,6 @@ function Home() {
                     <img src={project.logo} alt={`${project.title} logo`} className="project-logo" />
                     <h3>{project.title}</h3>
                     <p>{project.description}</p>
-                    <div className="project-links">
-                      {project.links.map((link) => (
-                        <a
-                          key={link.label}
-                          href={link.url}
-                          className="project-link"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {link.label}
-                        </a>
-                      ))}
-                    </div>
                   </div>
                 </SpotlightCard>
               ))}

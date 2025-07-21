@@ -2,6 +2,9 @@
 
 Over the past few months, I’ve been building a personal homelab — a self-hosted environment that runs on modest hardware but offers flexibility, control, and room to experiment. This post is a breakdown of my current setup, what it's running, and why I chose each component and architecture.
 
+<div align="center">
+  <img src="/Homelab%20Network%20and%20Storage%20Diagram.png" alt="Homelab Network and Storage Diagram" width="450" style="margin-top: 2.5em;" />
+</div>
 
 
 ## Hardware Specs
