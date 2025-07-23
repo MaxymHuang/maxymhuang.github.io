@@ -16,14 +16,6 @@ import FlowingMenu from './blocks/Components/FlowingMenu/FlowingMenu';
 import DecryptedText from './blocks/TextAnimations/DecryptedText/DecryptedText';
 // @ts-expect-error: No type declaration for ProfileCard
 import ProfileCard from './blocks/Components/ProfileCard/ProfileCard';
-import MarkdownRenderer from "./components/MarkdownRenderer";
-
-const sections = [
-  { id: 'about', label: 'About' },
-  { id: 'journey', label: 'Journey' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'connect', label: 'Connect' },
-];
 
 const projects = [
   {

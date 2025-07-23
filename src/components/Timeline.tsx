@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Timeline.css';
 // @ts-expect-error: No type declaration for AnimatedList
 import AnimatedList from '../blocks/Components/AnimatedList/AnimatedList';
