@@ -98,9 +98,9 @@ const projects = [
   },
   {
     id: 'filefinder',
-    title: 'File Finder Pro RAG System',
-    description: 'AI-powered file search and summarization system using RAG (Retrieval-Augmented Generation) with semantic search, natural language queries, and modern web interface.',
-    logo: '/ncloud.svg',
+    title: 'File Finder',
+    description: 'A project for finding files efficiently.',
+    logo: '/filefinder.svg',
     links: [
       { label: 'GitHub', url: 'https://github.com/MaxymHuang/file_finder_pro_maaaax' },
       { label: 'Live Demo', url: '#' }
@@ -163,7 +163,7 @@ const socialLinks = [
 const flowingMenuItems = [
   { link: '#about', text: 'About', image: '/esp32.svg' },
   { link: '#journey', text: 'Journey', image: '/linux.svg' },
-  { link: '#projects', text: 'Projects', image: '/ncloud.svg' },
+  { link: '#projects', text: 'Projects', image: '/filefinder.svg' },
   { link: '#connect', text: 'Connect' },
 ];
 
@@ -213,54 +213,36 @@ function Home() {
                 <section id="about" className="section" style={{ padding: '1rem 2rem 0', justifyContent: 'flex-start' }}>
           <div className="section-content">
             <BlurText text="MAXYM HUANG?" className="about-blur-heading" animateBy="words" direction="top" />
-            <div className="about-container" style={{ marginTop: '1.5em', display: 'flex', gap: '3rem', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-              <div className="about-text-content" style={{ flex: '1', maxWidth: '600px' }}>
-                <p style={{ 
-                  fontFamily: 'Metropolis, Arial, Helvetica, sans-serif', 
-                  fontWeight: 400,
-                  fontSize: '1.2rem',
-                  lineHeight: '1.7',
-                  color: '#f8f8f2',
-                  marginBottom: '1.5rem',
-                  textAlign: 'left'
-                }}>
-                  Field Application Engineer. Tech explorer. Problem solver.
-                </p>
-                <p style={{ 
-                  fontFamily: 'Metropolis, Arial, Helvetica, sans-serif', 
-                  fontWeight: 400,
-                  fontSize: '1.1rem',
-                  lineHeight: '1.6',
-                  color: '#c0c0c0',
-                  marginBottom: '1.5rem',
-                  textAlign: 'left'
-                }}>
-                  B.S. Industrial Engineering, Purdue University.
-                </p>
-                <p style={{ 
-                  fontFamily: 'Metropolis, Arial, Helvetica, sans-serif', 
-                  fontWeight: 400,
-                  fontSize: '1rem',
-                  lineHeight: '1.6',
-                  color: '#a0a0a0',
-                  marginBottom: '1.5rem',
-                  textAlign: 'left'
-                }}>
-                  Skills: Python, C/C++, SQL, Linux, Docker, Kubernetes, Data Analytics, Bilingual (EN/中文).
-                </p>
-                <p style={{ 
-                  fontFamily: 'Metropolis, Arial, Helvetica, sans-serif', 
-                  fontWeight: 400,
-                  fontSize: '1.1rem',
-                  lineHeight: '1.6',
-                  color: '#39ff14',
-                  marginBottom: '0',
-                  textAlign: 'left'
-                }}>
-                  Mission: Build secure, scalable, and efficient solutions that bridge hardware and software.
-                </p>
+            <div className="about-container">
+              <div className="about-content-wrapper">
+                <div className="about-intro">
+                  <p className="about-title">Field Application Engineer</p>
+                  <p className="about-education">B.S. Industrial Engineering, Purdue University</p>
+                </div>
+                
+                <div className="about-description">
+                  <p>
+                    I'm a Field Application Engineer passionate about bridging the gap between hardware and software. 
+                    I focus on building secure, scalable, and efficient solutions that solve real-world problems.
+                  </p>
+                </div>
+
+                <div className="about-skills">
+                  <h3>Technical Skills</h3>
+                  <div className="skills-grid">
+                    <span className="skill-tag">Python</span>
+                    <span className="skill-tag">C/C++</span>
+                    <span className="skill-tag">SQL</span>
+                    <span className="skill-tag">Linux</span>
+                    <span className="skill-tag">Docker</span>
+                    <span className="skill-tag">Kubernetes</span>
+                    <span className="skill-tag">Data Analytics</span>
+                    <span className="skill-tag">Bilingual (EN/中文)</span>
+                  </div>
+                </div>
               </div>
-              <div className="profile-card-container" style={{ flexShrink: 0 }}>
+              
+              <div className="profile-card-container">
                 <ProfileCard
                   name="Maxym Huang"
                   title="Field Application Engineer"
