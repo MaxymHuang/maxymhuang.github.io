@@ -172,9 +172,9 @@ const socialLinks = [
 
 const flowingMenuItems = [
   { link: '#about', text: 'About', image: '/esp32.svg' },
-  { link: '#journey', text: 'Journey', image: '/linux.svg' },
-  { link: '#projects', text: 'Projects', image: '/filefinder.svg' },
-  { link: '#connect', text: 'Connect' },
+  { link: '#projects', text: 'Case Studies', image: '/filefinder.svg' },
+  { link: '#timeline', text: 'Experience', image: '/linux.svg' },
+  { link: '#connect', text: 'Connect', image: '/profilepic.JPG' }
 ];
 
 function scrollToSection(id: string) {
@@ -222,30 +222,44 @@ function Home() {
         </Suspense>
       </div>
       <main style={{ paddingTop: 0 }}>
-                <section id="about" className="section" style={{ padding: '1rem 2rem 0', justifyContent: 'flex-start' }}>
-          <div className="section-content">
-            <Suspense fallback={<LoadingSpinner />}>
-              <BlurText text="MAXYM HUANG?" className="about-blur-heading" animateBy="words" direction="top" />
-            </Suspense>
-            
-            <div className="scrolling-text-container">
+        {/* Hero Section */}
+        <section className="hero-section">
+          <div className="hero-container">
+            <div className="hero-content">
               <Suspense fallback={<LoadingSpinner />}>
-                <ScrollVelocity baseVelocity={-1}>
-                  <span className="scrolling-text">
-                    Field Application Engineer | Tech Explorer | Problem Solver | Hardware-Software Bridge Builder | 
-                  </span>
-                </ScrollVelocity>
+                <BlurText 
+                  text="MAXYM HUANG?" 
+                  className="about-blur-heading"
+                  delay={100}
+                  animateBy="words"
+                />
               </Suspense>
+              <div className="hero-profile-section">
+                <div className="hero-divider"></div>
+                <div className="hero-profile-content">
+                  <img 
+                    src="/profilepic.JPG" 
+                    alt="Maxym Huang" 
+                    className="hero-profile-pic"
+                  />
+                  <div className="hero-profile-text">
+                    <div className="location-text">
+                      <h2 className="location-heading">Vancouver, Canada</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            
-            <div className="location-text">
-              <p>Based in United States</p>
-            </div>
-            
-            <div className="about-sections">
-              <div className="about-section-item">
-                <h3 className="section-label">● About</h3>
-                <div className="section-content-text">
+          </div>
+        </section>
+
+        <section id="about" className="section">
+          <div className="section-content">
+            {/* About sections - redesigned to match Dan's case study layout */}
+            <div className="content-sections">
+              <div className="content-section-item">
+                <h3 className="section-number">● About</h3>
+                <div className="section-text">
                   <p className="about-education">B.S. Industrial Engineering, Purdue University</p>
                   <p className="about-description">
                     I'm a Field Application Engineer passionate about bridging the gap between hardware and software. 
@@ -254,26 +268,19 @@ function Home() {
                 </div>
               </div>
 
-              <div className="about-section-item">
-                <h3 className="section-label">● Technical Skills</h3>
-                <div className="skills-grid">
-                  <span className="skill-tag">Python</span>
-                  <span className="skill-tag">C/C++</span>
-                  <span className="skill-tag">SQL</span>
-                  <span className="skill-tag">Linux</span>
-                  <span className="skill-tag">Docker</span>
-                  <span className="skill-tag">Kubernetes</span>
-                  <span className="skill-tag">Data Analytics</span>
-                  <span className="skill-tag">Bilingual (EN/中文)</span>
+              <div className="content-section-item">
+                <h3 className="section-number">● Technical Skills</h3>
+                <div className="skills-list-text">
+                  <p>Python, C/C++, SQL, Linux, Docker, Kubernetes, Data Analytics, Bilingual (EN/中文)</p>
                 </div>
               </div>
 
-              <div className="about-section-item">
-                <h3 className="section-label">● Contact</h3>
-                <div className="section-content-text">
+              <div className="content-section-item">
+                <h3 className="section-number">● Contact</h3>
+                <div className="section-text">
                   <p>Ready for new opportunities</p>
                   <button 
-                    className="contact-button"
+                    className="contact-button-clean"
                     onClick={handleContactClick}
                   >
                     Get In Touch
@@ -293,73 +300,69 @@ function Home() {
           </div>
         </section>
 
-        <section id="projects" className="section">
-          <div className="section-content" style={{ padding: 0 }}>
-            {/* Three rows of ScrollVelocity with increased velocity, spanning full width */}
-            <div style={{ width: '100vw', position: 'relative', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', gap: '0.2em', marginBottom: '1em' }}>
-              <Suspense fallback={<LoadingSpinner />}>
-                <ScrollVelocity
-                  texts={["cool projects"]}
-                  velocity={200}
-                  className="scroller"
-                  numCopies={8}
-                  parallaxStyle={{ width: '100vw', overflow: 'hidden' }}
-                  scrollerStyle={{ fontSize: 'clamp(3rem, 14vw, 6rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
-                />
-                <ScrollVelocity
-                  texts={["cool projects"]}
-                  velocity={-200}
-                  className="scroller"
-                  numCopies={8}
-                  parallaxStyle={{ width: '100vw', overflow: 'hidden' }}
-                  scrollerStyle={{ fontSize: 'clamp(3rem, 14vw, 6rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
-                />
-                <ScrollVelocity
-                  texts={["cool projects"]}
-                  velocity={200}
-                  className="scroller"
-                  numCopies={8}
-                  parallaxStyle={{ width: '100vw', overflow: 'hidden' }}
-                  scrollerStyle={{ fontSize: 'clamp(3rem, 14vw, 6rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
-                />
-              </Suspense>
+        <section id="projects" className="section projects-section">
+          <div className="section-content">
+            {/* Section header like Dan's design */}
+            <div className="section-header">
+              <h2 className="section-title">Case Studies:</h2>
             </div>
-            <div className="project-grid">
-              <Suspense fallback={<LoadingSpinner />}>
-                {projects.map((project) => (
-                  <SpotlightCard
-                    key={project.id}
-                    className="project-card"
-                  >
-                    <div onClick={() => navigate(`/project/${project.id}`)}>
-                      <img src={project.logo} alt={`${project.title} logo`} className="project-logo" />
-                      <h3>{project.title}</h3>
-                      <p>{project.description}</p>
+            
+            {/* Projects as case studies - redesigned to match Dan's layout */}
+            <div className="case-studies">
+              {projects.map((project, index) => (
+                <div key={project.id} className="case-study-item">
+                  <div className="case-study-number">
+                    <div className="case-study-icon">
+                      <img 
+                        src={project.id === 'esp32' ? '/esp32.svg' : 
+                             project.id === 'filefinder' ? '/filefinder.svg' : 
+                             project.id === 'homelab' ? '/linux.svg' : '/esp32.svg'} 
+                        alt={`${project.title} icon`}
+                        className="project-icon"
+                      />
                     </div>
-                  </SpotlightCard>
-                ))}
-              </Suspense>
+                    <h3>● Case Study {String(index + 1).padStart(2, '0')}</h3>
+                  </div>
+                  
+                  <div className="case-study-content">
+                    <h2 className="case-study-title">{project.title}</h2>
+                    <p className="case-study-description">{project.description}</p>
+                    <button 
+                      className="case-study-link"
+                      onClick={() => navigate(`/project/${project.id}`)}
+                    >
+                      View Case Study
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        <section id="connect" className="section">
+        <section id="connect" className="section connect-section">
           <div className="section-content">
-            <h2>Connect</h2>
-            <div className="connect-grid">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.id}
-                  href={link.url}
-                  className="connect-link"
-                  target={link.id === 'resume' ? undefined : "_blank"}
-                  rel={link.id === 'resume' ? undefined : "noopener noreferrer"}
-                  onClick={link.id === 'resume' ? handleResumeClick : undefined}
-                >
-                  <span className="connect-icon">{link.icon}</span>
-                  <span className="connect-label">{link.label}</span>
-                </a>
-              ))}
+            {/* Contact section like Dan's design */}
+            <div className="contact-section">
+              <div className="contact-header">
+                <h3 className="section-number">● Contact me</h3>
+                <p className="contact-subtitle">Get in touch</p>
+              </div>
+              
+              <div className="contact-links">
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.id}
+                    href={link.url}
+                    className="clean-contact-link"
+                    target={link.id === 'resume' ? undefined : "_blank"}
+                    rel={link.id === 'resume' ? undefined : "noopener noreferrer"}
+                    onClick={link.id === 'resume' ? handleResumeClick : undefined}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </section>

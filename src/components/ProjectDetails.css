@@ -199,29 +199,70 @@
   line-height: 1.7;
 }
 
+/* Clean markdown content styling - Dan Machado inspired */
 .markdown-content h1,
 .markdown-content h2,
 .markdown-content h3,
 .markdown-content h4,
 .markdown-content h5,
 .markdown-content h6 {
-  color: #39ff14;
-  margin-top: 2.5em;
-  margin-bottom: 1em;
-  font-weight: 600;
-  line-height: 1.3;
+  color: #ffffff;
+  margin-top: 4rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  letter-spacing: -0.01em;
 }
 
-.markdown-content h1 { font-size: 2.5rem; }
-.markdown-content h2 { font-size: 2rem; }
-.markdown-content h3 { font-size: 1.5rem; }
-.markdown-content h4 { font-size: 1.2rem; }
-.markdown-content h5 { font-size: 1.1rem; }
-.markdown-content h6 { font-size: 1rem; }
+.markdown-content h1:first-child,
+.markdown-content h2:first-child,
+.markdown-content h3:first-child {
+  margin-top: 0;
+}
+
+.markdown-content h1 { 
+  font-size: 3rem; 
+  font-weight: 900;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.markdown-content h2 { 
+  font-size: 2.2rem; 
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.markdown-content h3 { 
+  font-size: 1.8rem; 
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.markdown-content h4 { 
+  font-size: 1.4rem; 
+  font-weight: 600;
+}
+
+.markdown-content h5 { 
+  font-size: 1.2rem; 
+  font-weight: 500;
+}
+
+.markdown-content h6 { 
+  font-size: 1.1rem; 
+  font-weight: 500;
+}
 
 .markdown-content p {
-  margin-bottom: 1.5em;
+  margin-bottom: 2rem;
   line-height: 1.7;
+  font-size: 1.1rem;
+  color: #ffffff;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-weight: 400;
 }
 
 .markdown-content p:last-child {
@@ -229,29 +270,35 @@
 }
 
 .markdown-content br {
-  margin-bottom: 0.8em;
+  margin-bottom: 1rem;
 }
 
 .markdown-content ul,
 .markdown-content ol {
-  margin: 1.5em 0;
-  padding-left: 1.5em;
+  margin: 2rem 0;
+  padding-left: 2rem;
 }
 
 .markdown-content li {
-  margin-bottom: 0.8em;
-  line-height: 1.6;
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  font-size: 1.1rem;
+  color: #ffffff;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
 }
 
 .markdown-content blockquote {
-  border-left: 3px solid #39ff14;
-  margin: 1.5em 0;
-  padding: 1em 1.5em;
-  background-color: rgba(57, 255, 20, 0.05);
+  border-left: 3px solid rgba(255, 255, 255, 0.3);
+  margin: 3rem 0;
+  padding: 2rem 2.5rem;
+  background-color: rgba(255, 255, 255, 0.05);
   font-style: italic;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-/* Inline code styling (not in code blocks) */
+/* Clean inline code styling */
 .markdown-content p code,
 .markdown-content li code,
 .markdown-content td code,
@@ -261,93 +308,154 @@
 .markdown-content h4 code,
 .markdown-content h5 code,
 .markdown-content h6 code {
-  background-color: rgba(57, 255, 20, 0.1);
-  color: #39ff14;
-  padding: 0.2em 0.4em;
-  border-radius: 3px;
-  font-family: 'Courier New', monospace;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
   font-size: 0.9em;
+  font-weight: 400;
 }
 
 .markdown-content pre {
-  background-color: #0d1117 !important;
-  border: 1px solid #333;
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
-  padding: 1.5em;
-  margin: 1.5em 0;
+  padding: 2rem;
+  margin: 3rem 0;
   overflow-x: auto;
+  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
 }
 
-/* Let highlight.js handle all code block styling */
 .markdown-content pre code {
   background-color: transparent !important;
-  color: inherit !important;
+  color: #ffffff !important;
   padding: 0;
   border-radius: 0;
   font-family: inherit;
-  font-size: inherit;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
-/* Ensure highlight.js styles work properly */
 .markdown-content .hljs {
-  background-color: #0d1117 !important;
+  background-color: transparent !important;
   padding: 0;
+  color: #ffffff;
 }
 
 .markdown-content table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.5em 0;
+  margin: 3rem 0;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
 }
 
 .markdown-content th,
 .markdown-content td {
-  border: 1px solid #333;
-  padding: 0.8em;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1rem 1.5rem;
   text-align: left;
+  font-size: 1rem;
 }
 
 .markdown-content th {
-  background-color: rgba(57, 255, 20, 0.1);
-  color: #39ff14;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+}
+
+.markdown-content td {
+  color: #ffffff;
+  font-weight: 400;
 }
 
 .markdown-content a {
-  color: #39ff14;
+  color: #ffffff;
   text-decoration: none;
-  border-bottom: 1px dotted #39ff14;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
+  font-weight: 500;
 }
 
 .markdown-content a:hover {
-  color: #ffffff;
   border-bottom-color: #ffffff;
+  opacity: 0.8;
 }
 
 .markdown-content img {
   max-width: 100%;
   height: auto;
-  margin: 1.5em 0;
+  margin: 3rem 0;
   border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .markdown-content hr {
   border: none;
-  border-top: 2px solid #333;
-  margin: 3em 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 4rem 0;
 }
 
-/* Extra spacing divs for multiple line breaks */
+/* Clean spacing divs */
 .markdown-content div[style*="margin-bottom: 1.5em"] {
   height: 0;
   border: none;
   background: transparent;
 }
 
+/* Project Details Layout - Dan Machado Style */
+.project-details-layout {
+  min-height: 100vh;
+  background-color: var(--background);
+  padding: 2rem 0;
+}
+
+.markdown-project-details {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 4rem 3rem;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+/* Clean back button styling */
+.back-to-home-button {
+  display: block;
+  margin: 4rem auto 0;
+  background: none;
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+  padding: 1rem 2.5rem;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  box-shadow: none;
+}
+
+.back-to-home-button:hover {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
 @media screen and (max-width: 1600px) {
   .project-details {
     padding: 2rem 4rem;
+  }
+  
+  .markdown-project-details {
+    padding: 3rem 2.5rem;
   }
 }
 
@@ -355,11 +463,28 @@
   .project-details {
     padding: 2rem;
   }
+  
+  .markdown-project-details {
+    padding: 3rem 2rem;
+    max-width: 900px;
+  }
+  
+  .project-details-layout {
+    padding: 1rem 0;
+  }
 }
 
 @media screen and (max-width: 768px) {
   .project-details {
     padding: 1rem;
+  }
+  
+  .markdown-project-details {
+    padding: 2rem 1.5rem;
+  }
+  
+  .project-details-layout {
+    padding: 0.5rem 0;
   }
 
   .project-section {
@@ -391,65 +516,95 @@
   }
 
   /* Mobile responsive markdown styles */
-  .markdown-content h1 { font-size: 2rem; }
-  .markdown-content h2 { font-size: 1.75rem; }
-  .markdown-content h3 { font-size: 1.4rem; }
-  .markdown-content h4 { font-size: 1.2rem; }
-  .markdown-content h5 { font-size: 1.1rem; }
-  .markdown-content h6 { font-size: 1rem; }
-
-  .markdown-content h1,
-  .markdown-content h2,
-  .markdown-content h3,
-  .markdown-content h4,
-  .markdown-content h5,
-  .markdown-content h6 {
-    margin-top: 2em;
-    margin-bottom: 0.8em;
+  .markdown-content h1 { 
+    font-size: 2.5rem; 
+    margin-top: 2rem;
   }
-
-  .markdown-content p {
-    margin-bottom: 1.2em;
+  
+  .markdown-content h2 { 
+    font-size: 2rem;
+    margin-top: 3rem; 
   }
-
+  
+  .markdown-content h3 { 
+    font-size: 1.6rem;
+    margin-top: 2.5rem; 
+  }
+  
+  .markdown-content h4 { 
+    font-size: 1.3rem;
+    margin-top: 2rem; 
+  }
+  
+  .markdown-content h5 { 
+    font-size: 1.2rem; 
+  }
+  
+  .markdown-content h6 { 
+    font-size: 1.1rem; 
+  }
+  
+  .markdown-content p,
+  .markdown-content li {
+    font-size: 1rem;
+  }
+  
+  .markdown-content blockquote {
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    font-size: 1.1rem;
+  }
+  
   .markdown-content pre {
-    padding: 1em;
-    margin: 1em 0;
+    padding: 1.5rem;
+    margin: 2rem 0;
   }
+  
+  .markdown-content table {
+    margin: 2rem 0;
+  }
+  
+  .markdown-content th,
+  .markdown-content td {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .back-to-home-button {
+    margin: 3rem auto 0;
+    padding: 0.8rem 2rem;
+    font-size: 0.9rem;
+  }
+}
 
+@media screen and (max-width: 480px) {
+  .markdown-project-details {
+    padding: 1.5rem 1rem;
+  }
+  
+  .markdown-content h1 { 
+    font-size: 2rem; 
+  }
+  
+  .markdown-content h2 { 
+    font-size: 1.8rem; 
+  }
+  
+  .markdown-content h3 { 
+    font-size: 1.5rem; 
+  }
+  
   .markdown-content ul,
   .markdown-content ol {
-    margin: 1.2em 0;
-    padding-left: 1.2em;
+    padding-left: 1.5rem;
   }
-
+  
   .markdown-content blockquote {
-    margin: 1.2em 0;
-    padding: 0.8em 1em;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
   }
-
-  .markdown-project-details {
-    padding: 1rem !important;
-    max-width: none !important;
-    margin: 1rem auto !important;
+  
+  .markdown-content pre {
+    padding: 1rem;
   }
-}
-
-/* Layout for project details with TOC */
-.project-details-layout {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-}
-
-/* Ensure headings have proper scroll offset for fixed TOC */
-.markdown-content h1,
-.markdown-content h2,
-.markdown-content h3,
-.markdown-content h4,
-.markdown-content h5,
-.markdown-content h6 {
-  scroll-margin-top: 120px;
-}
-
-/* TOC positioning - let it float independently */ 
+} 

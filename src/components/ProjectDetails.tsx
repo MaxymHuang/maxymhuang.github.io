@@ -6,30 +6,56 @@ import './ProjectDetails.css';
 
 const MenuBar = () => (
   <nav style={{
-    width: '100%',
-    background: '#111',
-    padding: '1.2rem 2rem',
-    borderBottom: '1px solid #222',
+    background: 'rgba(0, 0, 0, 0.95)',
+    backdropFilter: 'blur(10px)',
+    padding: '1.5rem 3rem',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     position: 'sticky',
     top: 0,
-    zIndex: 100
+    zIndex: 100,
+    borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
   }}>
     <span style={{
       fontFamily: 'Metropolis, Arial, Helvetica, sans-serif',
-      fontWeight: 900,
-      color: '#39ff14',
-      fontSize: '1.3rem',
+      fontWeight: 700,
+      color: '#ffffff',
+      fontSize: '1.2rem',
       letterSpacing: '0.05em',
-      textTransform: 'uppercase',
-      textShadow: '0 2px 8px #000a'
+      textTransform: 'uppercase'
     }}>MAXYM HUANG</span>
-    <div style={{ display: 'flex', gap: '2rem' }}>
-      <a href="/" style={{ color: '#fff', textDecoration: 'none', fontWeight: 400, fontFamily: 'Metropolis, Arial, Helvetica, sans-serif' }}>Home</a>
-      <a href="/#projects" style={{ color: '#fff', textDecoration: 'none', fontWeight: 400, fontFamily: 'Metropolis, Arial, Helvetica, sans-serif' }}>Projects</a>
-      <a href="/#connect" style={{ color: '#fff', textDecoration: 'none', fontWeight: 400, fontFamily: 'Metropolis, Arial, Helvetica, sans-serif' }}>Connect</a>
+    <div style={{ display: 'flex', gap: '2.5rem' }}>
+      <a href="/" style={{ 
+        color: '#fff', 
+        textDecoration: 'none', 
+        fontWeight: 400, 
+        fontFamily: 'Metropolis, Arial, Helvetica, sans-serif',
+        fontSize: '0.9rem',
+        textTransform: 'uppercase',
+        letterSpacing: '0.1em',
+        transition: 'opacity 0.3s ease'
+      }}>Home</a>
+      <a href="/#projects" style={{ 
+        color: '#fff', 
+        textDecoration: 'none', 
+        fontWeight: 400, 
+        fontFamily: 'Metropolis, Arial, Helvetica, sans-serif',
+        fontSize: '0.9rem',
+        textTransform: 'uppercase',
+        letterSpacing: '0.1em',
+        transition: 'opacity 0.3s ease'
+      }}>Case Studies</a>
+      <a href="/#connect" style={{ 
+        color: '#fff', 
+        textDecoration: 'none', 
+        fontWeight: 400, 
+        fontFamily: 'Metropolis, Arial, Helvetica, sans-serif',
+        fontSize: '0.9rem',
+        textTransform: 'uppercase',
+        letterSpacing: '0.1em',
+        transition: 'opacity 0.3s ease'
+      }}>Connect</a>
     </div>
   </nav>
 );
@@ -77,7 +103,7 @@ const ProjectDetails: React.FC<{ projects: any[] }> = ({ projects }) => {
           alignItems: 'center', 
           minHeight: '50vh',
           fontFamily: 'Metropolis, Arial, Helvetica, sans-serif',
-          color: '#39ff14'
+          color: '#ffffff'
         }}>
           Loading...
         </div>
@@ -89,35 +115,11 @@ const ProjectDetails: React.FC<{ projects: any[] }> = ({ projects }) => {
     <>
       <MenuBar />
       <div className="project-details-layout">
-        <div className="markdown-project-details markdown-content" style={{ fontFamily: "'Metropolis', Arial, Helvetica, sans-serif", color: 'inherit', background: 'none', boxShadow: 'none', borderRadius: 0, padding: '2rem', maxWidth: 900, margin: '2rem auto' }}>
+        <div className="markdown-project-details markdown-content">
           <MarkdownRenderer file={markdownFile} />
           <button
+            className="back-to-home-button"
             onClick={() => navigate('/')}
-            style={{
-              display: 'block',
-              margin: '3rem auto 0',
-              background: 'none',
-              color: '#39ff14',
-              border: '2px solid #39ff14',
-              borderRadius: '8px',
-              padding: '0.7em 2em',
-              fontFamily: 'Metropolis, Arial, Helvetica, sans-serif',
-              fontWeight: 700,
-              fontSize: '1.1em',
-              cursor: 'pointer',
-              transition: 'background 0.2s, color 0.2s',
-              textTransform: 'uppercase',
-              letterSpacing: '0.05em',
-              boxShadow: '0 2px 8px #000a'
-            }}
-            onMouseOver={e => {
-              (e.currentTarget as HTMLButtonElement).style.background = '#39ff14';
-              (e.currentTarget as HTMLButtonElement).style.color = '#111';
-            }}
-            onMouseOut={e => {
-              (e.currentTarget as HTMLButtonElement).style.background = 'none';
-              (e.currentTarget as HTMLButtonElement).style.color = '#39ff14';
-            }}
           >
             Back to Home
           </button>

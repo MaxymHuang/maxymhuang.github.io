@@ -46,13 +46,13 @@
   --primary: #000000;
   --primary-dark: #333333;
   --secondary: #666666;
-  --background: #ffffff;
-  --surface: #f5f5f5;
-  --text: #000000;
-  --text-light: #666666;
-  --border: #e0e0e0;
-  --shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --background: #000000;
+  --surface: #111111;
+  --text: #ffffff;
+  --text-light: #999999;
+  --border: #333333;
+  --shadow: 0 2px 4px rgba(255, 255, 255, 0.05);
+  --shadow-lg: 0 4px 8px rgba(255, 255, 255, 0.1);
   --font-mono: 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
 }
 
@@ -61,14 +61,6 @@ body {
   font-family: var(--font-mono);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.portfolio-root {
-  min-height: 100vh;
-  background-color: var(--background);
-  color: var(--text);
-  font-family: var(--font-mono);
-  line-height: 1.6;
 }
 
 /* Navigation */
@@ -365,19 +357,10 @@ main {
   letter-spacing: 0.1em;
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --surface: #111111;
-    --text: #ffffff;
-    --text-light: #999999;
-    --border: #333333;
-  }
-  .project-logo,
-  .project-logo-large {
-    filter: brightness(0) invert(1);
-  }
+/* Project logo filters for dark mode */
+.project-logo,
+.project-logo-large {
+  filter: brightness(0) invert(1);
 }
 
 /* Responsive Design */
@@ -423,14 +406,6 @@ main {
 }
 
 
-
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-  .terminal-window {
-    background-color: #1a1a1a;
-    border: 1px solid #333;
-  }
-}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -554,22 +529,23 @@ main {
 
 
 /* About Section - Dan Machado Style */
-/* Blur heading styling for MAXYM HUANG? */
+/* Blur heading styling for MAXYM HUANG? - Fixed clipping */
 .about-blur-heading {
-  font-size: clamp(4rem, 15vw, 20rem) !important;
+  font-size: clamp(3rem, 12vw, 16rem) !important;
   font-weight: 900 !important;
   text-align: center !important;
-  width: 100vw !important;
-  margin-left: 50% !important;
-  transform: translateX(-50%) !important;
+  width: 100% !important;
   color: #fff !important;
   text-transform: uppercase !important;
   letter-spacing: -0.02em !important;
   line-height: 0.8 !important;
-  margin-bottom: 3rem !important;
+  margin: 0 !important;
   font-family: 'Metropolis', Arial, Helvetica, sans-serif !important;
   filter: none !important;
   text-shadow: none !important;
+  overflow: visible !important;
+  max-width: 100% !important;
+  padding: 0 1rem !important;
 }
 
 /* Scrolling text container */
@@ -583,7 +559,7 @@ main {
 
 .scrolling-text {
   font-family: 'Metropolis', Arial, Helvetica, sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 400;
   color: var(--text);
   white-space: nowrap;
@@ -790,5 +766,756 @@ main {
   .skill-tag {
     font-size: 0.8rem;
     padding: 0.3rem 0.7rem;
+  }
+}
+
+/* Dan Machado Inspired Design */
+
+/* Main container with proper spacing */
+.portfolio-root {
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--text);
+  font-family: var(--font-mono);
+  line-height: 1.6;
+}
+
+/* Section dividers - visible white lines */
+.section {
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+/* Hero Section */
+.hero-section {
+  padding: 8rem 2rem 6rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.hero-container {
+  margin-bottom: 4rem;
+}
+
+.hero-name {
+  font-size: clamp(4rem, 12vw, 12rem);
+  font-weight: 900;
+  color: var(--text);
+  margin: 0;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+}
+
+/* Scrolling text - refined positioning */
+.scrolling-text-container {
+  margin: 4rem 0;
+  overflow: hidden;
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  padding: 2rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.scrolling-text {
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text);
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* Location heading */
+.location-heading {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--text);
+  text-align: center;
+  margin: 6rem 0 8rem;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  position: relative;
+}
+
+/* Grid container like Dan's layout */
+.content-sections {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 8rem 4rem;
+}
+
+.content-section-item {
+  margin-bottom: 8rem;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 6rem;
+  align-items: start;
+  padding: 4rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.content-section-item:last-child {
+  border-bottom: none;
+}
+
+.section-number {
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-light);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  position: sticky;
+  top: 2rem;
+}
+
+.section-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.about-education {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin: 0;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-weight: 300;
+}
+
+.about-description {
+  font-size: 1.3rem;
+  line-height: 1.7;
+  color: var(--text);
+  margin: 0;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+}
+
+/* Skills as clean text */
+.skills-list-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.skills-list-text p {
+  font-size: 1.3rem;
+  line-height: 1.7;
+  color: var(--text);
+  margin: 0;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+}
+
+/* Clean contact button */
+.contact-button-clean {
+  background: none;
+  border: 2px solid var(--text);
+  color: var(--text);
+  padding: 1rem 2rem;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 2rem;
+  align-self: flex-start;
+}
+
+.contact-button-clean:hover {
+  background-color: var(--text);
+  color: var(--background);
+}
+
+/* Projects Section - Case Studies Layout with Grid */
+.projects-section {
+  padding: 8rem 4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.section-header {
+  max-width: 1400px;
+  margin: 0 auto 8rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--text);
+  margin: 0;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+}
+
+.case-studies {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.case-study-item {
+  margin-bottom: 10rem;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 6rem;
+  align-items: start;
+  padding: 4rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.case-study-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.case-study-number {
+  position: sticky;
+  top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 120px;
+  flex-shrink: 0;
+}
+
+.case-study-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.case-study-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.project-icon {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.case-study-icon:hover .project-icon {
+  opacity: 1;
+}
+
+.case-study-number h3 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.case-study-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.case-study-title {
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--text);
+  margin: 0;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.case-study-description {
+  font-size: 1.3rem;
+  line-height: 1.7;
+  color: var(--text);
+  margin: 0;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+}
+
+.case-study-link {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transition: opacity 0.3s ease;
+  margin-top: 1rem;
+}
+
+.case-study-link:hover {
+  opacity: 0.7;
+}
+
+/* Contact Section - Grid Layout */
+.connect-section {
+  padding: 8rem 4rem;
+}
+
+.contact-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 6rem;
+  align-items: start;
+  padding: 4rem 0;
+}
+
+.contact-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: sticky;
+  top: 2rem;
+}
+
+.contact-subtitle {
+  font-size: 1.3rem;
+  color: var(--text);
+  margin: 0;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.clean-contact-link {
+  color: var(--text);
+  text-decoration: none;
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  transition: opacity 0.3s ease;
+  text-transform: capitalize;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.clean-contact-link:hover {
+  opacity: 0.7;
+}
+
+.clean-contact-link:last-child {
+  border-bottom: none;
+}
+
+/* Responsive Design for Grid Layout */
+@media (max-width: 1200px) {
+  .content-sections,
+  .case-studies,
+  .contact-section {
+    max-width: 1200px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  .projects-section,
+  .connect-section {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  .content-section-item,
+  .case-study-item,
+  .contact-section {
+    grid-template-columns: 250px 1fr;
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-section {
+    padding: 6rem 2rem 4rem;
+  }
+  
+  .hero-name {
+    font-size: clamp(3rem, 10vw, 8rem);
+  }
+  
+  .location-heading {
+    font-size: 2.2rem;
+    margin: 4rem 0 6rem;
+  }
+  
+  .scrolling-text {
+    font-size: 1.3rem;
+  }
+  
+  .content-sections {
+    padding: 6rem 2rem;
+  }
+  
+  .projects-section,
+  .connect-section {
+    padding: 6rem 2rem;
+  }
+  
+  .content-section-item,
+  .case-study-item,
+  .contact-section {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: left;
+  }
+  
+  .section-number,
+  .case-study-number h3 {
+    position: static;
+    margin-bottom: 1rem;
+  }
+  
+  .contact-header {
+    position: static;
+  }
+  
+  .case-study-title {
+    font-size: 3rem;
+  }
+  
+  .content-section-item {
+    margin-bottom: 6rem;
+    padding: 3rem 0;
+  }
+  
+  .case-study-item {
+    margin-bottom: 8rem;
+    padding: 3rem 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 4rem 1.5rem 3rem;
+  }
+  
+  .hero-name {
+    font-size: clamp(2.5rem, 12vw, 6rem);
+  }
+  
+  .location-heading {
+    font-size: 1.8rem;
+    margin: 3rem 0 4rem;
+  }
+  
+  .scrolling-text {
+    font-size: 1.1rem;
+  }
+  
+  .scrolling-text-container {
+    margin: 3rem 0;
+    padding: 1.5rem 0;
+  }
+  
+  .content-sections {
+    padding: 4rem 1.5rem;
+  }
+  
+  .projects-section,
+  .connect-section {
+    padding: 4rem 1.5rem;
+  }
+  
+  .section-header {
+    margin-bottom: 6rem;
+    padding-bottom: 3rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .case-study-title {
+    font-size: 2.5rem;
+  }
+  
+  .about-description,
+  .case-study-description,
+  .skills-list-text p {
+    font-size: 1.2rem;
+  }
+  
+  .content-section-item {
+    margin-bottom: 4rem;
+    padding: 2rem 0;
+  }
+  
+  .case-study-item {
+    margin-bottom: 6rem;
+    padding: 2rem 0;
+  }
+  
+  .contact-section {
+    padding: 2rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 3rem 1rem 2rem;
+  }
+  
+  .hero-name {
+    font-size: clamp(2rem, 14vw, 4rem);
+  }
+  
+  .location-heading {
+    font-size: 1.5rem;
+    margin: 2rem 0 3rem;
+  }
+  
+  .scrolling-text {
+    font-size: 1rem;
+  }
+  
+  .content-sections {
+    padding: 3rem 1rem;
+  }
+  
+  .projects-section,
+  .connect-section {
+    padding: 3rem 1rem;
+  }
+  
+  .case-study-title {
+    font-size: 2rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .about-description,
+  .case-study-description,
+  .skills-list-text p,
+  .contact-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .content-section-item,
+  .case-study-item {
+    gap: 2rem;
+    padding: 1.5rem 0;
+  }
+  
+  .contact-section {
+    gap: 2rem;
+    padding: 1.5rem 0;
+  }
+}
+
+/* Hero Section - Enhanced with Profile */
+.hero-section {
+  padding: 6rem 0 4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: center;
+  overflow: visible;
+}
+
+.hero-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  }
+  
+  .hero-profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.hero-divider {
+  width: 100px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.hero-profile-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero-profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.hero-profile-pic:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.hero-profile-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.location-heading {
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive Hero Section */
+@media screen and (max-width: 768px) {
+  .hero-section {
+    padding: 4rem 0 3rem;
+  }
+  
+  .hero-container {
+    padding: 0 1rem;
+  }
+  
+  .about-blur-heading {
+    font-size: clamp(2.5rem, 10vw, 12rem) !important;
+    padding: 0 0.5rem !important;
+  }
+  
+  .hero-profile-content {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  
+  .hero-profile-pic {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .hero-profile-text {
+    align-items: center;
+  }
+  
+  .location-heading {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero-section {
+    padding: 3rem 0 2rem;
+  }
+  
+  .hero-container {
+    padding: 0 0.5rem;
+  }
+  
+  .about-blur-heading {
+    font-size: clamp(2rem, 8vw, 8rem) !important;
+    padding: 0 !important;
+    letter-spacing: -0.01em !important;
+  }
+  
+  .hero-divider {
+    width: 60px;
+  }
+  
+  .hero-profile-pic {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Responsive design for case studies */
+@media screen and (max-width: 768px) {
+  .case-studies {
+    gap: 3rem;
+  }
+  
+  .case-study-item {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .case-study-number {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    position: static;
+  }
+  
+  .case-study-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .project-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .case-study-number h3 {
+    font-size: 0.8rem;
+  }
+  
+  .case-study-content {
+    padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .case-study-icon {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .project-icon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .case-study-number h3 {
+    font-size: 0.75rem;
   }
 }
