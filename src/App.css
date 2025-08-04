@@ -553,7 +553,7 @@ main {
 
 
 
-/* About Section - Simple and Professional */
+/* About Section - Dan Machado Style */
 /* Blur heading styling for MAXYM HUANG? */
 .about-blur-heading {
   font-size: clamp(4rem, 15vw, 20rem) !important;
@@ -566,37 +566,72 @@ main {
   text-transform: uppercase !important;
   letter-spacing: -0.02em !important;
   line-height: 0.8 !important;
-  margin-bottom: 2rem !important;
+  margin-bottom: 3rem !important;
   font-family: 'Metropolis', Arial, Helvetica, sans-serif !important;
   filter: none !important;
   text-shadow: none !important;
 }
 
-.about-container {
-  display: flex;
-  gap: 3rem;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%;
+/* Scrolling text container */
+.scrolling-text-container {
+  margin: 3rem 0;
+  overflow: hidden;
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 
-.about-content-wrapper {
-  flex: 1;
-  max-width: 700px;
-}
-
-.about-intro {
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.about-title {
-  font-size: 1.2rem;
-  color: var(--secondary);
-  margin-bottom: 0.5rem;
-  font-weight: 500;
+.scrolling-text {
   font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text);
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* Location text */
+.location-text {
+  text-align: center;
+  margin: 2rem 0 4rem;
+}
+
+.location-text p {
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  color: var(--text-light);
+  margin: 0;
+}
+
+/* About sections container */
+.about-sections {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.about-section-item {
+  margin-bottom: 4rem;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.section-label {
+  font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-light);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.section-content-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .about-education {
@@ -607,10 +642,6 @@ main {
 }
 
 .about-description {
-  margin-bottom: 2rem;
-}
-
-.about-description p {
   font-size: 1.1rem;
   line-height: 1.7;
   color: var(--text);
@@ -618,12 +649,26 @@ main {
   font-family: 'Metropolis', Arial, Helvetica, sans-serif;
 }
 
-.about-skills h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
+/* Contact button */
+.contact-button {
+  background: none;
+  border: 1px solid var(--text);
   color: var(--text);
-  margin-bottom: 1rem;
+  padding: 0.8rem 1.5rem;
   font-family: 'Metropolis', Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.5rem;
+  align-self: flex-start;
+}
+
+.contact-button:hover {
+  background-color: var(--text);
+  color: var(--background);
 }
 
 .skills-grid {
@@ -650,52 +695,52 @@ main {
   transform: translateY(-1px);
 }
 
-.profile-card-container {
-  width: 300px;
-  max-width: 300px;
-  flex-shrink: 0;
-}
-
 /* Responsive Design */
 @media (max-width: 992px) {
-  .about-container {
-    flex-direction: column;
-    gap: 2rem;
-    align-items: center;
+  .scrolling-text {
+    font-size: 1.3rem;
   }
   
-  .about-content-wrapper {
-    max-width: none;
+  .about-section-item {
+    grid-template-columns: 1fr;
+    gap: 1rem;
     text-align: center;
   }
   
-  .profile-card-container {
-    width: 300px;
-    max-width: 300px;
+  .section-label {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
   }
 }
 
 @media (max-width: 768px) {
   .about-blur-heading {
     font-size: clamp(3rem, 12vw, 15rem) !important;
-    margin-bottom: 1rem !important;
+    margin-bottom: 2rem !important;
   }
   
-  .about-title {
-    font-size: 1.1rem;
+  .scrolling-text {
+    font-size: 1.2rem;
   }
   
-  .about-description p {
+  .scrolling-text-container {
+    margin: 2rem 0;
+  }
+  
+  .location-text {
+    margin: 1.5rem 0 3rem;
+  }
+  
+  .about-sections {
+    padding: 0 1.5rem;
+  }
+  
+  .about-section-item {
+    margin-bottom: 3rem;
+  }
+  
+  .about-description {
     font-size: 1rem;
-  }
-  
-  .about-container {
-    gap: 1.5rem;
-  }
-  
-  .profile-card-container {
-    width: 260px;
-    max-width: 260px;
   }
   
   .skills-grid {
@@ -711,14 +756,39 @@ main {
 @media (max-width: 480px) {
   .about-blur-heading {
     font-size: clamp(2.5rem, 10vw, 12rem) !important;
+    margin-bottom: 1.5rem !important;
   }
   
-  .about-container {
-    gap: 1rem;
+  .scrolling-text {
+    font-size: 1rem;
   }
   
-  .profile-card-container {
-    width: 240px;
-    max-width: 240px;
+  .scrolling-text-container {
+    margin: 1.5rem 0;
+  }
+  
+  .location-text {
+    margin: 1rem 0 2rem;
+  }
+  
+  .about-sections {
+    padding: 0 1rem;
+  }
+  
+  .about-section-item {
+    margin-bottom: 2rem;
+  }
+  
+  .section-label {
+    font-size: 0.9rem;
+  }
+  
+  .skills-grid {
+    gap: 0.5rem;
+  }
+  
+  .skill-tag {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.7rem;
   }
 }

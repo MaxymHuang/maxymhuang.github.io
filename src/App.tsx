@@ -1,21 +1,31 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import ProjectDetails from './components/ProjectDetails';
-import Timeline from './components/Timeline';
-import PDFViewer from './components/PDFViewer';
+import { useState, lazy, Suspense } from 'react';
+
+// Lazy load components to reduce initial bundle size
+const ProjectDetails = lazy(() => import('./components/ProjectDetails'));
+const Timeline = lazy(() => import('./components/Timeline'));
+const PDFViewer = lazy(() => import('./components/PDFViewer'));
 // @ts-expect-error: No type declaration for ScrollVelocity
-import ScrollVelocity from './blocks/TextAnimations/ScrollVelocity/ScrollVelocity';
+const ScrollVelocity = lazy(() => import('./blocks/TextAnimations/ScrollVelocity/ScrollVelocity'));
 // @ts-expect-error: No type declaration for BlurText
-import BlurText from './blocks/TextAnimations/BlurText/BlurText';
+const BlurText = lazy(() => import('./blocks/TextAnimations/BlurText/BlurText'));
 // @ts-expect-error: No type declaration for SpotlightCard
-import SpotlightCard from './blocks/Components/SpotlightCard/SpotlightCard';
+const SpotlightCard = lazy(() => import('./blocks/Components/SpotlightCard/SpotlightCard'));
 // @ts-expect-error: No type declaration for FlowingMenu
-import FlowingMenu from './blocks/Components/FlowingMenu/FlowingMenu';
-// @ts-expect-error: No type declaration for DecryptedText
-import DecryptedText from './blocks/TextAnimations/DecryptedText/DecryptedText';
-// @ts-expect-error: No type declaration for ProfileCard
-import ProfileCard from './blocks/Components/ProfileCard/ProfileCard';
+const FlowingMenu = lazy(() => import('./blocks/Components/FlowingMenu/FlowingMenu'));
+// Loading component for Suspense fallback
+const LoadingSpinner = () => (
+  <div style={{ 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    padding: '2rem',
+    color: 'var(--text-light)' 
+  }}>
+    Loading...
+  </div>
+);
 
 const projects = [
   {
@@ -200,61 +210,75 @@ function Home() {
   return (
     <div className="portfolio-root">
       <div style={{ width: '100vw', maxWidth: '100vw', position: 'relative', zIndex: 10 }}>
-        <FlowingMenu
-          items={flowingMenuItems.map(item => ({
-            ...item,
-            link: item.link,
-            // Override onClick for smooth scroll
-            onClick: (e: any) => handleMenuClick(e, item.link)
-          }))}
-        />
+        <Suspense fallback={<LoadingSpinner />}>
+          <FlowingMenu
+            items={flowingMenuItems.map(item => ({
+              ...item,
+              link: item.link,
+              // Override onClick for smooth scroll
+              onClick: (e: any) => handleMenuClick(e, item.link)
+            }))}
+          />
+        </Suspense>
       </div>
       <main style={{ paddingTop: 0 }}>
                 <section id="about" className="section" style={{ padding: '1rem 2rem 0', justifyContent: 'flex-start' }}>
           <div className="section-content">
-            <BlurText text="MAXYM HUANG?" className="about-blur-heading" animateBy="words" direction="top" />
-            <div className="about-container">
-              <div className="about-content-wrapper">
-                <div className="about-intro">
-                  <p className="about-title">Field Application Engineer</p>
+            <Suspense fallback={<LoadingSpinner />}>
+              <BlurText text="MAXYM HUANG?" className="about-blur-heading" animateBy="words" direction="top" />
+            </Suspense>
+            
+            <div className="scrolling-text-container">
+              <Suspense fallback={<LoadingSpinner />}>
+                <ScrollVelocity baseVelocity={-1}>
+                  <span className="scrolling-text">
+                    Field Application Engineer | Tech Explorer | Problem Solver | Hardware-Software Bridge Builder | 
+                  </span>
+                </ScrollVelocity>
+              </Suspense>
+            </div>
+            
+            <div className="location-text">
+              <p>Based in United States</p>
+            </div>
+            
+            <div className="about-sections">
+              <div className="about-section-item">
+                <h3 className="section-label">● About</h3>
+                <div className="section-content-text">
                   <p className="about-education">B.S. Industrial Engineering, Purdue University</p>
-                </div>
-                
-                <div className="about-description">
-                  <p>
+                  <p className="about-description">
                     I'm a Field Application Engineer passionate about bridging the gap between hardware and software. 
                     I focus on building secure, scalable, and efficient solutions that solve real-world problems.
                   </p>
                 </div>
+              </div>
 
-                <div className="about-skills">
-                  <h3>Technical Skills</h3>
-                  <div className="skills-grid">
-                    <span className="skill-tag">Python</span>
-                    <span className="skill-tag">C/C++</span>
-                    <span className="skill-tag">SQL</span>
-                    <span className="skill-tag">Linux</span>
-                    <span className="skill-tag">Docker</span>
-                    <span className="skill-tag">Kubernetes</span>
-                    <span className="skill-tag">Data Analytics</span>
-                    <span className="skill-tag">Bilingual (EN/中文)</span>
-                  </div>
+              <div className="about-section-item">
+                <h3 className="section-label">● Technical Skills</h3>
+                <div className="skills-grid">
+                  <span className="skill-tag">Python</span>
+                  <span className="skill-tag">C/C++</span>
+                  <span className="skill-tag">SQL</span>
+                  <span className="skill-tag">Linux</span>
+                  <span className="skill-tag">Docker</span>
+                  <span className="skill-tag">Kubernetes</span>
+                  <span className="skill-tag">Data Analytics</span>
+                  <span className="skill-tag">Bilingual (EN/中文)</span>
                 </div>
               </div>
-              
-              <div className="profile-card-container">
-                <ProfileCard
-                  name="Maxym Huang"
-                  title="Field Application Engineer"
-                  handle="maxymhuang"
-                  status="Available for Opportunities"
-                  contactText="Get In Touch"
-                  avatarUrl="/profilepic.JPG"
-                  miniAvatarUrl="/profilepic.JPG"
-                  showUserInfo={true}
-                  enableTilt={true}
-                  onContactClick={handleContactClick}
-                />
+
+              <div className="about-section-item">
+                <h3 className="section-label">● Contact</h3>
+                <div className="section-content-text">
+                  <p>Ready for new opportunities</p>
+                  <button 
+                    className="contact-button"
+                    onClick={handleContactClick}
+                  >
+                    Get In Touch
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -263,7 +287,9 @@ function Home() {
         <section id="journey" className="section">
           <div className="section-content">
             <h2>My Journey</h2>
-            <Timeline />
+            <Suspense fallback={<LoadingSpinner />}>
+              <Timeline />
+            </Suspense>
           </div>
         </section>
 
@@ -271,44 +297,48 @@ function Home() {
           <div className="section-content" style={{ padding: 0 }}>
             {/* Three rows of ScrollVelocity with increased velocity, spanning full width */}
             <div style={{ width: '100vw', position: 'relative', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', gap: '0.2em', marginBottom: '1em' }}>
-              <ScrollVelocity
-                texts={["cool projects"]}
-                velocity={200}
-                className="scroller"
-                numCopies={8}
-                parallaxStyle={{ width: '100vw', overflow: 'hidden' }}
-                scrollerStyle={{ fontSize: 'clamp(3rem, 14vw, 6rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
-              />
-              <ScrollVelocity
-                texts={["cool projects"]}
-                velocity={-200}
-                className="scroller"
-                numCopies={8}
-                parallaxStyle={{ width: '100vw', overflow: 'hidden' }}
-                scrollerStyle={{ fontSize: 'clamp(3rem, 14vw, 6rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
-              />
-              <ScrollVelocity
-                texts={["cool projects"]}
-                velocity={200}
-                className="scroller"
-                numCopies={8}
-                parallaxStyle={{ width: '100vw', overflow: 'hidden' }}
-                scrollerStyle={{ fontSize: 'clamp(3rem, 14vw, 6rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <ScrollVelocity
+                  texts={["cool projects"]}
+                  velocity={200}
+                  className="scroller"
+                  numCopies={8}
+                  parallaxStyle={{ width: '100vw', overflow: 'hidden' }}
+                  scrollerStyle={{ fontSize: 'clamp(3rem, 14vw, 6rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
+                />
+                <ScrollVelocity
+                  texts={["cool projects"]}
+                  velocity={-200}
+                  className="scroller"
+                  numCopies={8}
+                  parallaxStyle={{ width: '100vw', overflow: 'hidden' }}
+                  scrollerStyle={{ fontSize: 'clamp(3rem, 14vw, 6rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
+                />
+                <ScrollVelocity
+                  texts={["cool projects"]}
+                  velocity={200}
+                  className="scroller"
+                  numCopies={8}
+                  parallaxStyle={{ width: '100vw', overflow: 'hidden' }}
+                  scrollerStyle={{ fontSize: 'clamp(3rem, 14vw, 6rem)', color: '#39ff14', textTransform: 'uppercase', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, filter: 'drop-shadow(0 2px 8px #000a)' }}
+                />
+              </Suspense>
             </div>
             <div className="project-grid">
-              {projects.map((project) => (
-                <SpotlightCard
-                  key={project.id}
-                  className="project-card"
-                >
-                  <div onClick={() => navigate(`/project/${project.id}`)}>
-                    <img src={project.logo} alt={`${project.title} logo`} className="project-logo" />
-                    <h3>{project.title}</h3>
-                    <p>{project.description}</p>
-                  </div>
-                </SpotlightCard>
-              ))}
+              <Suspense fallback={<LoadingSpinner />}>
+                {projects.map((project) => (
+                  <SpotlightCard
+                    key={project.id}
+                    className="project-card"
+                  >
+                    <div onClick={() => navigate(`/project/${project.id}`)}>
+                      <img src={project.logo} alt={`${project.title} logo`} className="project-logo" />
+                      <h3>{project.title}</h3>
+                      <p>{project.description}</p>
+                    </div>
+                  </SpotlightCard>
+                ))}
+              </Suspense>
             </div>
           </div>
         </section>
@@ -334,12 +364,14 @@ function Home() {
           </div>
         </section>
       </main>
-      <PDFViewer
-        isOpen={isPDFViewerOpen}
-        onClose={() => setIsPDFViewerOpen(false)}
-        pdfUrl="/Resume.pdf"
-        title="Maxym Huang - Resume"
-      />
+      <Suspense fallback={<LoadingSpinner />}>
+        <PDFViewer
+          isOpen={isPDFViewerOpen}
+          onClose={() => setIsPDFViewerOpen(false)}
+          pdfUrl="/Resume.pdf"
+          title="Maxym Huang - Resume"
+        />
+      </Suspense>
     </div>
   );
 }
@@ -350,7 +382,11 @@ export default function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/project/:id" element={<ProjectDetails projects={projects} />} />
+          <Route path="/project/:id" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <ProjectDetails projects={projects} />
+            </Suspense>
+          } />
         </Routes>
       </Router>
     </>
