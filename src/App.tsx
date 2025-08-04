@@ -12,8 +12,7 @@ const ScrollVelocity = lazy(() => import('./blocks/TextAnimations/ScrollVelocity
 const BlurText = lazy(() => import('./blocks/TextAnimations/BlurText/BlurText'));
 // @ts-expect-error: No type declaration for SpotlightCard
 const SpotlightCard = lazy(() => import('./blocks/Components/SpotlightCard/SpotlightCard'));
-// @ts-expect-error: No type declaration for FlowingMenu
-const FlowingMenu = lazy(() => import('./blocks/Components/FlowingMenu/FlowingMenu'));
+const MinimalNavBar = lazy(() => import('./components/MinimalNavBar'));
 // Loading component for Suspense fallback
 const LoadingSpinner = () => (
   <div style={{ 
@@ -170,12 +169,10 @@ const socialLinks = [
   }
 ];
 
-const flowingMenuItems = [
-  { link: '#about', text: 'About', image: '/esp32.svg' },
-  { link: '#projects', text: 'Case Studies', image: '/filefinder.svg' },
-  { link: '#timeline', text: 'Experience', image: '/linux.svg' },
-  { link: '#connect', text: 'Connect', image: '/profilepic.JPG' }
-];
+// Navigation function
+const handleNavigation = (sectionId: string) => {
+  scrollToSection(sectionId);
+};
 
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
@@ -188,12 +185,9 @@ function Home() {
   const navigate = useNavigate();
   const [isPDFViewerOpen, setIsPDFViewerOpen] = useState(false);
 
-  // Handler for FlowingMenu navigation
-  const handleMenuClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
-    if (link.startsWith('#')) {
-      e.preventDefault();
-      scrollToSection(link.substring(1));
-    }
+  // Handler for nav bar navigation
+  const handleNavClick = (sectionId: string) => {
+    scrollToSection(sectionId);
   };
 
   // Handler for resume link click
@@ -209,19 +203,10 @@ function Home() {
 
   return (
     <div className="portfolio-root">
-      <div style={{ width: '100vw', maxWidth: '100vw', position: 'relative', zIndex: 10 }}>
-        <Suspense fallback={<LoadingSpinner />}>
-          <FlowingMenu
-            items={flowingMenuItems.map(item => ({
-              ...item,
-              link: item.link,
-              // Override onClick for smooth scroll
-              onClick: (e: any) => handleMenuClick(e, item.link)
-            }))}
-          />
-        </Suspense>
-      </div>
-      <main style={{ paddingTop: 0 }}>
+      <Suspense fallback={<LoadingSpinner />}>
+        <MinimalNavBar onNavigate={handleNavClick} />
+      </Suspense>
+      <main style={{ paddingTop: '80px' }}>
         {/* Hero Section */}
         <section className="hero-section">
           <div className="hero-container">
@@ -234,57 +219,52 @@ function Home() {
                   animateBy="words"
                 />
               </Suspense>
-              <div className="hero-profile-section">
-                <div className="hero-divider"></div>
-                <div className="hero-profile-content">
-                  <img 
-                    src="/profilepic.JPG" 
-                    alt="Maxym Huang" 
-                    className="hero-profile-pic"
-                  />
-                  <div className="hero-profile-text">
-                    <div className="location-text">
-                      <h2 className="location-heading">Vancouver, Canada</h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
         </section>
 
         <section id="about" className="section">
           <div className="section-content">
-            {/* About sections - redesigned to match Dan's case study layout */}
-            <div className="content-sections">
-              <div className="content-section-item">
-                <h3 className="section-number">● About</h3>
-                <div className="section-text">
-                  <p className="about-education">B.S. Industrial Engineering, Purdue University</p>
-                  <p className="about-description">
-                    I'm a Field Application Engineer passionate about bridging the gap between hardware and software. 
-                    I focus on building secure, scalable, and efficient solutions that solve real-world problems.
-                  </p>
-                </div>
+            <div className="about-card">
+              <div className="about-image-container">
+                <img 
+                  src="/profilepic.JPG" 
+                  alt="Maxym Huang" 
+                  className="about-profile-pic"
+                />
               </div>
-
-              <div className="content-section-item">
-                <h3 className="section-number">● Technical Skills</h3>
-                <div className="skills-list-text">
-                  <p>Python, C/C++, SQL, Linux, Docker, Kubernetes, Data Analytics, Bilingual (EN/中文)</p>
+              
+              <div className="about-text-container">
+                <div className="about-section-item">
+                  <h3 className="section-number">● About</h3>
+                  <div className="section-text">
+                    <p className="about-education">B.S. Industrial Engineering, Purdue University</p>
+                    <p className="about-description">
+                      I'm a Field Application Engineer passionate about bridging the gap between hardware and software. 
+                      I focus on building secure, scalable, and efficient solutions that solve real-world problems.
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              <div className="content-section-item">
-                <h3 className="section-number">● Contact</h3>
-                <div className="section-text">
-                  <p>Ready for new opportunities</p>
-                  <button 
-                    className="contact-button-clean"
-                    onClick={handleContactClick}
-                  >
-                    Get In Touch
-                  </button>
+                <div className="about-section-item">
+                  <h3 className="section-number">● Technical Skills</h3>
+                  <div className="skills-list-text">
+                    <p>Python, C/C++, SQL, Linux, Docker, Kubernetes, Data Analytics, Bilingual (EN/中文)</p>
+                  </div>
+                </div>
+
+                <div className="about-section-item">
+                  <h3 className="section-number">● Contact</h3>
+                  <div className="section-text">
+                    <p>Ready for new opportunities</p>
+                    <button 
+                      className="contact-button-clean"
+                      onClick={handleContactClick}
+                    >
+                      Get In Touch
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -312,15 +292,15 @@ function Home() {
               {projects.map((project, index) => (
                 <div key={project.id} className="case-study-item">
                   <div className="case-study-number">
-                    <div className="case-study-icon">
-                      <img 
-                        src={project.id === 'esp32' ? '/esp32.svg' : 
-                             project.id === 'filefinder' ? '/filefinder.svg' : 
-                             project.id === 'homelab' ? '/linux.svg' : '/esp32.svg'} 
-                        alt={`${project.title} icon`}
-                        className="project-icon"
-                      />
-                    </div>
+                    {(project.id === 'esp32' || project.id === 'homelab') && (
+                      <div className="case-study-icon">
+                        <img 
+                          src={project.id === 'esp32' ? '/esp32.svg' : '/linux.svg'} 
+                          alt={`${project.title} icon`}
+                          className="project-icon"
+                        />
+                      </div>
+                    )}
                     <h3>● Case Study {String(index + 1).padStart(2, '0')}</h3>
                   </div>
                   
