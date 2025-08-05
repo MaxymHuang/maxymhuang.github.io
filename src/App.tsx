@@ -169,11 +169,6 @@ const socialLinks = [
   }
 ];
 
-// Navigation function
-const handleNavigation = (sectionId: string) => {
-  scrollToSection(sectionId);
-};
-
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
   if (el) {
@@ -229,7 +224,7 @@ function Home() {
             <div className="about-card">
               <div className="about-image-container">
                 <img 
-                  src="/profilepic.JPG" 
+                  src="/coolpic.png" 
                   alt="Maxym Huang" 
                   className="about-profile-pic"
                 />
@@ -292,16 +287,16 @@ function Home() {
               {projects.map((project, index) => (
                 <div key={project.id} className="case-study-item">
                   <div className="case-study-number">
+                    <h3>● Case Study {String(index + 1).padStart(2, '0')}</h3>
                     {(project.id === 'esp32' || project.id === 'homelab') && (
                       <div className="case-study-icon">
                         <img 
-                          src={project.id === 'esp32' ? '/esp32.svg' : '/linux.svg'} 
+                          src={project.id === 'esp32' ? '/hardware.png' : '/linux.svg'} 
                           alt={`${project.title} icon`}
                           className="project-icon"
                         />
                       </div>
                     )}
-                    <h3>● Case Study {String(index + 1).padStart(2, '0')}</h3>
                   </div>
                   
                   <div className="case-study-content">

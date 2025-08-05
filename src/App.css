@@ -142,6 +142,11 @@ main {
   justify-content: center;
 }
 
+/* Override section padding for about section */
+#about.section {
+  padding: 0;
+}
+
 .section-content {
   max-width: 1200px;
   margin: 0 auto;
@@ -845,17 +850,36 @@ main {
 
 /* About Card Layout */
 .about-card {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 6rem 4rem;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 8rem 6rem;
   display: grid;
-  grid-template-columns: 400px 1fr;
-  gap: 6rem;
+  grid-template-columns: 1fr 2fr;
+  gap: 10rem;
   align-items: start;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  border-radius: 0;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+/* Override section-content max-width for about section */
+#about .section-content {
+  max-width: none;
+  margin: 0;
+  width: 100%;
+}
+
+.about-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 33.33%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.3), transparent);
 }
 
 .about-image-container {
@@ -864,16 +888,21 @@ main {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .about-profile-pic {
-  width: 300px;
-  height: 300px;
-  border-radius: 16px;
+  width: 100%;
+  max-width: 550px;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 20px;
   object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 3px solid rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
 }
 
 .about-profile-pic:hover {
@@ -885,16 +914,18 @@ main {
 .about-text-container {
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 5rem;
+  width: 100%;
+  max-width: 800px;
 }
 
 .about-section-item {
   margin-bottom: 0;
   display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 3rem;
+  grid-template-columns: 250px 1fr;
+  gap: 4rem;
   align-items: start;
-  padding: 3rem 0;
+  padding: 4rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -1042,41 +1073,27 @@ main {
 }
 
 .case-study-icon {
-  width: 60px;
-  height: 60px;
+  width: 400px;
+  height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: none;
-  border: none;
-  border-radius: 0;
+  border-radius: 12px;
+  overflow: hidden;
   transition: all 0.3s ease;
-  box-shadow: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 .case-study-icon:hover {
-  background: none;
-  border: none;
-  transform: translateY(-2px);
-  box-shadow: none;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
 }
 
 .project-icon {
-  width: 60px;
-  height: 60px;
-  filter: invert(1) brightness(1.5) contrast(1.2);
-  opacity: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 8px;
-}
-
-.case-study-icon:hover .project-icon {
-  opacity: 1;
-  transform: scale(1.1);
-  background: rgba(255, 255, 255, 0.2);
-  filter: invert(1) brightness(1.8) contrast(1.3);
 }
 
 .case-study-number h3 {
@@ -1200,25 +1217,26 @@ main {
   .about-card,
   .case-studies,
   .contact-section {
-    max-width: 1200px;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding: 6rem 4rem;
   }
   
   .projects-section,
   .connect-section {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding: 6rem 4rem;
   }
   
   .about-card {
-    grid-template-columns: 300px 1fr;
-    gap: 4rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 8rem;
+  }
+  
+  .about-card::after {
+    left: 50%;
   }
   
   .about-section-item,
   .contact-section {
-    grid-template-columns: 180px 1fr;
+    grid-template-columns: 200px 1fr;
     gap: 3rem;
   }
   
@@ -1228,8 +1246,7 @@ main {
   }
   
   .about-profile-pic {
-    width: 250px;
-    height: 250px;
+    max-width: 450px;
   }
 }
 
@@ -1247,9 +1264,9 @@ main {
   }
   
   .about-card {
-    padding: 4rem 2rem;
+    padding: 6rem 3rem;
     grid-template-columns: 1fr;
-    gap: 4rem;
+    gap: 5rem;
     text-align: center;
   }
   
@@ -1257,23 +1274,23 @@ main {
     position: static;
     justify-content: center;
     order: -1;
+    max-width: 400px;
   }
   
   .about-profile-pic {
-    width: 200px;
-    height: 200px;
+    max-width: 350px;
   }
   
   .about-section-item {
     grid-template-columns: 1fr;
     gap: 2rem;
     text-align: left;
-    padding: 2rem 0;
+    padding: 3rem 0;
   }
   
   .projects-section,
   .connect-section {
-    padding: 6rem 2rem;
+    padding: 6rem 3rem;
   }
   
   .case-study-item,
@@ -1327,8 +1344,8 @@ main {
   }
   
   .about-profile-pic {
-    width: 160px;
-    height: 160px;
+    width: 250px;
+    height: 250px;
   }
   
   .about-section-item {
@@ -1389,8 +1406,8 @@ main {
   }
   
   .about-profile-pic {
-    width: 140px;
-    height: 140px;
+    width: 200px;
+    height: 200px;
   }
   
   .about-section-item {
@@ -1579,14 +1596,13 @@ main {
   }
   
   .case-study-icon {
-    width: 50px;
-    height: 50px;
+    width: 320px;
+    height: 240px;
   }
   
   .project-icon {
-    width: 50px;
-    height: 50px;
-    padding: 6px;
+    width: 100%;
+    height: 100%;
   }
   
   .case-study-number h3 {
@@ -1600,14 +1616,13 @@ main {
 
 @media screen and (max-width: 480px) {
   .case-study-icon {
-    width: 40px;
-    height: 40px;
+    width: 280px;
+    height: 200px;
   }
   
   .project-icon {
-    width: 40px;
-    height: 40px;
-    padding: 4px;
+    width: 100%;
+    height: 100%;
   }
   
   .case-study-number h3 {

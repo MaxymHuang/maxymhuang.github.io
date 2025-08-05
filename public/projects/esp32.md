@@ -29,6 +29,13 @@ First things first - hardware. I went with:
 - **SSD1306 OLED display**: 128x64 pixels of pure information
 - **A button**: The most high-tech user interface ever invented
 
+<video width="100%" controls>
+  <source src="/hardware.MOV" type="video/quicktime">
+  Your browser does not support the video tag.
+</video>
+
+*Here's the system in action - you can see the real-time voice-to-text transcription working with the ESP32 setup.*
+
 The pin connections were straightforward enough:
 ```
 I2S Mic: GPIO 25 (WS), GPIO 33 (SD), GPIO 26 (SCK)
