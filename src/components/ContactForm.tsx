@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ContactFormData, FormErrors, SubmitStatus } from '../types';
+import type { ContactFormData, FormErrors, SubmitStatus } from '../types';
 import './ContactForm.css';
 
 const ContactForm: React.FC = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProjectFilterProps } from '../types';
+import type { ProjectFilterProps } from '../types';
 import './ProjectFilter.css';
 
 const ProjectFilter: React.FC<ProjectFilterProps> = ({

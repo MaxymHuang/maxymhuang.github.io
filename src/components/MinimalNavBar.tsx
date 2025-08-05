@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useActiveSection } from '../hooks/useActiveSection';
-import { NavBarProps, SectionId } from '../types';
+import type { NavBarProps, SectionId } from '../types';
 import styles from './MinimalNavBar.module.css';
 
 const MinimalNavBar: React.FC<NavBarProps> = ({ onNavigate }) => {

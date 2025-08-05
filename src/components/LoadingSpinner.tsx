@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoadingSpinnerProps } from '../types';
+import type { LoadingSpinnerProps } from '../types';
 import styles from './LoadingSpinner.module.css';
 
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ 

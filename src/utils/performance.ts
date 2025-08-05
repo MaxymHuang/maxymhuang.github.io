@@ -1,6 +1,6 @@
 // Performance monitoring and optimization utilities
 
-import { PerformanceMetrics } from '../types';
+import type { PerformanceMetrics } from '../types';
 
 class PerformanceMonitor {
   private metrics: Partial<PerformanceMetrics> = {};
@@ -25,8 +25,10 @@ class PerformanceMonitor {
         // First Input Delay observer
         const fidObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries();
-          const firstEntry = entries[0];
-          this.metrics.interactionTime = firstEntry.processingStart - firstEntry.startTime;
+          const firstEntry = entries[0] as PerformanceEventTiming;
+          if (firstEntry && 'processingStart' in firstEntry) {
+            this.metrics.interactionTime = firstEntry.processingStart - firstEntry.startTime;
+          }
         });
         fidObserver.observe({ entryTypes: ['first-input'] });
 
@@ -132,7 +134,7 @@ export const debounce = <T extends (...args: any[]) => void>(
   func: T,
   wait: number
 ): ((...args: Parameters<T>) => void) => {
-  let timeout: NodeJS.Timeout;
+  let timeout: ReturnType<typeof setTimeout>;
   return (...args: Parameters<T>) => {
     clearTimeout(timeout);
     timeout = setTimeout(() => func(...args), wait);
