@@ -2,6 +2,8 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, lazy, Suspense } from 'react';
 import { siteContent } from './data/siteContent';
+import ResponsiveImage from './components/ResponsiveImage';
+import { useCriticalImagePreloader } from './hooks/useImagePreloader';
 
 // Lazy load components to reduce initial bundle size
 const ProjectDetails = lazy(() => import('./components/ProjectDetails'));
@@ -30,6 +32,9 @@ function scrollToSection(id: string) {
 
 function Home() {
   const navigate = useNavigate();
+  
+  // Preload critical above-the-fold images
+  useCriticalImagePreloader();
   const [isPDFViewerOpen, setIsPDFViewerOpen] = useState(false);
   const [activeProjectCategory, setActiveProjectCategory] = useState('all');
 
@@ -183,10 +188,13 @@ function Home() {
                      <h3>● Case Study {String(index + 1).padStart(2, '0')}</h3>
                      {project.image && (
                        <div className="case-study-icon">
-                         <img 
-                           src={project.image} 
-                           alt={`${project.title} icon`}
+                         <ResponsiveImage
+                           src={project.image}
+                           alt={`${project.title} project showcase`}
                            className="project-icon"
+                           sizes="(max-width: 768px) 300px, (max-width: 1200px) 400px, 500px"
+                           priority={index === 0} // First project gets priority loading
+                           placeholder={true}
                          />
                        </div>
                      )}

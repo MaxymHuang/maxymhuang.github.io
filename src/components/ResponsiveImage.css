@@ -1,0 +1,130 @@
+.responsive-image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: #f5f5f5;
+  transition: all 0.3s ease;
+}
+
+.responsive-image-container.loaded {
+  background-color: transparent;
+}
+
+/* Placeholder blur effect */
+.image-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.placeholder-blur {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(20px);
+  transform: scale(1.1); /* Prevent blur edge artifacts */
+  transition: opacity 0.3s ease;
+}
+
+.responsive-image-container.loaded .placeholder-blur {
+  opacity: 0;
+}
+
+/* Loading skeleton animation */
+.loading-skeleton {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+  border-radius: 12px;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Main picture element */
+.main-picture {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.main-picture.visible {
+  opacity: 1;
+}
+
+.responsive-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.responsive-img:hover {
+  transform: scale(1.02);
+}
+
+/* Error state */
+.image-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+/* Responsive sizing */
+@media (max-width: 768px) {
+  .responsive-image-container {
+    border-radius: 8px;
+  }
+  
+  .responsive-img:hover {
+    transform: none; /* Disable hover effects on mobile */
+  }
+}
+
+/* Performance optimizations */
+.responsive-image-container {
+  contain: layout style paint;
+  will-change: transform;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .responsive-image-container,
+  .placeholder-blur,
+  .main-picture,
+  .responsive-img {
+    transition: none;
+  }
+  
+  .loading-skeleton {
+    animation: none;
+    background: #e0e0e0;
+  }
+}

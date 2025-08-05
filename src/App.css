@@ -1172,6 +1172,11 @@ button:focus {
 .project-icon {
   width: 100%;
   height: 100%;
+}
+
+.project-icon .responsive-img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   transition: all 0.3s ease;
 }

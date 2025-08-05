@@ -1,60 +1,57 @@
-// Service Worker for Maxym Huang Portfolio
-// Provides offline functionality and caching
+// Enhanced Service Worker for Maxym Huang Portfolio
+// Provides advanced image caching and offline functionality
 
-const CACHE_NAME = 'maxym-portfolio-v1.0.0';
-const STATIC_CACHE = 'static-v1.0.0';
-const DYNAMIC_CACHE = 'dynamic-v1.0.0';
+const CACHE_NAME = 'maxym-portfolio-v2.0.0';
+const IMAGE_CACHE_NAME = 'portfolio-images-v2.0.0';
+const STATIC_CACHE = 'static-v2.0.0';
 
-// Assets to cache immediately
+// Critical optimized assets to cache immediately
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/coolpic.png',
+  // Critical optimized images
+  '/optimized/profilepic-400.webp',
+  '/optimized/hardware-400.webp',
+  '/optimized/profilepic-placeholder.webp',
+  '/optimized/hardware-placeholder.webp',
+  // SVG icons (small, always cache)
   '/esp32.svg',
   '/linux.svg',
-  '/hardware.png',
-  '/Resume.pdf',
-  // Add other critical assets
 ];
 
-// Assets to cache dynamically
-const DYNAMIC_ASSETS = [
-  '/src/main.tsx',
-  '/src/App.css',
-  '/src/App.tsx',
-];
-
-// Install event - cache static assets
+// Install event - cache critical assets
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing service worker...');
+  console.log('[SW] Installing enhanced service worker...');
   
   event.waitUntil(
     caches.open(STATIC_CACHE)
       .then((cache) => {
-        console.log('[SW] Caching static assets');
+        console.log('[SW] Caching critical assets');
         return cache.addAll(STATIC_ASSETS);
       })
       .then(() => {
-        console.log('[SW] Static assets cached successfully');
-        return self.skipWaiting(); // Activate immediately
+        console.log('[SW] Critical assets cached successfully');
+        return self.skipWaiting();
       })
       .catch((error) => {
-        console.error('[SW] Failed to cache static assets:', error);
+        console.error('[SW] Failed to cache critical assets:', error);
       })
   );
 });
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating service worker...');
+  console.log('[SW] Activating enhanced service worker...');
+  
+  const cacheWhitelist = [CACHE_NAME, IMAGE_CACHE_NAME, STATIC_CACHE];
   
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
-            if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
+            if (!cacheWhitelist.includes(cacheName)) {
               console.log('[SW] Deleting old cache:', cacheName);
               return caches.delete(cacheName);
             }
@@ -63,191 +60,194 @@ self.addEventListener('activate', (event) => {
       })
       .then(() => {
         console.log('[SW] Service worker activated');
-        return self.clients.claim(); // Take control immediately
+        return self.clients.claim();
       })
   );
 });
 
-// Fetch event - serve cached content with network fallback
+// Enhanced fetch event with smart caching strategies
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
-  
+
   // Skip non-GET requests
-  if (request.method !== 'GET') {
-    return;
-  }
-  
+  if (request.method !== 'GET') return;
+
   // Skip external requests
-  if (url.origin !== location.origin) {
-    return;
+  if (url.origin !== self.location.origin) return;
+
+  // Route to appropriate caching strategy
+  if (isImageRequest(request)) {
+    event.respondWith(handleImageRequest(request));
+  } else if (isStaticAsset(request)) {
+    event.respondWith(handleStaticAsset(request));
+  } else {
+    event.respondWith(handleDynamicRequest(request));
   }
+});
+
+// Check if request is for an image
+function isImageRequest(request) {
+  return request.destination === 'image' || 
+         request.url.includes('/optimized/') ||
+         /\.(png|jpg|jpeg|webp|avif|svg|gif)$/i.test(new URL(request.url).pathname);
+}
+
+// Check if request is for a static asset
+function isStaticAsset(request) {
+  const url = new URL(request.url);
+  return url.pathname.includes('/manifest.json') ||
+         url.pathname.includes('/sw.js') ||
+         url.pathname === '/' ||
+         url.pathname === '/index.html';
+}
+
+// Advanced image caching with format preference and size management
+async function handleImageRequest(request) {
+  const url = new URL(request.url);
   
-  event.respondWith(
-    caches.match(request)
-      .then((cachedResponse) => {
-        if (cachedResponse) {
-          console.log('[SW] Serving from cache:', request.url);
-          return cachedResponse;
-        }
-        
-        // Not in cache, fetch from network
-        return fetch(request)
-          .then((networkResponse) => {
-            // Don't cache non-successful responses
-            if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-              return networkResponse;
-            }
-            
-            // Clone the response
-            const responseToCache = networkResponse.clone();
-            
-            // Cache dynamic assets
-            if (shouldCacheDynamically(request.url)) {
-              caches.open(DYNAMIC_CACHE)
-                .then((cache) => {
-                  console.log('[SW] Caching dynamic asset:', request.url);
-                  cache.put(request, responseToCache);
-                });
-            }
-            
-            return networkResponse;
-          })
-          .catch((error) => {
-            console.log('[SW] Network request failed:', request.url, error);
-            
-            // Return offline fallback for navigation requests
-            if (request.destination === 'document') {
-              return caches.match('/index.html');
-            }
-            
-            // Return cached version or offline indicator
-            return new Response(
-              JSON.stringify({
-                error: 'Offline',
-                message: 'This content is not available offline'
-              }),
-              {
-                status: 503,
-                statusText: 'Service Unavailable',
-                headers: new Headers({
-                  'Content-Type': 'application/json'
-                })
-              }
-            );
-          });
-      })
-  );
-});
-
-// Helper function to determine if asset should be cached
-function shouldCacheDynamically(url) {
-  // Cache JS, CSS, and image files
-  return /\.(js|css|png|jpg|jpeg|gif|svg|webp|ico)$/i.test(url) ||
-         url.includes('/src/') ||
-         url.includes('/assets/');
-}
-
-// Background sync for form submissions
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'contact-form-sync') {
-    console.log('[SW] Background sync: contact-form-sync');
-    event.waitUntil(syncContactForm());
-  }
-});
-
-// Sync contact form submissions when back online
-async function syncContactForm() {
   try {
-    const db = await openDB();
-    const tx = db.transaction(['pending-forms'], 'readonly');
-    const store = tx.objectStore('pending-forms');
-    const pendingForms = await store.getAll();
-    
-    for (const form of pendingForms) {
-      try {
-        const response = await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(form.data).toString()
-        });
-        
-        if (response.ok) {
-          // Remove from pending queue
-          const deleteTx = db.transaction(['pending-forms'], 'readwrite');
-          const deleteStore = deleteTx.objectStore('pending-forms');
-          await deleteStore.delete(form.id);
-          console.log('[SW] Form submission synced successfully');
-        }
-      } catch (error) {
-        console.error('[SW] Failed to sync form submission:', error);
-      }
+    // Check cache first (Cache First strategy for images)
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) {
+      console.log('[SW] Image served from cache:', url.pathname);
+      return cachedResponse;
     }
+
+    // Fetch from network
+    console.log('[SW] Fetching image from network:', url.pathname);
+    const response = await fetch(request);
+    
+    if (response.ok) {
+      // Clone response for caching
+      const responseClone = response.clone();
+      
+      // Use dedicated image cache
+      const imageCache = await caches.open(IMAGE_CACHE_NAME);
+      
+      // Implement cache size management (max 100 images)
+      await manageCacheSize(imageCache, 100);
+      
+      await imageCache.put(request, responseClone);
+      console.log('[SW] Image cached:', url.pathname);
+    }
+    
+    return response;
   } catch (error) {
-    console.error('[SW] Background sync failed:', error);
+    console.error('[SW] Image fetch failed:', url.pathname, error);
+    
+    // Try to return cached version
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+    
+    // Return placeholder for failed image loads
+    return new Response('', { 
+      status: 404,
+      statusText: 'Image not found'
+    });
   }
 }
 
-// Simple IndexedDB helper
-function openDB() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open('portfolio-db', 1);
+// Cache First strategy for static assets
+async function handleStaticAsset(request) {
+  try {
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) {
+      console.log('[SW] Static asset served from cache:', request.url);
+      return cachedResponse;
+    }
+
+    const response = await fetch(request);
+    if (response.ok) {
+      const responseClone = response.clone();
+      const cache = await caches.open(STATIC_CACHE);
+      await cache.put(request, responseClone);
+      console.log('[SW] Static asset cached:', request.url);
+    }
     
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve(request.result);
+    return response;
+  } catch (error) {
+    const cachedResponse = await caches.match(request);
+    return cachedResponse || new Response('Asset not available offline', {
+      status: 503,
+      statusText: 'Service Unavailable'
+    });
+  }
+}
+
+// Network First strategy for dynamic content
+async function handleDynamicRequest(request) {
+  try {
+    const response = await fetch(request);
     
-    request.onupgradeneeded = (event) => {
-      const db = event.target.result;
-      if (!db.objectStoreNames.contains('pending-forms')) {
-        db.createObjectStore('pending-forms', { keyPath: 'id' });
-      }
-    };
+    if (response.ok) {
+      const responseClone = response.clone();
+      const cache = await caches.open(CACHE_NAME);
+      await cache.put(request, responseClone);
+    }
+    
+    return response;
+  } catch (error) {
+    console.log('[SW] Network failed, trying cache:', request.url);
+    const cachedResponse = await caches.match(request);
+    return cachedResponse || new Response('Content not available offline', {
+      status: 503,
+      statusText: 'Service Unavailable'
+    });
+  }
+}
+
+// Cache size management to prevent unlimited growth
+async function manageCacheSize(cache, maxEntries) {
+  const keys = await cache.keys();
+  
+  if (keys.length >= maxEntries) {
+    console.log(`[SW] Cache size limit reached (${keys.length}/${maxEntries}), cleaning up...`);
+    
+    // Remove oldest entries (FIFO strategy)
+    const entriesToDelete = keys.slice(0, keys.length - maxEntries + 10);
+    await Promise.all(entriesToDelete.map(key => cache.delete(key)));
+    
+    console.log(`[SW] Removed ${entriesToDelete.length} old cache entries`);
+  }
+}
+
+// Background sync for failed image loads (if supported)
+if ('sync' in self.registration) {
+  self.addEventListener('sync', (event) => {
+    if (event.tag === 'image-retry') {
+      event.waitUntil(retryFailedImages());
+    }
   });
 }
 
-// Push notification handling (for future use)
-self.addEventListener('push', (event) => {
-  console.log('[SW] Push notification received');
-  
-  const options = {
-    body: event.data ? event.data.text() : 'New update available!',
-    icon: '/coolpic.png',
-    badge: '/coolpic.png',
-    vibrate: [100, 50, 100],
-    data: {
-      dateOfArrival: Date.now(),
-      primaryKey: 1
-    },
-    actions: [
-      {
-        action: 'explore',
-        title: 'View Portfolio',
-        icon: '/esp32.svg'
-      },
-      {
-        action: 'close',
-        title: 'Close',
-        icon: '/linux.svg'
-      }
-    ]
-  };
-  
-  event.waitUntil(
-    self.registration.showNotification('Maxym Huang Portfolio', options)
-  );
-});
+async function retryFailedImages() {
+  // Implementation for retrying failed image loads
+  console.log('[SW] Retrying failed image loads...');
+}
 
-// Handle notification clicks
-self.addEventListener('notificationclick', (event) => {
-  console.log('[SW] Notification clicked:', event.action);
-  
-  event.notification.close();
-  
-  if (event.action === 'explore') {
-    event.waitUntil(
-      clients.openWindow('/')
-    );
+// Performance monitoring
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  } else if (event.data && event.data.type === 'CACHE_STATS') {
+    getCacheStats().then(stats => {
+      event.ports[0].postMessage(stats);
+    });
   }
 });
 
-console.log('[SW] Service worker script loaded');
+async function getCacheStats() {
+  const cacheNames = await caches.keys();
+  const stats = {};
+  
+  for (const cacheName of cacheNames) {
+    const cache = await caches.open(cacheName);
+    const keys = await cache.keys();
+    stats[cacheName] = keys.length;
+  }
+  
+  return stats;
+}

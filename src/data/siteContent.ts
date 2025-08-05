@@ -37,7 +37,7 @@ export const siteContent = {
       title: 'ESP32 Projects',
       description: 'Collection of IoT projects using ESP32 microcontrollers, including home automation, sensor networks, and custom firmware development.',
       logo: '/esp32.svg',
-      image: '/hardware.png',
+      image: '/hardware.png', // Will be handled by ResponsiveImage component
       categories: ['iot', 'fullstack'],
       tags: ['ESP32', 'IoT', 'Hardware', 'C++', 'Arduino'],
       links: [
@@ -79,7 +79,7 @@ export const siteContent = {
       title: 'Homelab Setup',
       description: 'Personal homelab infrastructure with Proxmox, Docker containers, and automated deployment pipelines. Includes monitoring, backup solutions, and network configuration.',
       logo: '/linux.svg',
-      image: '/linux.svg',
+      image: '/linux.svg', // SVG will load directly
       categories: ['infrastructure', 'fullstack'],
       tags: ['Proxmox', 'Docker', 'Kubernetes', 'Linux', 'DevOps'],
       links: [

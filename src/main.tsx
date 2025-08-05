@@ -2,7 +2,8 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import { performanceMonitor } from './utils/performance'
+import { performanceMonitor } from './utils/performance';
+import { imagePerformanceMonitor, checkImageFormatSupport } from './utils/imagePerformance';
 
 // Register Service Worker
 if ('serviceWorker' in navigator) {
@@ -50,7 +51,20 @@ if ('serviceWorker' in navigator) {
 window.addEventListener('load', () => {
   setTimeout(() => {
     performanceMonitor.logMetrics();
+    imagePerformanceMonitor.logPerformanceReport();
   }, 1000);
+});
+
+// Check image format support and log results
+checkImageFormatSupport().then(support => {
+  console.log('🖼️ Image format support:', support);
+  if (support.avif) {
+    console.log('✅ AVIF supported - using best compression');
+  } else if (support.webp) {
+    console.log('✅ WebP supported - using good compression');
+  } else {
+    console.log('⚠️ Using fallback formats - consider upgrading browser');
+  }
 });
 
 createRoot(document.getElementById('root')!).render(
