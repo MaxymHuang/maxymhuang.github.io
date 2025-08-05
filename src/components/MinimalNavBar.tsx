@@ -1,69 +1,98 @@
-import React from 'react';
-
-interface NavBarProps {
-  onNavigate: (sectionId: string) => void;
-}
+import React, { useState, useEffect } from 'react';
+import { useActiveSection } from '../hooks/useActiveSection';
+import { NavBarProps, SectionId } from '../types';
+import styles from './MinimalNavBar.module.css';
 
 const MinimalNavBar: React.FC<NavBarProps> = ({ onNavigate }) => {
-  const navItems = [
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const activeSection = useActiveSection();
+
+  const navItems: Array<{ id: SectionId; label: string }> = [
     { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Projects' },
     { id: 'journey', label: 'Experience' },
+    { id: 'projects', label: 'Projects' },
     { id: 'connect', label: 'Connect' }
   ];
 
+  // Handle navigation click
+  const handleNavClick = (sectionId: string) => {
+    onNavigate(sectionId);
+    setIsMobileMenuOpen(false); // Close mobile menu
+  };
+
+  // Close mobile menu on escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   return (
-    <nav style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      background: 'rgba(0, 0, 0, 0.95)',
-      backdropFilter: 'blur(10px)',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-      padding: '1rem 2rem',
-      zIndex: 1000,
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center'
-    }}>
-      <div style={{
-        fontFamily: 'Metropolis, Arial, Helvetica, sans-serif',
-        fontSize: '1.2rem',
-        fontWeight: 700,
-        color: '#fff',
-        letterSpacing: '0.05em'
-      }}>
-        MAXYM HUANG
-      </div>
+    <nav className={styles.navbar} role="navigation" aria-label="Main navigation">
+      <div className={styles.navbarBrand}>MAXYM HUANG</div>
       
-      <div style={{
-        display: 'flex',
-        gap: '2rem'
-      }}>
+      {/* Desktop Navigation */}
+      <div className={styles.desktopNav}>
         {navItems.map((item) => (
           <button
             key={item.id}
-            onClick={() => onNavigate(item.id)}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: '#fff',
-              fontFamily: 'Metropolis, Arial, Helvetica, sans-serif',
-              fontSize: '0.9rem',
-              fontWeight: 400,
-              cursor: 'pointer',
-              textTransform: 'uppercase',
-              letterSpacing: '0.1em',
-              transition: 'opacity 0.3s ease',
-              padding: '0.5rem 0'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.opacity = '0.7';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.opacity = '1';
-            }}
+            onClick={() => handleNavClick(item.id)}
+            className={`${styles.navBtn} ${activeSection === item.id ? styles.active : ''}`}
+            aria-label={`Navigate to ${item.label} section`}
+            aria-current={activeSection === item.id ? 'page' : undefined}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Mobile Menu Button */}
+      <button
+        className={styles.mobileMenuBtn}
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        aria-label="Toggle mobile menu"
+        aria-expanded={isMobileMenuOpen ? 'true' : 'false'}
+        aria-controls="mobile-navigation"
+      >
+        <span className={`${styles.hamburger} ${isMobileMenuOpen ? styles.open : ''}`}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+
+      {/* Mobile Navigation */}
+      <div 
+        id="mobile-navigation"
+        className={`${styles.mobileNav} ${isMobileMenuOpen ? styles.open : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation menu"
+      >
+        {navItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => handleNavClick(item.id)}
+            className={`${styles.mobileNavBtn} ${activeSection === item.id ? styles.active : ''}`}
+            aria-current={activeSection === item.id ? 'page' : undefined}
           >
             {item.label}
           </button>
@@ -73,4 +102,4 @@ const MinimalNavBar: React.FC<NavBarProps> = ({ onNavigate }) => {
   );
 };
 
-export default MinimalNavBar; 
+export default MinimalNavBar;

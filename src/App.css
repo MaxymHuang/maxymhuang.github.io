@@ -127,7 +127,7 @@ body {
 }
 
 /* Main Content */
-main {
+.main-content {
   width: 100%;
   min-height: 100vh;
   padding-top: 80px;
@@ -676,6 +676,86 @@ main {
   transform: translateY(-1px);
 }
 
+/* Accessibility & Focus States */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #39ff14;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 10000;
+  font-weight: 600;
+  font-family: var(--font-primary);
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Enhanced Focus States */
+*:focus {
+  outline: 2px solid #39ff14;
+  outline-offset: 2px;
+}
+
+.nav-btn:focus,
+.contact-button-clean:focus,
+.case-study-link:focus,
+button:focus {
+  outline: 2px solid #39ff14;
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :root {
+    --text: #ffffff;
+    --background: #000000;
+    --border: #ffffff;
+    --text-light: #cccccc;
+  }
+  
+  .nav-btn.active::after {
+    background: #ffffff;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Keyboard Navigation Enhancement */
+.case-study-link:focus,
+.clean-contact-link:focus {
+  background-color: rgba(57, 255, 20, 0.1);
+  border-radius: 4px;
+}
+
+/* Screen Reader Only Content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Responsive Design */
 @media (max-width: 992px) {
   .scrolling-text {
@@ -1163,11 +1243,35 @@ main {
 .contact-section {
   max-width: 1400px;
   margin: 0 auto;
+  padding: 4rem 0;
+}
+
+.contact-content {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 2fr 1fr;
   gap: 6rem;
   align-items: start;
-  padding: 4rem 0;
+  margin-top: 4rem;
+}
+
+.contact-form-section {
+  width: 100%;
+}
+
+.contact-links-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact-links-title {
+  font-family: var(--font-primary);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .contact-header {
@@ -1196,20 +1300,56 @@ main {
   color: var(--text);
   text-decoration: none;
   font-family: 'Metropolis', Arial, Helvetica, sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 400;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
   text-transform: capitalize;
-  padding: 0.5rem 0;
+  padding: 1rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.clean-contact-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  transition: left 0.5s ease;
+}
+
+.clean-contact-link:hover::before {
+  left: 100%;
 }
 
 .clean-contact-link:hover {
-  opacity: 0.7;
+  color: #39ff14;
+  border-bottom-color: #39ff14;
+  transform: translateX(4px);
+}
+
+.clean-contact-link:focus {
+  outline: 2px solid #39ff14;
+  outline-offset: 2px;
 }
 
 .clean-contact-link:last-child {
   border-bottom: none;
+}
+
+.contact-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.clean-contact-link:hover .contact-icon {
+  transform: translateX(4px);
 }
 
 /* Responsive Design for Grid Layout */
@@ -1293,11 +1433,15 @@ main {
     padding: 6rem 3rem;
   }
   
-  .case-study-item,
-  .contact-section {
+  .case-study-item {
     grid-template-columns: 1fr;
     gap: 4rem;
     text-align: left;
+  }
+  
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 4rem;
   }
   
   .section-number,
@@ -1382,8 +1526,13 @@ main {
     padding: 2rem 0;
   }
   
-  .contact-section {
-    padding: 2rem 0;
+  .contact-content {
+    margin-top: 3rem;
+    gap: 3rem;
+  }
+  
+  .contact-links-section {
+    gap: 1.5rem;
   }
 }
 
@@ -1440,9 +1589,18 @@ main {
     padding: 1.5rem 0;
   }
   
-  .contact-section {
+  .contact-content {
+    margin-top: 2rem;
     gap: 2rem;
-    padding: 1.5rem 0;
+  }
+  
+  .contact-links-title {
+    font-size: 1rem;
+  }
+  
+  .clean-contact-link {
+    font-size: 1rem;
+    padding: 0.75rem 0;
   }
 }
 
@@ -1465,7 +1623,102 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 3rem;
-  }
+}
+
+/* Hero Subtitle and CTAs */
+.hero-subtitle {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.5rem 0;
+  font-family: var(--font-primary);
+}
+
+.hero-role {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text-light);
+  margin: 0 0 2rem 0;
+  font-family: var(--font-primary);
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0 0 3rem 0;
+  font-family: var(--font-primary);
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  border: 2px solid var(--text);
+  background: none;
+  color: var(--text);
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-cta.primary {
+  background: var(--text);
+  color: var(--background);
+}
+
+.hero-cta.primary:hover {
+  background: transparent;
+  color: var(--text);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+}
+
+.hero-cta.secondary:hover {
+  background: var(--text);
+  color: var(--background);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+}
+
+.hero-cta:focus {
+  outline: 2px solid #39ff14;
+  outline-offset: 2px;
+}
+
+.cta-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.hero-cta:hover .cta-icon {
+  transform: translateX(4px);
+}
+
+.hero-cta.secondary:hover .cta-icon {
+  transform: translateY(2px);
+}
   
   .hero-profile-section {
   display: flex;
