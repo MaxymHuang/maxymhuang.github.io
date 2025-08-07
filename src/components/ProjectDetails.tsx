@@ -5,57 +5,12 @@ import TableOfContents from "./TableOfContents";
 import './ProjectDetails.css';
 
 const MenuBar = () => (
-  <nav style={{
-    background: 'rgba(0, 0, 0, 0.95)',
-    backdropFilter: 'blur(10px)',
-    padding: '1.5rem 3rem',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-    borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
-  }}>
-    <span style={{
-      fontFamily: 'Metropolis, Arial, Helvetica, sans-serif',
-      fontWeight: 700,
-      color: '#ffffff',
-      fontSize: '1.2rem',
-      letterSpacing: '0.05em',
-      textTransform: 'uppercase'
-    }}>MAXYM HUANG</span>
-    <div style={{ display: 'flex', gap: '2.5rem' }}>
-      <a href="/" style={{ 
-        color: '#fff', 
-        textDecoration: 'none', 
-        fontWeight: 400, 
-        fontFamily: 'Metropolis, Arial, Helvetica, sans-serif',
-        fontSize: '0.9rem',
-        textTransform: 'uppercase',
-        letterSpacing: '0.1em',
-        transition: 'opacity 0.3s ease'
-      }}>Home</a>
-      <a href="/#projects" style={{ 
-        color: '#fff', 
-        textDecoration: 'none', 
-        fontWeight: 400, 
-        fontFamily: 'Metropolis, Arial, Helvetica, sans-serif',
-        fontSize: '0.9rem',
-        textTransform: 'uppercase',
-        letterSpacing: '0.1em',
-        transition: 'opacity 0.3s ease'
-      }}>Case Studies</a>
-      <a href="/#connect" style={{ 
-        color: '#fff', 
-        textDecoration: 'none', 
-        fontWeight: 400, 
-        fontFamily: 'Metropolis, Arial, Helvetica, sans-serif',
-        fontSize: '0.9rem',
-        textTransform: 'uppercase',
-        letterSpacing: '0.1em',
-        transition: 'opacity 0.3s ease'
-      }}>Connect</a>
+  <nav className="project-menu-bar">
+    <span className="project-menu-brand">MAXYM HUANG</span>
+    <div className="project-menu-nav">
+      <a href="/" className="project-menu-link">Home</a>
+      <a href="/#projects" className="project-menu-link">Case Studies</a>
+      <a href="/#connect" className="project-menu-link">Connect</a>
     </div>
   </nav>
 );
@@ -97,14 +52,7 @@ const ProjectDetails: React.FC<{ projects: any[] }> = ({ projects }) => {
     return (
       <>
         <MenuBar />
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          minHeight: '50vh',
-          fontFamily: 'Metropolis, Arial, Helvetica, sans-serif',
-          color: '#ffffff'
-        }}>
+        <div className="project-loading">
           Loading...
         </div>
       </>

@@ -94,6 +94,7 @@
   font-size: 14px;
   color: #666;
   text-align: center;
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
 
