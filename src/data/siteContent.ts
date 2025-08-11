@@ -159,6 +159,50 @@ export const siteContent = {
           'Optimized embedding generation and caching'
         ]
       }
+    },
+    {
+      id: 'opnsense-router',
+      title: 'OPNSense Network Switch Implementation',
+      description: 'Innovative home lab solution repurposing OPNSense router as a Layer 2 network switch by bridging multiple interfaces, providing cost-effective network expansion without additional hardware.',
+      logo: '/linux.svg',
+      image: null,
+      categories: ['infrastructure', 'fullstack'],
+      tags: ['OPNSense', 'Networking', 'Bridging', 'Home Lab', 'Layer 2', 'Network Switch'],
+      links: [
+        { label: 'Project Documentation', url: '/projects/router.md' },
+        { label: 'Configuration Guide', url: '#' }
+      ],
+      details: {
+        overview: 'A practical home lab networking solution that transforms OPNSense from a traditional router into a software-based Layer 2 switch by bridging multiple physical interfaces, enabling network expansion without purchasing additional switching hardware.',
+        technologies: [
+          'OPNSense Firewall/Router',
+          'FreeBSD Network Stack',
+          'Software Bridging',
+          'Layer 2 Switching',
+          'Interface Management',
+          'Network Interface Cards (NICs)'
+        ],
+        features: [
+          'Software-based Layer 2 bridging',
+          'Multiple physical port aggregation',
+          'Cost-effective network expansion',
+          'Unified firewall and switching management',
+          'Flexible interface assignment',
+          'Hardware repurposing capabilities'
+        ],
+        challenges: [
+          'Software bridging performance limitations',
+          'CPU overhead for high-throughput scenarios',
+          'Missing managed switch features (VLAN tagging, STP)',
+          'Manual configuration complexity'
+        ],
+        solutions: [
+          'Implemented bridge interface configuration',
+          'Optimized for low-to-moderate traffic loads',
+          'Balanced flexibility over peak performance',
+          'Leveraged existing OPNSense infrastructure'
+        ]
+      }
     }
   ],
   
@@ -188,10 +232,10 @@ export const siteContent = {
   },
   
   projectCategories: [
-    { id: 'all', label: 'All Projects', count: 3 },
+    { id: 'all', label: 'All Projects', count: 4 },
     { id: 'iot', label: 'IoT & Hardware', count: 1 },
     { id: 'ai', label: 'AI & ML', count: 1 },
-    { id: 'infrastructure', label: 'Infrastructure', count: 1 },
-    { id: 'fullstack', label: 'Full Stack', count: 2 }
+    { id: 'infrastructure', label: 'Infrastructure', count: 2 },
+    { id: 'fullstack', label: 'Full Stack', count: 3 }
   ]
 }; 
