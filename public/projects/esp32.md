@@ -29,9 +29,12 @@ First things first - hardware. I went with:
 - **SSD1306 OLED display**: 128x64 pixels of pure information
 - **A button**: The most high-tech user interface ever invented
 
-<video width="100%" controls>
-  <source src="/hardware.MOV" type="video/quicktime">
+<video width="100%" controls playsinline preload="metadata" poster="/hardware.png">
+  <source src="/hardware-1080-ccw.mp4" type="video/mp4" />
+  <source src="/hardware-ccw.webm" type="video/webm" />
+  <source src="/hardware.MOV" type="video/quicktime" />
   Your browser does not support the video tag.
+  <a href="/hardware-1080.mp4">Download the video</a>.
 </video>
 
 *Here's the system in action - you can see the real-time voice-to-text transcription working with the ESP32 setup.*

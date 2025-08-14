@@ -410,7 +410,7 @@
 .project-details-layout {
   min-height: 100vh;
   background-color: var(--background);
-  padding: 2rem 0;
+  padding: 6rem 0 2rem; /* account for fixed navbar height */
 }
 
 .markdown-project-details {

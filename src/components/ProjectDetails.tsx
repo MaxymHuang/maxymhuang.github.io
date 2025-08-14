@@ -1,19 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import MarkdownRenderer from "./MarkdownRenderer";
 import TableOfContents from "./TableOfContents";
 import './ProjectDetails.css';
-
-const MenuBar = () => (
-  <nav className="project-menu-bar">
-    <span className="project-menu-brand">MAXYM HUANG</span>
-    <div className="project-menu-nav">
-      <a href="/" className="project-menu-link">Home</a>
-      <a href="/#projects" className="project-menu-link">Case Studies</a>
-      <a href="/#connect" className="project-menu-link">Connect</a>
-    </div>
-  </nav>
-);
+const MinimalNavBar = lazy(() => import('./MinimalNavBar'));
 
 const ProjectDetails: React.FC<{ projects: any[] }> = ({ projects }) => {
   const { id } = useParams<{ id: string }>();
@@ -22,8 +12,13 @@ const ProjectDetails: React.FC<{ projects: any[] }> = ({ projects }) => {
   const [markdownContent, setMarkdownContent] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
 
-  // Assume markdown file is always /projects/{id}.md
-  const markdownFile = `/projects/${project?.id}.md`;
+  // Map project ids to markdown slugs if needed
+  const getMarkdownSlug = (pid?: string) => {
+    if (!pid) return '';
+    if (pid === 'opnsense-router') return 'router';
+    return pid;
+  };
+  const markdownFile = `/projects/${getMarkdownSlug(project?.id)}.md`;
 
   // Fetch markdown content for TOC
   useEffect(() => {
@@ -51,7 +46,15 @@ const ProjectDetails: React.FC<{ projects: any[] }> = ({ projects }) => {
   if (isLoading) {
     return (
       <>
-        <MenuBar />
+        <Suspense fallback={<div />}> 
+          <MinimalNavBar onNavigate={(sectionId: string) => {
+            if (sectionId.startsWith('#')) {
+              window.location.href = `/${sectionId}`;
+            } else {
+              window.location.href = `/#${sectionId}`;
+            }
+          }} />
+        </Suspense>
         <div className="project-loading">
           Loading...
         </div>
@@ -61,7 +64,15 @@ const ProjectDetails: React.FC<{ projects: any[] }> = ({ projects }) => {
 
   return (
     <>
-      <MenuBar />
+      <Suspense fallback={<div />}> 
+        <MinimalNavBar onNavigate={(sectionId: string) => {
+          if (sectionId.startsWith('#')) {
+            window.location.href = `/${sectionId}`;
+          } else {
+            window.location.href = `/#${sectionId}`;
+          }
+        }} />
+      </Suspense>
       <div className="project-details-layout">
         <div className="markdown-project-details markdown-content">
           <MarkdownRenderer file={markdownFile} />

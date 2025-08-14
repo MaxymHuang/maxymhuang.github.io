@@ -1,9 +1,9 @@
-import './App.css';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import { useState, lazy, Suspense } from 'react';
+import { useMemo, useState, lazy, Suspense } from 'react';
 import { siteContent } from './data/siteContent';
 import ResponsiveImage from './components/ResponsiveImage';
 import { useCriticalImagePreloader } from './hooks/useImagePreloader';
+import MarkdownRenderer from './components/MarkdownRenderer';
 
 // Lazy load components to reduce initial bundle size
 const ProjectDetails = lazy(() => import('./components/ProjectDetails'));
@@ -37,6 +37,8 @@ function Home() {
   useCriticalImagePreloader();
   const [isPDFViewerOpen, setIsPDFViewerOpen] = useState(false);
   const [activeProjectCategory, setActiveProjectCategory] = useState('all');
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+  const [isInlineOpen, setIsInlineOpen] = useState<boolean>(true);
 
   // Handler for nav bar navigation
   const handleNavClick = (sectionId: string) => {
@@ -55,42 +57,45 @@ function Home() {
   };
 
   // Filter projects based on active category
-  const filteredProjects = activeProjectCategory === 'all' 
-    ? projects 
-    : projects.filter(project => 
-        project.categories && project.categories.includes(activeProjectCategory)
-      );
+  const filteredProjects = useMemo(() => (
+    activeProjectCategory === 'all'
+      ? projects
+      : projects.filter(project => project.categories && project.categories.includes(activeProjectCategory))
+  ), [activeProjectCategory]);
+
+  const getMarkdownSlug = (id: string) => {
+    if (id === 'opnsense-router') return 'router';
+    return id;
+  };
 
   return (
-    <div className="portfolio-root">
+    <div className="min-h-screen bg-background">
       <Suspense fallback={<LoadingSpinner />}>
         <MinimalNavBar onNavigate={handleNavClick} />
       </Suspense>
-      <main id="main-content" className="main-content">
+      <main id="main-content" className="">
         {/* Hero Section */}
-        <section className="hero-section">
-          <div className="hero-container">
-            <div className="hero-content">
+        <section className="relative isolate pt-28 pb-20 sm:pt-32">
+          <div className="container">
+            <div className="mx-auto max-w-4xl text-center">
               <Suspense fallback={<LoadingSpinner />}>
                 <BlurText 
                   text={siteContent.hero.name}
-                  className="about-blur-heading"
+                  className="text-5xl sm:text-6xl font-semibold tracking-tight text-center justify-center"
                   delay={100}
                   animateBy="words"
                 />
               </Suspense>
-              
-              <div className="hero-subtitle">
-                <h2 className="hero-title">{siteContent.hero.title}</h2>
-                <h3 className="hero-role">{siteContent.hero.subtitle}</h3>
-                <p className="hero-description">{siteContent.hero.description}</p>
+              <div className="mt-6 space-y-3">
+                <h2 className="text-2xl sm:text-3xl text-foreground">{siteContent.hero.title}</h2>
+                <h3 className="text-lg sm:text-xl text-muted">{siteContent.hero.subtitle}</h3>
+                <p className="text-base sm:text-lg text-muted/90">{siteContent.hero.description}</p>
               </div>
-              
-              <div className="hero-ctas">
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
                 {siteContent.hero.ctas.map((cta) => (
                   <button
                     key={cta.id}
-                    className={`hero-cta ${cta.primary ? 'primary' : 'secondary'}`}
+                    className={`${cta.primary ? 'bg-foreground text-background' : 'bg-subtle text-foreground'} inline-flex items-center gap-2 rounded-md px-4 py-2 shadow-soft hover:opacity-90 transition`}
                     onClick={() => {
                       if (cta.action === 'scroll') {
                         scrollToSection(cta.target);
@@ -101,7 +106,7 @@ function Home() {
                     aria-label={cta.label}
                   >
                     <span>{cta.label}</span>
-                    <span className="cta-icon">{cta.icon}</span>
+                    <span aria-hidden>{cta.icon}</span>
                   </button>
                 ))}
               </div>
@@ -109,147 +114,172 @@ function Home() {
           </div>
         </section>
 
-        <section id="about" className="section">
-          <div className="section-content">
-            <div className="about-card">
-              <div className="about-image-container">
+        <section id="about" className="py-16 sm:py-20">
+          <div className="container">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+              <div className="md:col-span-1">
                 <img 
                   src="/coolpic.png" 
                   alt="Maxym Huang" 
-                  className="about-profile-pic"
+                  className="w-40 h-40 rounded-xl object-cover shadow-soft ring-1 ring-border mx-auto md:mx-0"
                 />
               </div>
-              
-              <div className="about-text-container">
-                                 <div className="about-section-item">
-                   <h3 className="section-number">● About</h3>
-                   <div className="section-text">
-                     <p className="about-education">{siteContent.about.education}</p>
-                     <p className="about-description">
-                       {siteContent.about.description}
-                     </p>
-                   </div>
-                 </div>
-
-                 <div className="about-section-item">
-                   <h3 className="section-number">● Technical Skills</h3>
-                   <div className="skills-list-text">
-                     <p>{siteContent.about.skills}</p>
-                   </div>
-                 </div>
-
-                 <div className="about-section-item">
-                   <h3 className="section-number">● Contact</h3>
-                   <div className="section-text">
-                     <p>{siteContent.about.contactMessage}</p>
-                     <button 
-                       className="contact-button-clean"
-                       onClick={handleContactClick}
-                     >
-                       Get In Touch
-                     </button>
-                   </div>
-                 </div>
+              <div className="md:col-span-2 space-y-8">
+                <div>
+                  <h3 className="text-sm uppercase tracking-wider text-muted">About</h3>
+                  <p className="mt-2 text-foreground font-medium">{siteContent.about.education}</p>
+                  <p className="mt-2 text-muted">{siteContent.about.description}</p>
+                </div>
+                <div>
+                  <h3 className="text-sm uppercase tracking-wider text-muted">Technical Skills</h3>
+                  <p className="mt-2 text-muted">{siteContent.about.skills}</p>
+                </div>
+                <div>
+                  <h3 className="text-sm uppercase tracking-wider text-muted">Contact</h3>
+                  <p className="mt-2 text-muted">{siteContent.about.contactMessage}</p>
+                  <button 
+                    className="mt-4 inline-flex items-center rounded-md bg-accent/20 text-foreground px-4 py-2 hover:bg-accent/30 transition"
+                    onClick={handleContactClick}
+                  >
+                    Get In Touch
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="journey" className="section">
-          <div className="section-content">
-            <h2>My Journey</h2>
-            <Suspense fallback={<LoadingSpinner />}>
-              <Timeline />
-            </Suspense>
+        <section id="journey" className="py-16 sm:py-20">
+          <div className="container">
+            <h2 className="text-2xl font-semibold">Experience</h2>
+            <div className="mt-8">
+              <Suspense fallback={<LoadingSpinner />}>
+                <Timeline />
+              </Suspense>
+            </div>
           </div>
         </section>
 
-        <section id="projects" className="section projects-section">
-          <div className="section-content">
-            {/* Section header like Dan's design */}
-            <div className="section-header">
-              <h2 className="section-title">Case Studies:</h2>
+        <section id="projects" className="py-16 sm:py-20">
+          <div className="container">
+            <div className="flex items-end justify-between gap-4">
+              <h2 className="text-2xl font-semibold">Projects</h2>
             </div>
-            
-            {/* Project Filter */}
-            <Suspense fallback={<LoadingSpinner />}>
-              <ProjectFilter
-                categories={siteContent.projectCategories}
-                activeCategory={activeProjectCategory}
-                onCategoryChange={setActiveProjectCategory}
-              />
-            </Suspense>
-            
-            {/* Projects as case studies - redesigned to match Dan's layout */}
-            <div className="case-studies" id="projects-grid">
+            <div className="mt-6">
+              <Suspense fallback={<LoadingSpinner />}>
+                <ProjectFilter
+                  categories={siteContent.projectCategories}
+                  activeCategory={activeProjectCategory}
+                  onCategoryChange={(cat) => { setActiveProjectCategory(cat); setSelectedProjectId(null); }}
+                />
+              </Suspense>
+            </div>
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6" id="projects-grid">
               {filteredProjects.map((project, index) => (
-                <div key={project.id} className="case-study-item">
-                                     <div className="case-study-number">
-                     <h3>● Case Study {String(index + 1).padStart(2, '0')}</h3>
-                     {project.image && (
-                       <div className="case-study-icon">
-                         <ResponsiveImage
-                           src={project.image}
-                           alt={`${project.title} project showcase`}
-                           className="project-icon"
-                           sizes="(max-width: 768px) 300px, (max-width: 1200px) 400px, 500px"
-                           priority={index === 0} // First project gets priority loading
-                           placeholder={true}
-                         />
-                       </div>
-                     )}
-                   </div>
-                  
-                  <div className="case-study-content">
-                    <h2 className="case-study-title">{project.title}</h2>
-                    <p className="case-study-description">{project.description}</p>
-                    <button 
-                      className="case-study-link"
-                      onClick={() => navigate(`/project/${project.id}`)}
-                    >
-                      View Case Study
-                    </button>
+                <div key={project.id} className="rounded-xl bg-card ring-1 ring-border shadow-soft p-5 hover:translate-y-[-2px] transition">
+                  <div className="flex items-start gap-4">
+                    {project.image && (
+                      <div className="shrink-0">
+                        <ResponsiveImage
+                          src={project.image}
+                          alt={`${project.title} project showcase`}
+                          className="h-16 w-16 rounded-md object-cover"
+                          sizes="(max-width: 768px) 96px, 128px"
+                          priority={index === 0}
+                          placeholder={true}
+                          useOptimized={!(project.image?.endsWith('.jpeg') || project.image?.endsWith('.jpg') || project.image?.endsWith('.png') || project.image?.endsWith('.svg'))}
+                        />
+                      </div>
+                    )}
+                    <div className="min-w-0">
+                      <h3 className="text-lg font-semibold truncate">{project.title}</h3>
+                      <p className="mt-2 text-sm text-muted line-clamp-3">{project.description}</p>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        <button 
+                          className="inline-flex items-center rounded-md bg-subtle px-3 py-1.5 text-sm hover:bg-foreground hover:text-background transition"
+                          onClick={() => navigate(`/project/${project.id}`)}
+                        >
+                          View Case Study
+                        </button>
+                        <button 
+                          className="inline-flex items-center rounded-md bg-foreground px-3 py-1.5 text-sm text-background hover:opacity-90 transition"
+                          onClick={() => { 
+                            setSelectedProjectId(project.id);
+                            setIsInlineOpen(true);
+                            setTimeout(() => scrollToSection('project-markdown'), 0);
+                          }}
+                        >
+                          Read Inline
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
+
+            {selectedProjectId && (
+              <div id="project-markdown" className="mt-12 rounded-xl bg-card ring-1 ring-border shadow-soft">
+                <div className="flex items-center justify-between gap-2 px-5 py-3 border-b border-border">
+                  <h3 className="text-lg font-semibold">{filteredProjects.find(p => p.id === selectedProjectId)?.title}</h3>
+                  <button 
+                    className="inline-flex items-center rounded-md bg-subtle px-2 py-1 text-sm hover:bg-foreground hover:text-background transition"
+                    aria-expanded={isInlineOpen}
+                    onClick={() => setIsInlineOpen(o => !o)}
+                  >
+                    <span className="mr-1">{isInlineOpen ? 'Collapse' : 'Expand'}</span>
+                    <span aria-hidden>{isInlineOpen ? '▾' : '▸'}</span>
+                  </button>
+                </div>
+                {isInlineOpen && (
+                  <>
+                    <div className="p-5 markdown-project-details">
+                      <MarkdownRenderer file={`/projects/${getMarkdownSlug(selectedProjectId)}.md`} />
+                    </div>
+                    <div className="px-5 pb-5">
+                      <button
+                        className="inline-flex items-center rounded-md bg-foreground px-3 py-1.5 text-sm text-background hover:opacity-90 transition"
+                        onClick={() => scrollToSection('projects')}
+                      >
+                        Back to top
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         </section>
 
-        <section id="connect" className="section connect-section">
-          <div className="section-content">
-            {/* Contact section with form and social links */}
-            <div className="contact-section">
-              <div className="contact-header">
-                <h3 className="section-number">● Contact me</h3>
-                <p className="contact-subtitle">Let's work together</p>
-              </div>
-              
-              <div className="contact-content">
-                <div className="contact-form-section">
+        <section id="connect" className="py-16 sm:py-20">
+          <div className="container">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+              <div>
+                <h3 className="text-sm uppercase tracking-wider text-muted">Contact me</h3>
+                <p className="mt-2 text-2xl font-semibold">Let's work together</p>
+                <div className="mt-6 rounded-xl bg-card ring-1 ring-border shadow-soft p-5">
                   <Suspense fallback={<LoadingSpinner />}>
                     <ContactForm />
                   </Suspense>
                 </div>
-                
-                <div className="contact-links-section">
-                  <h4 className="contact-links-title">Or reach out directly:</h4>
-                  <div className="contact-links">
-                    {socialLinks.map((link) => (
-                      <a
-                        key={link.id}
-                        href={link.url}
-                        className="clean-contact-link"
-                        target={link.id === 'resume' ? undefined : "_blank"}
-                        rel={link.id === 'resume' ? undefined : "noopener noreferrer"}
-                        onClick={link.id === 'resume' ? handleResumeClick : undefined}
-                        aria-label={`Visit my ${link.label.toLowerCase()}`}
-                      >
-                        <span>{link.label}</span>
-                        <span className="contact-icon">{link.icon}</span>
-                      </a>
-                    ))}
-                  </div>
+              </div>
+              <div>
+                <h4 className="text-sm uppercase tracking-wider text-muted">Or reach out directly</h4>
+                <div className="mt-4 flex flex-col gap-3">
+                  {socialLinks.map((link) => (
+                    <a
+                      key={link.id}
+                      href={link.url}
+                      className="inline-flex items-center justify-between rounded-md bg-card ring-1 ring-border px-4 py-3 hover:bg-subtle transition"
+                      target={link.id === 'resume' ? undefined : "_blank"}
+                      rel={link.id === 'resume' ? undefined : "noopener noreferrer"}
+                      onClick={link.id === 'resume' ? handleResumeClick : undefined}
+                      aria-label={`Visit my ${link.label.toLowerCase()}`}
+                    >
+                      <span className="font-medium">{link.label}</span>
+                      <span aria-hidden>{link.icon}</span>
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>

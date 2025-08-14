@@ -34,7 +34,7 @@ export const siteContent = {
   projects: [
     {
       id: 'esp32',
-      title: 'ESP32 Projects',
+      title: 'v2t (voice to text) IoT Project',
       description: 'Collection of IoT projects using ESP32 microcontrollers, including home automation, sensor networks, and custom firmware development.',
       logo: '/esp32.svg',
       image: '/hardware.png', // Will be handled by ResponsiveImage component
@@ -78,8 +78,8 @@ export const siteContent = {
       id: 'homelab',
       title: 'Homelab Setup',
       description: 'Personal homelab infrastructure with Proxmox, Docker containers, and automated deployment pipelines. Includes monitoring, backup solutions, and network configuration.',
-      logo: '/linux.svg',
-      image: '/linux.svg', // SVG will load directly
+      logo: '/server.jpeg',
+      image: '/server.jpeg', // Use server image as the project icon
       categories: ['infrastructure', 'fullstack'],
       tags: ['Proxmox', 'Docker', 'Kubernetes', 'Linux', 'DevOps'],
       links: [
@@ -120,8 +120,8 @@ export const siteContent = {
       id: 'filefinder',
       title: 'File Finder',
       description: 'A revolutionary file search system that uses AI and semantic understanding to help users find files using natural language queries, with built-in summarization and chat capabilities.',
-      logo: '/filefinder.svg',
-      image: null, // No image for this project
+      logo: '/filefinder.png',
+      image: '/filefinder.png',
       categories: ['ai', 'fullstack'],
       tags: ['Python', 'AI/ML', 'RAG', 'FAISS', 'Flask', 'Docker'],
       links: [
@@ -162,10 +162,10 @@ export const siteContent = {
     },
     {
       id: 'opnsense-router',
-      title: 'OPNSense Network Switch Implementation',
-      description: 'Innovative home lab solution repurposing OPNSense router as a Layer 2 network switch by bridging multiple interfaces, providing cost-effective network expansion without additional hardware.',
-      logo: '/linux.svg',
-      image: null,
+      title: 'OPNSense Router Setup',
+      description: 'OPNSense router setup with multiple interfaces and VLANs for home lab networking.',
+      logo: '/opnsense.svg',
+      image: '/opnsense.svg',
       categories: ['infrastructure', 'fullstack'],
       tags: ['OPNSense', 'Networking', 'Bridging', 'Home Lab', 'Layer 2', 'Network Switch'],
       links: [

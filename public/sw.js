@@ -77,7 +77,10 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
 
   // Route to appropriate caching strategy
-  if (isImageRequest(request)) {
+  if (isVideoRequest(request)) {
+    // Bypass caching for media with Range requests to avoid playback issues
+    event.respondWith(fetch(request));
+  } else if (isImageRequest(request)) {
     event.respondWith(handleImageRequest(request));
   } else if (isStaticAsset(request)) {
     event.respondWith(handleStaticAsset(request));
@@ -91,6 +94,13 @@ function isImageRequest(request) {
   return request.destination === 'image' || 
          request.url.includes('/optimized/') ||
          /\.(png|jpg|jpeg|webp|avif|svg|gif)$/i.test(new URL(request.url).pathname);
+}
+
+// Check if request is for a video/media resource
+function isVideoRequest(request) {
+  const url = new URL(request.url);
+  if (request.destination === 'video') return true;
+  return /\.(mp4|webm|ogg|mov)$/i.test(url.pathname) || request.headers.has('range');
 }
 
 // Check if request is for a static asset

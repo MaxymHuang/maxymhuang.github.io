@@ -8,6 +8,7 @@ interface ResponsiveImageProps {
   sizes?: string;
   priority?: boolean;
   placeholder?: boolean;
+  useOptimized?: boolean;
 }
 
 const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
@@ -16,7 +17,8 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   className = '',
   sizes = '(max-width: 768px) 400px, (max-width: 1200px) 800px, 1200px',
   priority = false,
-  placeholder = true
+  placeholder = true,
+  useOptimized,
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(priority); // Load immediately if priority
@@ -30,6 +32,7 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   };
 
   const baseName = getBaseName(src);
+  const shouldUseOptimized = useOptimized !== undefined ? useOptimized : true;
 
   useEffect(() => {
     if (priority) return; // Skip lazy loading for priority images
@@ -66,7 +69,7 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
       className={`responsive-image-container ${className} ${isLoaded ? 'loaded' : ''}`}
     >
       {/* Blur placeholder */}
-      {placeholder && !isLoaded && (
+      {shouldUseOptimized && placeholder && !isLoaded && (
         <div className="image-placeholder">
           <img
             src={`/optimized/${baseName}-placeholder.webp`}
@@ -83,7 +86,7 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
       )}
 
       {/* Main responsive image */}
-      {isInView && (
+      {isInView && shouldUseOptimized && (
         <picture className={`main-picture ${isLoaded ? 'visible' : ''}`}>
           {/* AVIF - Best compression */}
           <source
@@ -117,6 +120,17 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
             className="responsive-img"
           />
         </picture>
+      )}
+
+      {isInView && !shouldUseOptimized && (
+        <img
+          src={src}
+          alt={alt}
+          loading={priority ? 'eager' : 'lazy'}
+          onLoad={handleLoad}
+          onError={handleError}
+          className="responsive-img"
+        />
       )}
 
       {/* Error state */}
