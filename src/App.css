@@ -676,26 +676,6 @@ body {
   transform: translateY(-1px);
 }
 
-/* Accessibility & Focus States */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 6px;
-  background: #39ff14;
-  color: #000;
-  padding: 8px 16px;
-  text-decoration: none;
-  border-radius: 4px;
-  z-index: 10000;
-  font-weight: 600;
-  font-family: var(--font-primary);
-  transition: top 0.3s ease;
-}
-
-.skip-link:focus {
-  top: 6px;
-}
-
 /* Enhanced Focus States */
 *:focus {
   outline: 2px solid #39ff14;

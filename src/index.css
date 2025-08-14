@@ -13,9 +13,6 @@
   body {
     @apply bg-background text-foreground antialiased selection:bg-accent/20 selection:text-foreground;
   }
-  .skip-link {
-    @apply sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-card focus:text-foreground focus:px-3 focus:py-2 focus:rounded-md focus:shadow-soft;
-  }
 }
 
 /* Markdown styling for project details */
