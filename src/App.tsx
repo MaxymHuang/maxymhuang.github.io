@@ -102,11 +102,11 @@ function Home() {
             <div className="mx-auto max-w-4xl text-center">
               <Suspense fallback={<LoadingSpinner />}>
                 <BlurText 
-                  text={siteContent.hero.name}
-                  className="text-5xl sm:text-6xl font-semibold tracking-tight text-center justify-center"
-                  delay={100}
-                  animateBy="words"
-                />
+                    text={siteContent.hero.name}
+                    className="text-5xl sm:text-6xl font-semibold tracking-tight text-center justify-center"
+                    delay={100}
+                    animateBy="words"
+                  />
               </Suspense>
               <div className="mt-6 space-y-3">
                 <h2 className="text-2xl sm:text-3xl text-foreground">{siteContent.hero.title}</h2>
