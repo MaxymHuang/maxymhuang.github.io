@@ -4,7 +4,8 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/maxymhuang.github.io/',
+  // For user/organization pages (username.github.io), base should be '/'
+  base: '/',
   build: {
     rollupOptions: {
       output: {
