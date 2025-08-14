@@ -21,6 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -31,7 +34,24 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
+        env:
+          NODE_ENV: production
+          CI: true
+        run: |
+          echo "🔨 Building for production..."
+          echo "Node.js version: $(node --version)"
+          echo "npm version: $(npm --version)"
+          npm run build
+          echo "✅ Build completed"
+
+      - name: Verify build output
+        run: |
+          echo "📂 Contents of dist folder:"
+          ls -la dist/
+          echo "📄 Size of main files:"
+          du -h dist/*.html dist/assets/*.js dist/assets/*.css 2>/dev/null || true
+          echo "🔍 Checking if index.html contains React mount point:"
+          grep -n "root" dist/index.html || echo "❌ No root element found in index.html"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -47,4 +67,10 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 
+        uses: actions/deploy-pages@v4
+        
+      - name: Deployment complete
+        run: |
+          echo "🚀 Deployment completed successfully!"
+          echo "📍 Site URL: ${{ steps.deployment.outputs.page_url }}"
+          echo "⏰ Cache may take 5-10 minutes to clear" 
