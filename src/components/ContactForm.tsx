@@ -48,15 +48,10 @@ const ContactForm: React.FC = () => {
     setSubmitStatus('idle');
     
     try {
-      // Simulate form submission - replace with actual form handling
-      // For Netlify forms, you would use:
-      const response = await fetch('/', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({
-          'form-name': 'contact',
-          ...formData
-        }).toString()
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
       
       if (response.ok) {

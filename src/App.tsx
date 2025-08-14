@@ -39,6 +39,7 @@ function Home() {
   const [activeProjectCategory, setActiveProjectCategory] = useState('all');
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [isInlineOpen, setIsInlineOpen] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(0);
 
   // Handler for nav bar navigation
   const handleNavClick = (sectionId: string) => {
@@ -62,6 +63,27 @@ function Home() {
       ? projects
       : projects.filter(project => project.categories && project.categories.includes(activeProjectCategory))
   ), [activeProjectCategory]);
+
+  // Pagination logic: 4 items per page with placeholders to fill
+  const ITEMS_PER_PAGE = 4;
+  const totalPages = Math.max(1, Math.ceil(filteredProjects.length / ITEMS_PER_PAGE));
+  const pageStart = currentPage * ITEMS_PER_PAGE;
+  const pageItems = filteredProjects.slice(pageStart, pageStart + ITEMS_PER_PAGE);
+
+  const pagedProjects = useMemo(() => {
+    const items: Array<any> = [...pageItems];
+    let placeholderIndex = 0;
+    while (items.length < ITEMS_PER_PAGE) {
+      items.push({
+        id: `placeholder-${currentPage}-${placeholderIndex++}`,
+        title: 'Coming soon',
+        description: 'A new case study is on the way.',
+        image: null,
+        placeholder: true,
+      });
+    }
+    return items;
+  }, [pageItems, currentPage]);
 
   const getMarkdownSlug = (id: string) => {
     if (id === 'opnsense-router') return 'router';
@@ -121,7 +143,7 @@ function Home() {
                 <img 
                   src="/coolpic.png" 
                   alt="Maxym Huang" 
-                  className="w-40 h-40 rounded-xl object-cover shadow-soft ring-1 ring-border mx-auto md:mx-0"
+                  className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-xl object-cover shadow-soft ring-1 ring-border mx-auto md:mx-0"
                 />
               </div>
               <div className="md:col-span-2 space-y-8">
@@ -170,12 +192,12 @@ function Home() {
                 <ProjectFilter
                   categories={siteContent.projectCategories}
                   activeCategory={activeProjectCategory}
-                  onCategoryChange={(cat) => { setActiveProjectCategory(cat); setSelectedProjectId(null); }}
+                  onCategoryChange={(cat) => { setActiveProjectCategory(cat); setSelectedProjectId(null); setCurrentPage(0); }}
                 />
               </Suspense>
             </div>
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6" id="projects-grid">
-              {filteredProjects.map((project, index) => (
+              {pagedProjects.map((project, index) => (
                 <div key={project.id} className="rounded-xl bg-card ring-1 ring-border shadow-soft p-5 hover:translate-y-[-2px] transition">
                   <div className="flex items-start gap-4">
                     {project.image && (
@@ -194,28 +216,58 @@ function Home() {
                     <div className="min-w-0">
                       <h3 className="text-lg font-semibold truncate">{project.title}</h3>
                       <p className="mt-2 text-sm text-muted line-clamp-3">{project.description}</p>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        <button 
-                          className="inline-flex items-center rounded-md bg-subtle px-3 py-1.5 text-sm hover:bg-foreground hover:text-background transition"
-                          onClick={() => navigate(`/project/${project.id}`)}
-                        >
-                          View Case Study
-                        </button>
-                        <button 
-                          className="inline-flex items-center rounded-md bg-foreground px-3 py-1.5 text-sm text-background hover:opacity-90 transition"
-                          onClick={() => { 
-                            setSelectedProjectId(project.id);
-                            setIsInlineOpen(true);
-                            setTimeout(() => scrollToSection('project-markdown'), 0);
-                          }}
-                        >
-                          Read Inline
-                        </button>
-                      </div>
+                      {!project.placeholder && (
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          <button 
+                            className="inline-flex items-center rounded-md bg-subtle px-3 py-1.5 text-sm hover:bg-foreground hover:text-background transition"
+                            onClick={() => navigate(`/project/${project.id}`)}
+                          >
+                            View Case Study
+                          </button>
+                          <button 
+                            className="inline-flex items-center rounded-md bg-foreground px-3 py-1.5 text-sm text-background hover:opacity-90 transition"
+                            onClick={() => { 
+                              setSelectedProjectId(project.id);
+                              setIsInlineOpen(true);
+                              setTimeout(() => scrollToSection('project-markdown'), 0);
+                            }}
+                          >
+                            Read Inline
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
               ))}
+            </div>
+            {/* Pagination controls */}
+            <div className="mt-6 flex items-center justify-center gap-4">
+              <button
+                className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-subtle hover:bg-foreground hover:text-background transition"
+                aria-label="Previous page"
+                onClick={() => setCurrentPage((p) => (p - 1 + totalPages) % totalPages)}
+              >
+                &lt;
+              </button>
+              <div className="flex items-center gap-2" aria-label="Projects pages">
+                {Array.from({ length: totalPages }).map((_, i) => (
+                  <button
+                    key={i}
+                    className={`h-2 w-2 rounded-full ${i === currentPage ? 'bg-foreground' : 'bg-muted'} hover:bg-foreground/80 transition`}
+                    aria-label={`Go to page ${i + 1}`}
+                    aria-current={i === currentPage ? 'page' : undefined}
+                    onClick={() => setCurrentPage(i)}
+                  />
+                ))}
+              </div>
+              <button
+                className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-subtle hover:bg-foreground hover:text-background transition"
+                aria-label="Next page"
+                onClick={() => setCurrentPage((p) => (p + 1) % totalPages)}
+              >
+                &gt;
+              </button>
             </div>
 
             {selectedProjectId && (

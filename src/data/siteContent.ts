@@ -2,8 +2,8 @@ export const siteContent = {
   hero: {
     name: "MAXYM HUANG?",
     title: "Application Engineer",
-    subtitle: "IoT & AI Developer",
-    description: "Bridging hardware and software to build secure, scalable solutions that solve real-world problems.",
+    subtitle: "Software & Hardware Developer",
+    description: "Bridging hardware and software to for fun that solves real-world problems.",
     ctas: [
       { 
         id: 'view-projects',
@@ -26,9 +26,9 @@ export const siteContent = {
   
   about: {
     education: "B.S. Industrial Engineering, Purdue University",
-    description: "I'm a Field Application Engineer passionate about bridging the gap between hardware and software. I focus on building secure, scalable, and efficient solutions that solve real-world problems.",
+    description: "I'm an Application Engineer passionate about bridging the gap between hardware and software. I focus on building efficient solutions that solve real-world problems.",
     skills: "Python, C/C++, SQL, Linux, Docker, Kubernetes, Data Analytics, Bilingual (EN/中文)",
-    contactMessage: "Ready for new opportunities"
+    contactMessage: "Ready for new opportunities! Connect with me on LinkedIn or send me an email!"
   },
   
   projects: [
@@ -75,13 +75,47 @@ export const siteContent = {
       }
     },
     {
+      id: 'version-control',
+      title: 'Git Version Control GUI',
+      description: 'A Windows WPF (.NET 9) desktop app for visual Git operations powered by LibGit2Sharp. Features commit history, commit details, file staging, repository explorer, and hard reset.',
+      logo: null,
+      image: null,
+      categories: ['fullstack'],
+      tags: ['C#', '.NET 9', 'WPF', 'LibGit2Sharp', 'Desktop'],
+      links: [
+        { label: 'GitHub', url: 'https://github.com/MaxymHuang/version-control' }
+      ],
+      details: {
+        overview: 'A modern Git GUI client built with WPF and LibGit2Sharp to simplify everyday version control tasks with an intuitive UI.',
+        technologies: [
+          '.NET 9 WPF',
+          'LibGit2Sharp',
+          'Windows Desktop'
+        ],
+        features: [
+          'Visual commit history and commit details',
+          'File selection and staging UI',
+          'Repository explorer with tree view',
+          'Hard reset to selected commit with confirmation'
+        ],
+        challenges: [
+          'Presenting Git state clearly for users new to CLI',
+          'Ensuring safe operations for destructive actions (resets)'
+        ],
+        solutions: [
+          'Guided UI and confirmation dialogs',
+          'LibGit2Sharp integration for reliable Git operations'
+        ]
+      }
+    },
+    {
       id: 'homelab',
       title: 'Homelab Setup',
-      description: 'Personal homelab infrastructure with Proxmox, Docker containers, and automated deployment pipelines. Includes monitoring, backup solutions, and network configuration.',
+      description: 'Personal homelab infrastructure with Arch Linux, Docker containers, and automated deployment pipelines. Includes monitoring, backup solutions, and network configuration.',
       logo: '/server.jpeg',
       image: '/server.jpeg', // Use server image as the project icon
       categories: ['infrastructure', 'fullstack'],
-      tags: ['Proxmox', 'Docker', 'Kubernetes', 'Linux', 'DevOps'],
+      tags: ['Docker', 'Kubernetes', 'Linux', 'DevOps'],
       links: [
         { label: 'Setup Guide', url: '#' },
         { label: 'Hardware Specs', url: '#' }
@@ -89,11 +123,10 @@ export const siteContent = {
       details: {
         overview: 'A robust homelab environment built for learning, development, and personal use, featuring virtualization, containerization, and automated workflows.',
         technologies: [
-          'Proxmox VE',
+          'QEMU/KVM',
           'Docker & Docker Compose',
-          'Kubernetes',
-          'Traefik Reverse Proxy',
-          'Prometheus & Grafana'
+          'Arch Linux',
+          'BTRFS',
         ],
         features: [
           'Virtual machine management',
@@ -166,7 +199,7 @@ export const siteContent = {
       description: 'OPNSense router setup with multiple interfaces and VLANs for home lab networking.',
       logo: '/opnsense.svg',
       image: '/opnsense.svg',
-      categories: ['infrastructure', 'fullstack'],
+      categories: ['infrastructure'],
       tags: ['OPNSense', 'Networking', 'Bridging', 'Home Lab', 'Layer 2', 'Network Switch'],
       links: [
         { label: 'Project Documentation', url: '/projects/router.md' },
@@ -232,10 +265,10 @@ export const siteContent = {
   },
   
   projectCategories: [
-    { id: 'all', label: 'All Projects', count: 4 },
+    { id: 'all', label: 'All Projects', count: 5 },
     { id: 'iot', label: 'IoT & Hardware', count: 1 },
     { id: 'ai', label: 'AI & ML', count: 1 },
     { id: 'infrastructure', label: 'Infrastructure', count: 2 },
-    { id: 'fullstack', label: 'Full Stack', count: 3 }
+    { id: 'fullstack', label: 'Full Stack', count: 4 }
   ]
 }; 
