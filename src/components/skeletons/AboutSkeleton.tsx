@@ -8,10 +8,12 @@ const AboutSkeleton: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           {/* Profile image skeleton */}
           <div className="md:col-span-1">
-            <Skeleton 
-              variant="rectangular" 
-              className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-xl mx-auto md:mx-0"
-            />
+            <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-xl shadow-soft ring-1 ring-border mx-auto md:mx-0 animate-pulse">
+              <Skeleton 
+                variant="rectangular" 
+                className="w-full h-full rounded-xl"
+              />
+            </div>
           </div>
           
           {/* Content skeleton */}

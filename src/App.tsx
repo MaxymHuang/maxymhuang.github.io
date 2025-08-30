@@ -5,6 +5,7 @@ import ResponsiveImage from './components/ResponsiveImage';
 import { useCriticalImagePreloader } from './hooks/useImagePreloader';
 import MarkdownRenderer from './components/MarkdownRenderer';
 import { TimelineSkeleton, ProjectDetailsSkeleton, PDFViewerSkeleton } from './components/skeletons';
+import SkeletonImage from './components/SkeletonImage';
 
 // Lazy load components to reduce initial bundle size
 const ProjectDetails = lazy(() => import('./components/ProjectDetails'));
@@ -158,10 +159,11 @@ function Home() {
           <div className="container">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
               <div className="md:col-span-1">
-                <img 
+                <SkeletonImage 
                   src="/coolpic.png" 
                   alt="Maxym Huang" 
                   className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-xl object-cover shadow-soft ring-1 ring-border mx-auto md:mx-0"
+                  priority={true}
                 />
               </div>
               <div className="md:col-span-2 space-y-8">

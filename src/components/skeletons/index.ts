@@ -8,3 +8,5 @@ export { default as PageSkeleton } from './PageSkeleton';
 export { default as ProjectDetailsSkeleton } from './ProjectDetailsSkeleton';
 export { default as PDFViewerSkeleton } from './PDFViewerSkeleton';
 export { default as ProjectMarkdownSkeleton } from './ProjectMarkdownSkeleton';
+export { default as SkeletonImage } from '../SkeletonImage';
+export { default as SkeletonVideo } from '../SkeletonVideo';

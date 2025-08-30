@@ -66,7 +66,7 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   return (
     <div 
       ref={imgRef} 
-      className={`responsive-image-container ${className} ${isLoaded ? 'loaded' : ''}`}
+      className={`responsive-image-container relative ${className} ${isLoaded ? 'loaded' : ''}`}
     >
       {/* Blur placeholder */}
       {shouldUseOptimized && placeholder && !isLoaded && (
@@ -80,9 +80,22 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
         </div>
       )}
 
-      {/* Loading skeleton */}
-      {!placeholder && !isLoaded && (
-        <div className="loading-skeleton" />
+      {/* Loading skeleton - Enhanced */}
+      {!placeholder && !isLoaded && !hasError && (
+        <div className="absolute inset-0 animate-pulse">
+          <div className="w-full h-full bg-gradient-to-r from-subtle/60 via-subtle/40 to-subtle/60 bg-[length:200%_100%] animate-shimmer rounded-xl flex items-center justify-center">
+            <div className="text-muted text-sm opacity-50">📷</div>
+          </div>
+        </div>
+      )}
+      
+      {/* Loading skeleton for optimized images without placeholder */}
+      {shouldUseOptimized && !placeholder && !isLoaded && !hasError && (
+        <div className="absolute inset-0 animate-pulse">
+          <div className="w-full h-full bg-gradient-to-r from-subtle/60 via-subtle/40 to-subtle/60 bg-[length:200%_100%] animate-shimmer rounded-xl flex items-center justify-center">
+            <div className="text-muted text-sm opacity-50">📷</div>
+          </div>
+        </div>
       )}
 
       {/* Main responsive image */}

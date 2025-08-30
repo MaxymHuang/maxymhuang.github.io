@@ -12,6 +12,8 @@ Skeleton screens are UI placeholders that show the structure of content while it
 
 - **`Skeleton`** - Base skeleton component with shimmer animation
 - **`PageSkeleton`** - Full page skeleton with navbar and sections
+- **`SkeletonImage`** - Image component with skeleton loading state
+- **`SkeletonVideo`** - Video component with skeleton loading state
 
 ### Section-Specific Skeletons
 
@@ -41,6 +43,28 @@ import { TimelineSkeleton } from './skeletons';
 <Suspense fallback={<TimelineSkeleton showHeader={false} />}>
   <Timeline />
 </Suspense>
+```
+
+### Image Skeletons
+
+```tsx
+import { SkeletonImage, SkeletonVideo } from './skeletons';
+
+// Image with skeleton loading
+<SkeletonImage 
+  src="/profile.jpg" 
+  alt="Profile picture"
+  className="w-64 h-64 rounded-xl"
+  priority={true}
+/>
+
+// Video with skeleton loading
+<SkeletonVideo 
+  src="/demo.mp4" 
+  poster="/demo-poster.jpg"
+  className="w-full rounded-lg"
+  controls={true}
+/>
 ```
 
 ### Full Page Loading
