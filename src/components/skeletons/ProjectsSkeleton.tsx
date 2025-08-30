@@ -12,13 +12,8 @@ const ProjectCardSkeleton: React.FC<ProjectCardSkeletonProps> = ({ showImage = t
         {/* Project image/logo skeleton */}
         {showImage && (
           <div className="shrink-0">
-            <div className="w-16 h-16 rounded-md overflow-hidden animate-pulse">
-              <Skeleton 
-                variant="rectangular" 
-                width="100%" 
-                height="100%" 
-                className="rounded-md"
-              />
+            <div className="w-16 h-16 bg-subtle/40 rounded-md flex items-center justify-center animate-pulse">
+              <div className="text-muted/50 text-sm">📷</div>
             </div>
           </div>
         )}

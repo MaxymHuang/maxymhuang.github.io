@@ -82,18 +82,18 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
 
       {/* Loading skeleton - Enhanced */}
       {!placeholder && !isLoaded && !hasError && (
-        <div className="absolute inset-0 animate-pulse">
-          <div className="w-full h-full bg-gradient-to-r from-subtle/60 via-subtle/40 to-subtle/60 bg-[length:200%_100%] animate-shimmer rounded-xl flex items-center justify-center">
-            <div className="text-muted text-sm opacity-50">📷</div>
+        <div className="absolute inset-0">
+          <div className="w-full h-full bg-subtle/40 animate-pulse rounded-xl flex items-center justify-center">
+            <div className="text-muted/50 text-lg">📷</div>
           </div>
         </div>
       )}
       
       {/* Loading skeleton for optimized images without placeholder */}
       {shouldUseOptimized && !placeholder && !isLoaded && !hasError && (
-        <div className="absolute inset-0 animate-pulse">
-          <div className="w-full h-full bg-gradient-to-r from-subtle/60 via-subtle/40 to-subtle/60 bg-[length:200%_100%] animate-shimmer rounded-xl flex items-center justify-center">
-            <div className="text-muted text-sm opacity-50">📷</div>
+        <div className="absolute inset-0">
+          <div className="w-full h-full bg-subtle/40 animate-pulse rounded-xl flex items-center justify-center">
+            <div className="text-muted/50 text-lg">📷</div>
           </div>
         </div>
       )}

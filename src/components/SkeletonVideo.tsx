@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Skeleton from './Skeleton';
 
 interface SkeletonVideoProps {
   src?: string;
@@ -70,24 +69,25 @@ const SkeletonVideo: React.FC<SkeletonVideoProps> = ({
     <div className={`relative ${className}`} style={containerStyle}>
       {/* Video skeleton */}
       {!isLoaded && !hasError && (
-        <div className="absolute inset-0 bg-subtle/20 rounded-lg overflow-hidden animate-pulse">
-          <div className="w-full h-full bg-gradient-to-r from-subtle/60 via-subtle/40 to-subtle/60 bg-[length:200%_100%] animate-shimmer" />
-          
-          {/* Play button skeleton */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-16 h-16 bg-foreground/20 rounded-full flex items-center justify-center animate-pulse">
-              <div className="w-6 h-6 bg-foreground/40 rounded-sm" style={{ clipPath: 'polygon(0 0, 100% 50%, 0 100%)' }} />
+        <div className="absolute inset-0 bg-subtle/30 rounded-lg overflow-hidden animate-pulse">
+          <div className="w-full h-full bg-subtle/40 flex items-center justify-center">
+            <div className="text-center space-y-3">
+              {/* Play button skeleton */}
+              <div className="w-16 h-16 bg-foreground/30 rounded-full flex items-center justify-center mx-auto animate-pulse">
+                <div className="w-6 h-6 bg-foreground/50" style={{ clipPath: 'polygon(25% 0%, 100% 50%, 25% 100%)' }} />
+              </div>
+              <div className="text-muted/50 text-sm">📹</div>
             </div>
           </div>
           
           {/* Controls skeleton */}
           {showControls && (
-            <div className="absolute bottom-0 left-0 right-0 bg-background/80 p-2">
+            <div className="absolute bottom-0 left-0 right-0 bg-background/80 p-2 animate-pulse">
               <div className="flex items-center gap-2">
-                <Skeleton width="24px" height="24px" variant="circular" />
-                <Skeleton width="60%" height="4px" className="rounded-full" />
-                <Skeleton width="40px" height="16px" />
-                <Skeleton width="24px" height="24px" variant="circular" />
+                <div className="w-6 h-6 bg-subtle/60 rounded-full"></div>
+                <div className="flex-1 h-1 bg-subtle/60 rounded-full"></div>
+                <div className="w-10 h-4 bg-subtle/60 rounded"></div>
+                <div className="w-6 h-6 bg-subtle/60 rounded-full"></div>
               </div>
             </div>
           )}

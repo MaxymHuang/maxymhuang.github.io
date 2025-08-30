@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Skeleton from './Skeleton';
 
 interface SkeletonImageProps {
   src: string;
@@ -73,12 +72,9 @@ const SkeletonImage: React.FC<SkeletonImageProps> = ({
       {/* Skeleton placeholder */}
       {!isLoaded && !hasError && (
         <div className={`absolute inset-0 ${skeletonClassName}`}>
-          <Skeleton 
-            variant="rectangular" 
-            width="100%" 
-            height="100%" 
-            className={className.includes('rounded') ? className.match(/rounded-\w+/)?.[0] || 'rounded' : 'rounded'}
-          />
+          <div className={`w-full h-full bg-subtle/40 animate-pulse flex items-center justify-center ${className.includes('rounded') ? className.match(/rounded-\w+/)?.[0] || 'rounded' : 'rounded'}`}>
+            <div className="text-muted/50 text-lg">📷</div>
+          </div>
         </div>
       )}
 
