@@ -14,7 +14,7 @@ const ProjectMarkdownSkeleton: React.FC<ProjectMarkdownSkeletonProps> = ({
     <div className="mt-12 rounded-xl bg-card ring-1 ring-border shadow-soft animate-pulse">
       {/* Header with expand/collapse button */}
       <div className="flex items-center justify-between gap-2 px-5 py-3 border-b border-border">
-        <Skeleton width="200px" height="24px" />
+        <Skeleton width={`${Math.max(projectTitle.length * 8, 200)}px`} height="24px" />
         <div className="bg-subtle rounded-md px-2 py-1 w-20 h-8 flex items-center justify-center">
           <Skeleton width="60px" height="14px" />
         </div>
