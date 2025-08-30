@@ -39,9 +39,9 @@
   height: 100%;
   background: linear-gradient(
     90deg,
-    #f0f0f0 25%,
-    #e0e0e0 50%,
-    #f0f0f0 75%
+    rgb(22, 24, 29) 25%,
+    rgb(30, 34, 43) 50%,
+    rgb(22, 24, 29) 75%
   );
   background-size: 200% 100%;
   animation: loading-shimmer 1.5s infinite;
@@ -126,6 +126,6 @@
   
   .loading-skeleton {
     animation: none;
-    background: #e0e0e0;
+    background: rgb(22, 24, 29);
   }
 }

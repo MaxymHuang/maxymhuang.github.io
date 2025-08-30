@@ -4,6 +4,7 @@ import { siteContent } from './data/siteContent';
 import ResponsiveImage from './components/ResponsiveImage';
 import { useCriticalImagePreloader } from './hooks/useImagePreloader';
 import MarkdownRenderer from './components/MarkdownRenderer';
+import { TimelineSkeleton, ProjectDetailsSkeleton, PDFViewerSkeleton } from './components/skeletons';
 
 // Lazy load components to reduce initial bundle size
 const ProjectDetails = lazy(() => import('./components/ProjectDetails'));
@@ -11,7 +12,7 @@ const Timeline = lazy(() => import('./components/Timeline'));
 const PDFViewer = lazy(() => import('./components/PDFViewer'));
 const ProjectFilter = lazy(() => import('./components/ProjectFilter'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
-const LoadingSpinner = lazy(() => import('./components/LoadingSpinner'));
+
 const MinimalNavBar = lazy(() => import('./components/MinimalNavBar'));
 // @ts-expect-error: No type declaration for ScrollVelocity
 const ScrollVelocity = lazy(() => import('./blocks/TextAnimations/ScrollVelocity/ScrollVelocity'));
@@ -92,7 +93,20 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense fallback={
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
+          <div className="container">
+            <div className="flex items-center justify-between h-16 animate-pulse">
+              <div className="h-6 w-24 bg-subtle rounded"></div>
+              <div className="hidden md:flex items-center gap-6">
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} className="h-5 w-16 bg-subtle rounded"></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </nav>
+      }>
         <MinimalNavBar onNavigate={handleNavClick} />
       </Suspense>
       <main id="main-content" className="">
@@ -100,7 +114,11 @@ function Home() {
         <section className="relative isolate pt-28 pb-20 sm:pt-32">
           <div className="container">
             <div className="mx-auto max-w-4xl text-center">
-              <Suspense fallback={<LoadingSpinner />}>
+              <Suspense fallback={
+                <div className="animate-pulse">
+                  <div className="h-14 sm:h-16 w-80 bg-subtle rounded mx-auto"></div>
+                </div>
+              }>
                 <BlurText 
                     text={siteContent.hero.name}
                     className="text-5xl sm:text-6xl font-semibold tracking-tight text-center justify-center"
@@ -175,7 +193,7 @@ function Home() {
           <div className="container">
             <h2 className="text-2xl font-semibold">Experience</h2>
             <div className="mt-8">
-              <Suspense fallback={<LoadingSpinner />}>
+              <Suspense fallback={<TimelineSkeleton showHeader={false} />}>
                 <Timeline />
               </Suspense>
             </div>
@@ -188,7 +206,13 @@ function Home() {
               <h2 className="text-2xl font-semibold">Projects</h2>
             </div>
             <div className="mt-6">
-              <Suspense fallback={<LoadingSpinner />}>
+              <Suspense fallback={
+                <div className="flex flex-wrap gap-2 animate-pulse">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <div key={i} className={`h-9 bg-subtle rounded-full ${i === 0 ? 'w-24' : 'w-20'}`}></div>
+                  ))}
+                </div>
+              }>
                 <ProjectFilter
                   categories={siteContent.projectCategories}
                   activeCategory={activeProjectCategory}
@@ -286,7 +310,33 @@ function Home() {
                 {isInlineOpen && (
                   <>
                     <div className="p-5 markdown-project-details">
-                      <MarkdownRenderer file={`/projects/${getMarkdownSlug(selectedProjectId)}.md`} />
+                      <Suspense fallback={
+                        <div className="space-y-6 animate-pulse">
+                          <div className="space-y-4">
+                            <div className="h-8 w-32 bg-subtle rounded"></div>
+                            <div className="space-y-2">
+                              <div className="h-4 w-full bg-subtle rounded"></div>
+                              <div className="h-4 w-11/12 bg-subtle rounded"></div>
+                              <div className="h-4 w-10/12 bg-subtle rounded"></div>
+                            </div>
+                          </div>
+                          {Array.from({ length: 3 }).map((_, index) => (
+                            <div key={index} className="space-y-3">
+                              <div className="h-6 w-24 bg-subtle rounded"></div>
+                              <div className="space-y-2">
+                                {Array.from({ length: 4 }).map((_, lineIndex) => (
+                                  <div key={lineIndex} className="flex items-center gap-2">
+                                    <div className="h-1 w-1 bg-subtle rounded-full"></div>
+                                    <div className="h-4 bg-subtle rounded" style={{width: `${60 + Math.random() * 40}%`}}></div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      }>
+                        <MarkdownRenderer file={`/projects/${getMarkdownSlug(selectedProjectId)}.md`} />
+                      </Suspense>
                     </div>
                     <div className="px-5 pb-5">
                       <button
@@ -310,7 +360,29 @@ function Home() {
                 <h3 className="text-sm uppercase tracking-wider text-muted">Contact me</h3>
                 <p className="mt-2 text-2xl font-semibold">Let's work together</p>
                 <div className="mt-6 rounded-xl bg-card ring-1 ring-border shadow-soft p-5">
-                  <Suspense fallback={<LoadingSpinner />}>
+                  <Suspense fallback={
+                    <div className="space-y-6 animate-pulse">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <div className="h-4 w-12 bg-subtle rounded"></div>
+                          <div className="h-10 bg-subtle rounded-md"></div>
+                        </div>
+                        <div className="space-y-2">
+                          <div className="h-4 w-12 bg-subtle rounded"></div>
+                          <div className="h-10 bg-subtle rounded-md"></div>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="h-4 w-16 bg-subtle rounded"></div>
+                        <div className="h-10 bg-subtle rounded-md"></div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="h-4 w-16 bg-subtle rounded"></div>
+                        <div className="h-24 bg-subtle rounded-md"></div>
+                      </div>
+                      <div className="h-11 w-32 bg-subtle rounded-md"></div>
+                    </div>
+                  }>
                     <ContactForm />
                   </Suspense>
                 </div>
@@ -338,7 +410,7 @@ function Home() {
           </div>
         </section>
       </main>
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense fallback={<PDFViewerSkeleton isOpen={isPDFViewerOpen} />}>
         <PDFViewer
           isOpen={isPDFViewerOpen}
           onClose={() => setIsPDFViewerOpen(false)}
@@ -357,7 +429,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/project/:id" element={
-            <Suspense fallback={<LoadingSpinner />}>
+            <Suspense fallback={<ProjectDetailsSkeleton />}>
               <ProjectDetails projects={projects} />
             </Suspense>
           } />

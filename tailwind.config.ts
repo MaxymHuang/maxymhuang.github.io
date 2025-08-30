@@ -35,6 +35,15 @@ export default {
           xl: '2.5rem',
         },
       },
+      animation: {
+        'shimmer': 'shimmer 2s ease-in-out infinite',
+      },
+      keyframes: {
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
+      },
     },
   },
   plugins: [typography],
