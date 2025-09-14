@@ -1,0 +1,53 @@
+/* Loading Image Component Styles */
+.loading-image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-image-skeleton {
+  background: linear-gradient(90deg, 
+    theme('colors.subtle/20') 25%, 
+    theme('colors.subtle/40') 50%, 
+    theme('colors.subtle/20') 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: inherit;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .loading-image-skeleton {
+    background: linear-gradient(90deg, 
+      currentColor 25%, 
+      transparent 50%, 
+      currentColor 75%
+    );
+    opacity: 0.3;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .loading-image-skeleton {
+    animation: none;
+    background: theme('colors.subtle/30');
+  }
+}
+
+/* Transition delay classes */
+.loading-image-delay-50 { transition-delay: 50ms; }
+.loading-image-delay-100 { transition-delay: 100ms; }
+.loading-image-delay-150 { transition-delay: 150ms; }
+.loading-image-delay-200 { transition-delay: 200ms; }
+.loading-image-delay-250 { transition-delay: 250ms; }
+.loading-image-delay-300 { transition-delay: 300ms; }

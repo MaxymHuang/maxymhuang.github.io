@@ -11,6 +11,7 @@ const MinimalNavBar: React.FC<NavBarProps> = ({ onNavigate }) => {
     { id: 'about', label: 'About' },
     { id: 'journey', label: 'Experience' },
     { id: 'projects', label: 'Projects' },
+    { id: 'gallery', label: 'Gallery' },
     { id: 'connect', label: 'Connect' }
   ];
 

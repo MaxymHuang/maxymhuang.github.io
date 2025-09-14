@@ -64,6 +64,7 @@ export interface SiteContent {
   hero: HeroContent;
   about: AboutContent;
   projects: Project[];
+  gallery: GalleryContent;
   social: SocialLink[];
   navigation: NavigationContent;
   projectCategories: ProjectCategory[];
@@ -98,9 +99,27 @@ export interface FormErrors {
   message?: string;
 }
 
+// Gallery Types
+export interface Photo {
+  id: string;
+  src: string;
+  alt: string;
+  title: string;
+  description?: string;
+  date?: string;
+  location?: string;
+  camera?: string;
+  settings?: string;
+  aspectRatio?: number; // width/height for masonry layout
+}
+
+export interface GalleryContent {
+  photos: Photo[];
+}
+
 // Utility Types
 export type SubmitStatus = 'idle' | 'success' | 'error';
-export type SectionId = 'about' | 'journey' | 'projects' | 'connect';
+export type SectionId = 'about' | 'journey' | 'projects' | 'gallery' | 'connect';
 
 // Service Worker Types
 export interface CacheConfig {

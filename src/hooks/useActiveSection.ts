@@ -4,7 +4,7 @@ export const useActiveSection = () => {
   const [activeSection, setActiveSection] = useState('about');
 
   useEffect(() => {
-    const sections = ['about', 'journey', 'projects', 'connect'];
+    const sections = ['about', 'journey', 'projects', 'gallery', 'connect'];
     
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {

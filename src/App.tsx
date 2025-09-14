@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { useMemo, useState, lazy, Suspense } from 'react';
 import { siteContent } from './data/siteContent';
-import ResponsiveImage from './components/ResponsiveImage';
+import LoadingImage from './components/LoadingImage';
 import { useCriticalImagePreloader } from './hooks/useImagePreloader';
 import MarkdownRenderer from './components/MarkdownRenderer';
 import { TimelineSkeleton, ProjectDetailsSkeleton, PDFViewerSkeleton } from './components/skeletons';
@@ -13,6 +13,7 @@ const Timeline = lazy(() => import('./components/Timeline'));
 const PDFViewer = lazy(() => import('./components/PDFViewer'));
 const ProjectFilter = lazy(() => import('./components/ProjectFilter'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
+const Gallery = lazy(() => import('./components/Gallery'));
 
 const MinimalNavBar = lazy(() => import('./components/MinimalNavBar'));
 // @ts-expect-error: No type declaration for ScrollVelocity
@@ -23,7 +24,7 @@ const BlurText = lazy(() => import('./blocks/TextAnimations/BlurText/BlurText'))
 const SpotlightCard = lazy(() => import('./blocks/Components/SpotlightCard/SpotlightCard'));
 
 // Use siteContent from the data file
-const { projects, social: socialLinks } = siteContent;
+const { projects, gallery, social: socialLinks } = siteContent;
 
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
@@ -228,14 +229,12 @@ function Home() {
                   <div className="flex items-start gap-4">
                     {project.image && (
                       <div className="shrink-0">
-                        <ResponsiveImage
+                        <LoadingImage
                           src={project.image}
                           alt={`${project.title} project showcase`}
                           className="h-16 w-16 rounded-md object-cover"
-                          sizes="(max-width: 768px) 96px, 128px"
                           priority={index === 0}
-                          placeholder={true}
-                          useOptimized={!(project.image?.endsWith('.jpeg') || project.image?.endsWith('.jpg') || project.image?.endsWith('.png') || project.image?.endsWith('.svg'))}
+                          delay={index * 100}
                         />
                       </div>
                     )}
@@ -302,7 +301,7 @@ function Home() {
                   <h3 className="text-lg font-semibold">{filteredProjects.find(p => p.id === selectedProjectId)?.title}</h3>
                   <button 
                     className="inline-flex items-center rounded-md bg-subtle px-2 py-1 text-sm hover:bg-foreground hover:text-background transition"
-                    aria-expanded={isInlineOpen}
+                    aria-expanded={isInlineOpen ? 'true' : 'false'}
                     onClick={() => setIsInlineOpen(o => !o)}
                   >
                     <span className="mr-1">{isInlineOpen ? 'Collapse' : 'Expand'}</span>
@@ -326,12 +325,12 @@ function Home() {
                             <div key={index} className="space-y-3">
                               <div className="h-6 w-24 bg-subtle rounded"></div>
                               <div className="space-y-2">
-                                {Array.from({ length: 4 }).map((_, lineIndex) => (
-                                  <div key={lineIndex} className="flex items-center gap-2">
-                                    <div className="h-1 w-1 bg-subtle rounded-full"></div>
-                                    <div className="h-4 bg-subtle rounded" style={{width: `${60 + Math.random() * 40}%`}}></div>
-                                  </div>
-                                ))}
+                          {Array.from({ length: 4 }).map((_, lineIndex) => (
+                            <div key={lineIndex} className="flex items-center gap-2">
+                              <div className="h-1 w-1 bg-subtle rounded-full"></div>
+                              <div className={`h-4 bg-subtle rounded ${lineIndex % 2 === 0 ? 'w-3/4' : 'w-2/3'}`}></div>
+                            </div>
+                          ))}
                               </div>
                             </div>
                           ))}
@@ -352,6 +351,27 @@ function Home() {
                 )}
               </div>
             )}
+          </div>
+        </section>
+
+        <section id="gallery" className="py-16 sm:py-20">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl font-semibold">Gallery</h2>
+              <p className="mt-4 text-muted max-w-2xl mx-auto">
+                A collection of photos capturing moments, projects, and perspectives through my lens.
+              </p>
+            </div>
+            
+            <Suspense fallback={
+              <div className="gallery-skeleton animate-pulse">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i} className="gallery-skeleton-item"></div>
+                ))}
+              </div>
+            }>
+              <Gallery photos={gallery.photos} />
+            </Suspense>
           </div>
         </section>
 

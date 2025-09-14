@@ -1,0 +1,226 @@
+/* Gallery Styles */
+.gallery-masonry {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.gallery-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Smooth loading animation */
+.gallery-item img {
+  opacity: 0;
+  animation: fadeInImage 0.6s ease forwards;
+}
+
+@keyframes fadeInImage {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .gallery-item img {
+    height: 10rem;
+    object-fit: cover;
+  }
+  
+  .gallery-item:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Focus styles for accessibility */
+.gallery-item:focus {
+  outline: 2px solid theme('colors.accent');
+  outline-offset: 2px;
+}
+
+/* Loading placeholder */
+.gallery-item.loading {
+  background: linear-gradient(90deg, theme('colors.subtle') 25%, theme('colors.background') 50%, theme('colors.subtle') 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Loading Image Component Styles */
+.loading-image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-image-skeleton {
+  background: linear-gradient(90deg, theme('colors.subtle/30') 25%, theme('colors.subtle/50') 50%, theme('colors.subtle/30') 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: inherit;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .gallery-item {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item,
+  .gallery-item img {
+    transition: none;
+  }
+  
+  .gallery-item:hover {
+    transform: none;
+  }
+  
+  .gallery-item:hover img {
+    transform: none;
+  }
+}
+
+/* Skeleton loading animation for gallery */
+.gallery-skeleton {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.gallery-skeleton-item {
+  border-radius: 0.75rem;
+  background-color: theme('colors.subtle');
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.gallery-skeleton-item:nth-child(1) { height: 250px; }
+.gallery-skeleton-item:nth-child(2) { height: 300px; }
+.gallery-skeleton-item:nth-child(3) { height: 220px; }
+.gallery-skeleton-item:nth-child(4) { height: 280px; }
+.gallery-skeleton-item:nth-child(5) { height: 240px; }
+.gallery-skeleton-item:nth-child(6) { height: 320px; }
+
+@media (min-width: 768px) {
+  .gallery-skeleton {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Gallery Styles */
+
+/* Expanded Gallery Grid Styles */
+.gallery-expanded-container {
+  max-width: 100%;
+  margin: 0 auto;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gallery-grid {
+  gap: 1rem;
+}
+
+.gallery-grid-item {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.gallery-grid-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.gallery-grid-image {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Black and white to color hover effect */
+.gallery-grid-image {
+  filter: grayscale(100%) contrast(1.1) brightness(0.9);
+}
+
+.gallery-grid-item:hover .gallery-grid-image {
+  filter: grayscale(0%) contrast(1) brightness(1);
+  transform: scale(1.05);
+}
+
+/* Grid-specific styles are handled in the expanded section above */
+
+/* Responsive grid styles */
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1025px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

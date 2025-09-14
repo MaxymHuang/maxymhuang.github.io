@@ -239,6 +239,67 @@ export const siteContent = {
     }
   ],
   
+  gallery: {
+    photos: [
+      {
+        id: 'photo-000050',
+        src: '/gallery/000050.JPG',
+        alt: '',
+        title: 'Friends',
+        description: 'friends at the beach',
+        aspectRatio: 1.5
+      },
+      {
+        id: 'photo-000063',
+        src: '/gallery/000063.JPG',
+        alt: '',
+        title: 'Friends in taiwan',
+        description: 'cool picture with friends',
+        aspectRatio: 1.33
+      },
+      {
+        id: 'photo-000070',
+        src: '/gallery/000070.JPG',
+        alt: '',
+        title: 'Hanoi',
+        description: 'Behind the scenes in a busy old town.',
+        aspectRatio: 1.5
+      },
+      {
+        id: 'photo-img-2001',
+        src: '/gallery/IMG_2001.JPG',
+        alt: '',
+        title: 'Friends',
+        description: 'Cool picture with friends',
+        aspectRatio: 0.75
+      },
+      {
+        id: 'photo-img-2002',
+        src: '/gallery/IMG_2002.JPG',
+        alt: 'Photography by Maxym Huang',
+        title: 'Street photography',
+        description: 'A moment captured through the lens.',
+        aspectRatio: 1.33
+      },
+      {
+        id: 'photo-img-2008',
+        src: '/gallery/IMG_2008.JPG',
+        alt: 'Photography by Maxym Huang',
+        title: 'CAT',
+        description: 'A moment captured through the lens.',
+        aspectRatio: 1.5
+      },
+      {
+        id: 'photo-img-8327',
+        src: '/gallery/IMG_8327.JPG',
+        alt: 'Photography by Maxym Huang',
+        title: 'Skater man',
+        description: 'A moment captured through the lens.',
+        aspectRatio: 0.8
+      }
+    ]
+  },
+  
   social: [
     {
       id: 'linkedin',
@@ -261,7 +322,7 @@ export const siteContent = {
   ],
   
   navigation: {
-    sections: ['about', 'journey', 'projects', 'connect']
+    sections: ['about', 'journey', 'projects', 'gallery', 'connect']
   },
   
   projectCategories: [
