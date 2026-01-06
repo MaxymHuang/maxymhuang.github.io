@@ -19,6 +19,8 @@ export interface Project {
     challenges: string[];
     solutions: string[];
   };
+  wip?: boolean;
+  placeholder?: boolean;
 }
 
 export interface SocialLink {

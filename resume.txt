@@ -1,50 +1,69 @@
 EDUCATION
 
+Purdue University
+B.S. Industrial Engineering 2019 — 2023
 
-Purdue University	West Lafayette, IN
-B.S. Industrial Engineering 	Graduated May 2023 
-Relevant Coursework: Operation Research; Supply Chain Management; Machine Learning; Inventory Management; Quality Engineering; Lean Six Sigma; Material Planning; Layout Design
+EXPERIENCE
 
-WORK EXPERIENCE	
+Application Engineer, Test Research Inc. Feb 2025 — Present
+- Provided first line technical support and system optimization for automated X-ray inspection systems
+- Trained and deployed supervised ML segmentation models for improved defect detection, improving inspection accuracy and reducing false call and escape rates by 40%
+- Developed inspection recipes for various defect class, including HiP, void detection, and bridging analysis
+- Engineered automation scripts for system diagnostics and troubleshooting, streamlining debug processes, improving time-to-solution by 30%
+- Designed and implemented software tools for experimental design and data analysis, increasing research productivity by 20%
 
+Technologies: Image Processing, Signal Processing, Control Systems, Microcontrollers
 
-Brobridge Co.    	Taipei, Taiwan
-Product Manager 	 November 2023 – Present
-	Spearheaded the new product introduction (NPI) for the flagship product Gravity Portal.
-	Conducted market research, including competitive analysis and five-force analysis, informing product strategy and positioning.
-	Introduced Scrum processes, developed comprehensive specifications, and enhancing team efficiency by 50%.
-	Facilitated sprint review and retrospectives, driving continuous refinements and boosting sprint velocity by 25%.
-	Led Proof of Concept (PoC) projects to validate new features.
-	Directed the NHI (National Health Insurance) Digital Transformation Project
-	Collaborated with diverse stakeholders to ensure all deliverables met defined acceptance criteria.
-	Facilitated efficient, consensus-building meetings, and improved overall service satisfaction by 25%.
+Product Engineer, Brobridge Nov 2023 — Jan 2025
+- Led NPI (New Product Introduction) for the flagship product Gravity Portal
+- Designed specifications and backend system architecture for intra-cluster data processing dashboard
+- Conducted research and developed quality assurance test plans in collaboration with NTUT graduate students, implementing CI pipelines with self-hosted daily runners for dockerized applications
+- Produced comprehensive technical documentation for system specifications and deployment procedures
+- Collaborated with cross-functional stakeholders to ensure all deliverables met defined acceptance criteria
 
-MPI, Small Parts Inc.     	Logansport, IN
-Industrial Engineer	Jan 2023 – May 2023
-	Conducted field research, collecting transportation data and identifying high-runner materials.
-	Redesigned raw material transportation schedules using Arena Simulator, optimizing layout, inventory replenishment, and job prioritization to enhance production flow by reducing idle time by 1.5 hours per week.
-	Engineered layout and shelves area designs that optimized storage spaces, based on increased raw material and work in process (WIP) storage capacity by 20%. 
-	Introduced barcode and color labeling system for inventory management that improves efficiency and accuracy, reducing restocking and replenishing times by 5 man-hours per week.
-
-Optoma Technology	Taipei, Taiwan
-SWE Intern   	Jun 2022 – Aug 2022
-	Developed a command line interface (CLI) tool with Python that streamlined data processes from Google Firebase.
-	Utilize Pandas libraries to perform statistical analysis, generating customized reports.
-	Leveraged google cloud APIs to schedule SQL queries, eliminating the need for manual configurations.
-
-KEY SKILLS	
-
-
-Programming Language: Python, C, C++, SQL, Shell Script
-Software Tools: Linux (I use Arch btw), vim, Docker, Kubernetes, Microsoft Excel, Jira, Confluence
-Languages: Native fluency in English and Chinese
-Certifications & Training: Data Analytics Fundamentals (Google); Python (Codecademy); Scrum Processes; Lean Six Sigma
+Technologies: Kubernetes, Docker, Golang, Python, Shell Scripts
 
 PERSONAL PROJECTS
 
+Autonomous RC Car with Object Detection & Avoidance Jan 2024 — Present
+- Designed and built an autonomous navigation system integrating OpenCV with ultrasonic sensors for real-time obstacle detection and avoidance
+- Implemented sensor fusion architecture combining visual edge detection via OpenCV Canny algorithm with ultrasonic distance measurements to enhance navigation reliability
+- Developed a C++ motion controller with PWM motor driver coordination for precise steering and speed control
+- Deployed computer vision algorithms on Raspberry Pi for efficient real-time processing in embedded environments
 
-Stock Prediction ML project 	July 2024 – Present
-	Conducted statistical analysis on various financial and technical indicators, ensure training data are relevant to the model.
-	Leveraged Pandas, NumPy library to perform statistical analysis, and Tensorflow, PyTorch libraries to build a LSTM model.
-	Experimented different learning rates, number of epochs, activation functions, loss optimizers and batch sizes, attempting to find the best configurations while keeping track of training loss, validation loss and potential overfitting issues.
-	Utilized Docker containers to create isolated DevOps environment, ensuring a reproducible workspace.
+Voice to Text Smart Home Controller Nov 2024 — Mar 2025
+- Architected a containerized backend service for voice-to-text processing with optimized WebSocket implementation to handle streaming audio from memory-constrained devices
+- Designed embedded firmware for ESP32 microcontroller integrating I2S microphone and I2C display for real-time voice capture and feedback
+- Fine-tuned OpenAI Whisper model with custom training scripts to improve speech recognition accuracy for smart home commands
+- Developed RESTful API endpoints for controlling smart home devices, enabling integration between hardware and backend services
+
+Personal Website Full Stack Development Sep 2024 — Present
+- Engineered a full-stack personal website using TypeScript and Tailwind CSS for responsive front-end design
+- Implemented backend infrastructure for email automation and database management to enable dynamic content delivery
+- Deployed the application to cloud infrastructure with custom domain configuration
+
+Self Hosted Homelab Dec 2023 — Present
+- Administered a linux server and responsible of maintaining, upgrading and hardening the system
+- Self-hosted smart home applications (homeassistant) under a virtual machine deployment for various smart home controls
+- Deployed a multi-functional media server on docker that supports viewing, downloading and looking up contents
+- Hosted cloud share server that can be accessed anywhere
+- Deployed VMs for isolated lab environments
+
+CAPSTONE PROJECTS
+
+Optimization of Material Movement Delivery Jan 2023 — May 2023
+- Conducted field research, collecting transportation data and identifying high-runner materials.
+- Redesigned raw material transportation schedules using Arena Simulator, optimizing layout, inventory replenishment, and job prioritization to enhance production flow by reducing idle time by 1.5 hours per week.
+- Engineered layout and shelves area designs that optimized storage spaces, based on increased raw material and work in process (WIP) storage capacity by 20%.
+- Introduced barcode and color labeling system for inventory management that improves efficiency and accuracy, reducing restocking and replenishing times by 5 man-hours per week.
+
+Habitat for Humanity Consultancy Aug 2021 — Aug 2022
+- Conducted root cause analysis using fishbone diagrams and process flowcharts to identify operational inefficiencies
+- Proposed engineering solutions that improved operational profitability
+- Designed and executed field studies and customer surveys, performing quantitative analysis to validate findings and recommendations
+- Collaborated with project stakeholders to establish communication protocols and coordinate cross-functional implementation efforts
+
+SKILLS
+
+- Code: C/C++, Python, shell scripts
+- Tools: Docker, SQL, Linux, Kubernetes, RTOS

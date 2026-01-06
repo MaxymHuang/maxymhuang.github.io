@@ -26,7 +26,7 @@ const HeroSkeleton: React.FC = () => {
                 <Skeleton width="100px" height="16px" className="bg-background" />
               </div>
             </div>
-            {/* Secondary button - "Download Resume" */}
+            {/* Secondary button - "Download CV" */}
             <div className="inline-flex items-center gap-2 rounded-md px-4 py-2 shadow-soft animate-pulse">
               <div className="bg-subtle rounded-md p-2 w-36 h-10 flex items-center justify-center">
                 <Skeleton width="120px" height="16px" />

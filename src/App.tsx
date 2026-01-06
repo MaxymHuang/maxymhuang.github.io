@@ -40,8 +40,6 @@ function Home() {
   useCriticalImagePreloader();
   const [isPDFViewerOpen, setIsPDFViewerOpen] = useState(false);
   const [activeProjectCategory, setActiveProjectCategory] = useState('all');
-  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
-  const [isInlineOpen, setIsInlineOpen] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(0);
 
   // Handler for nav bar navigation
@@ -87,11 +85,6 @@ function Home() {
     }
     return items;
   }, [pageItems, currentPage]);
-
-  const getMarkdownSlug = (id: string) => {
-    if (id === 'opnsense-router') return 'router';
-    return id;
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -158,7 +151,7 @@ function Home() {
 
         <section id="about" className="py-16 sm:py-20">
           <div className="container">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-start">
               <div className="md:col-span-1">
                 <SkeletonImage 
                   src="/coolpic.png" 
@@ -167,7 +160,7 @@ function Home() {
                   priority={true}
                 />
               </div>
-              <div className="md:col-span-2 space-y-8">
+              <div className="md:col-span-2 space-y-8 md:pl-4">
                 <div>
                   <h3 className="text-sm uppercase tracking-wider text-muted">About</h3>
                   <p className="mt-2 text-foreground font-medium">{siteContent.about.education}</p>
@@ -219,7 +212,7 @@ function Home() {
                 <ProjectFilter
                   categories={siteContent.projectCategories}
                   activeCategory={activeProjectCategory}
-                  onCategoryChange={(cat) => { setActiveProjectCategory(cat); setSelectedProjectId(null); setCurrentPage(0); }}
+                  onCategoryChange={(cat) => { setActiveProjectCategory(cat); setCurrentPage(0); }}
                 />
               </Suspense>
             </div>
@@ -227,8 +220,8 @@ function Home() {
               {pagedProjects.map((project, index) => (
                 <div key={project.id} className="rounded-xl bg-card ring-1 ring-border shadow-soft p-5 hover:translate-y-[-2px] transition">
                   <div className="flex items-start gap-4">
-                    {project.image && (
-                      <div className="shrink-0">
+                    <div className="shrink-0">
+                      {project.image ? (
                         <LoadingImage
                           src={project.image}
                           alt={`${project.title} project showcase`}
@@ -236,8 +229,12 @@ function Home() {
                           priority={index === 0}
                           delay={index * 100}
                         />
-                      </div>
-                    )}
+                      ) : (
+                        <div className="h-16 w-16 rounded-md bg-subtle/40 border border-border/50 flex items-center justify-center">
+                          <div className="text-muted/50 text-2xl">📄</div>
+                        </div>
+                      )}
+                    </div>
                     <div className="min-w-0">
                       <h3 className="text-lg font-semibold truncate">{project.title}</h3>
                       <p className="mt-2 text-sm text-muted line-clamp-3">{project.description}</p>
@@ -248,16 +245,6 @@ function Home() {
                             onClick={() => navigate(`/project/${project.id}`)}
                           >
                             View Case Study
-                          </button>
-                          <button 
-                            className="inline-flex items-center rounded-md bg-foreground px-3 py-1.5 text-sm text-background hover:opacity-90 transition"
-                            onClick={() => { 
-                              setSelectedProjectId(project.id);
-                              setIsInlineOpen(true);
-                              setTimeout(() => scrollToSection('project-markdown'), 0);
-                            }}
-                          >
-                            Read Inline
                           </button>
                         </div>
                       )}
@@ -295,62 +282,6 @@ function Home() {
               </button>
             </div>
 
-            {selectedProjectId && (
-              <div id="project-markdown" className="mt-12 rounded-xl bg-card ring-1 ring-border shadow-soft">
-                <div className="flex items-center justify-between gap-2 px-5 py-3 border-b border-border">
-                  <h3 className="text-lg font-semibold">{filteredProjects.find(p => p.id === selectedProjectId)?.title}</h3>
-                  <button 
-                    className="inline-flex items-center rounded-md bg-subtle px-2 py-1 text-sm hover:bg-foreground hover:text-background transition"
-                    aria-expanded={isInlineOpen ? 'true' : 'false'}
-                    onClick={() => setIsInlineOpen(o => !o)}
-                  >
-                    <span className="mr-1">{isInlineOpen ? 'Collapse' : 'Expand'}</span>
-                    <span aria-hidden>{isInlineOpen ? '▾' : '▸'}</span>
-                  </button>
-                </div>
-                {isInlineOpen && (
-                  <>
-                    <div className="p-5 markdown-project-details">
-                      <Suspense fallback={
-                        <div className="space-y-6 animate-pulse">
-                          <div className="space-y-4">
-                            <div className="h-8 w-32 bg-subtle rounded"></div>
-                            <div className="space-y-2">
-                              <div className="h-4 w-full bg-subtle rounded"></div>
-                              <div className="h-4 w-11/12 bg-subtle rounded"></div>
-                              <div className="h-4 w-10/12 bg-subtle rounded"></div>
-                            </div>
-                          </div>
-                          {Array.from({ length: 3 }).map((_, index) => (
-                            <div key={index} className="space-y-3">
-                              <div className="h-6 w-24 bg-subtle rounded"></div>
-                              <div className="space-y-2">
-                          {Array.from({ length: 4 }).map((_, lineIndex) => (
-                            <div key={lineIndex} className="flex items-center gap-2">
-                              <div className="h-1 w-1 bg-subtle rounded-full"></div>
-                              <div className={`h-4 bg-subtle rounded ${lineIndex % 2 === 0 ? 'w-3/4' : 'w-2/3'}`}></div>
-                            </div>
-                          ))}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      }>
-                        <MarkdownRenderer file={`/projects/${getMarkdownSlug(selectedProjectId)}.md`} />
-                      </Suspense>
-                    </div>
-                    <div className="px-5 pb-5">
-                      <button
-                        className="inline-flex items-center rounded-md bg-foreground px-3 py-1.5 text-sm text-background hover:opacity-90 transition"
-                        onClick={() => scrollToSection('projects')}
-                      >
-                        Back to top
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
-            )}
           </div>
         </section>
 
@@ -436,8 +367,8 @@ function Home() {
         <PDFViewer
           isOpen={isPDFViewerOpen}
           onClose={() => setIsPDFViewerOpen(false)}
-          pdfUrl="/Resume.pdf"
-          title="Maxym Huang - Resume"
+          pdfUrl="/CV_Yu-Chia_Huang.pdf"
+          title="Maxym Huang - CV"
         />
       </Suspense>
     </div>

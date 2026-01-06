@@ -26,15 +26,26 @@ const ProjectDetails: React.FC<{ projects: any[] }> = ({ projects }) => {
 
     fetch(markdownFile)
       .then((res) => {
-        if (!res.ok) throw new Error(`Failed to fetch ${markdownFile}`);
+        if (!res.ok) {
+          if (res.status === 404) {
+            // File doesn't exist, set empty content (TOC won't show)
+            setMarkdownContent('');
+            setIsLoading(false);
+            return;
+          }
+          throw new Error(`Failed to fetch ${markdownFile}`);
+        }
         return res.text();
       })
       .then((content) => {
-        setMarkdownContent(content);
+        if (content) {
+          setMarkdownContent(content);
+        }
         setIsLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching markdown:', error);
+        setMarkdownContent('');
         setIsLoading(false);
       });
   }, [project, markdownFile]);

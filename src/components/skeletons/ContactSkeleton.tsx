@@ -70,7 +70,7 @@ const ContactSkeleton: React.FC = () => {
               {[
                 { label: 'LINKEDIN', width: '80px' },
                 { label: 'GITHUB', width: '70px' },
-                { label: 'RESUME', width: '75px' }
+                { label: 'CV', width: '50px' }
               ].map((link, index) => (
                 <div 
                   key={index}

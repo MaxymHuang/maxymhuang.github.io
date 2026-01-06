@@ -1,9 +1,9 @@
 export const siteContent = {
   hero: {
-    name: "MAXYM HUANG?",
+    name: "MAXYM HUANG",
     title: "Application Engineer",
     subtitle: "Software & Hardware Developer",
-    description: "Bridging hardware and software to for fun that solves real-world problems.",
+    description: "Bridging hardware and software to solve real-world problems.",
     ctas: [
       { 
         id: 'view-projects',
@@ -14,10 +14,10 @@ export const siteContent = {
         icon: "→"
       },
       { 
-        id: 'download-resume',
-        label: "Download Resume", 
+        id: 'download-cv',
+        label: "Download CV", 
         action: "download", 
-        target: "/Resume.pdf", 
+        target: "/CV_Yu-Chia_Huang.pdf", 
         primary: false,
         icon: "↓"
       }
@@ -25,9 +25,9 @@ export const siteContent = {
   },
   
   about: {
-    education: "B.S. Industrial Engineering, Purdue University",
+    education: "B.S. Industrial Engineering, Purdue University (2019 — 2023)",
     description: "I'm an Application Engineer passionate about bridging the gap between hardware and software. I focus on building efficient solutions that solve real-world problems.",
-    skills: "Python, C/C++, SQL, Linux, Docker, Kubernetes, Data Analytics, Bilingual (EN/中文)",
+    skills: "C/C++, Python, Shell Scripts, Docker, SQL, Linux, Kubernetes, RTOS",
     contactMessage: "Ready for new opportunities! Connect with me on LinkedIn or send me an email!"
   },
   
@@ -236,6 +236,42 @@ export const siteContent = {
           'Leveraged existing OPNSense infrastructure'
         ]
       }
+    },
+    {
+      id: 'autonomous-rc-car',
+      title: 'Autonomous RC Car with Object Detection & Avoidance',
+      description: 'An autonomous navigation system integrating OpenCV computer vision with ultrasonic sensors for real-time obstacle detection and avoidance. Coming soon.',
+      logo: null,
+      image: '/hardware.png',
+      categories: ['iot', 'wip'],
+      tags: ['OpenCV', 'C++', 'Raspberry Pi', 'Computer Vision', 'Sensor Fusion', 'Robotics'],
+      links: [],
+      details: {
+        overview: 'Coming soon - A fully autonomous RC car system that combines computer vision and sensor fusion to navigate environments while avoiding obstacles in real-time.',
+        technologies: [],
+        features: [],
+        challenges: [],
+        solutions: []
+      },
+      wip: true
+    },
+    {
+      id: 'n8n-homelab-agent',
+      title: 'n8n Automated Homelab Administrator Agent',
+      description: 'An intelligent automation agent built with n8n to manage and administer homelab infrastructure. Coming soon.',
+      logo: null,
+      image: '/server.jpeg',
+      categories: ['infrastructure', 'wip'],
+      tags: ['n8n', 'Automation', 'Homelab', 'DevOps', 'Infrastructure'],
+      links: [],
+      details: {
+        overview: 'Coming soon - An automated homelab administrator agent leveraging n8n workflows to manage infrastructure, monitor services, and automate routine administrative tasks.',
+        technologies: [],
+        features: [],
+        challenges: [],
+        solutions: []
+      },
+      wip: true
     }
   ],
   
@@ -315,8 +351,8 @@ export const siteContent = {
     },
     {
       id: 'resume',
-      label: 'RESUME',
-      url: '/Resume.pdf',
+      label: 'CV',
+      url: '/CV_Yu-Chia_Huang.pdf',
       icon: '→'
     }
   ],
@@ -326,10 +362,11 @@ export const siteContent = {
   },
   
   projectCategories: [
-    { id: 'all', label: 'All Projects', count: 5 },
-    { id: 'iot', label: 'IoT & Hardware', count: 1 },
+    { id: 'all', label: 'All Projects', count: 7 },
+    { id: 'iot', label: 'IoT & Hardware', count: 2 },
     { id: 'ai', label: 'AI & ML', count: 1 },
-    { id: 'infrastructure', label: 'Infrastructure', count: 2 },
-    { id: 'fullstack', label: 'Full Stack', count: 4 }
+    { id: 'infrastructure', label: 'Infrastructure', count: 3 },
+    { id: 'fullstack', label: 'Full Stack', count: 4 },
+    { id: 'wip', label: 'WIP', count: 2 }
   ]
 }; 

@@ -66,17 +66,33 @@ export default function MarkdownRenderer({ file }) {
   useEffect(() => {
     fetch(file)
       .then((res) => {
-        if (!res.ok) throw new Error(`Failed to fetch ${file}`);
+        if (!res.ok) {
+          if (res.status === 404) {
+            // File doesn't exist, show "coming soon"
+            setMarkdown('# Coming Soon\n\nThis case study is currently in progress. A detailed write-up will be available soon.');
+            return;
+          }
+          throw new Error(`Failed to fetch ${file}`);
+        }
         return res.text();
       })
       .then((text) => {
-        const processedMarkdown = preserveLineSpacing(text);
-        setMarkdown(processedMarkdown);
+        if (text) {
+          const processedMarkdown = preserveLineSpacing(text);
+          setMarkdown(processedMarkdown);
+        }
       })
-      .catch(setError);
+      .catch((error) => {
+        // If it's a 404, we already handled it above
+        if (error.message && (error.message.includes('404') || error.message.includes('Failed to fetch'))) {
+          setMarkdown('# Coming Soon\n\nThis case study is currently in progress. A detailed write-up will be available soon.');
+        } else {
+          setError(error);
+        }
+      });
   }, [file]);
 
-  if (error) return <div>Error loading markdown: {error.message}</div>;
+  if (error && !markdown) return <div>Error loading markdown: {error.message}</div>;
   if (!markdown) return <div>Loading...</div>;
 
   return (

@@ -36,10 +36,6 @@ const ProjectCardSkeleton: React.FC<ProjectCardSkeletonProps> = ({ showImage = t
             <div className="bg-subtle rounded-md px-3 py-1.5 w-32 h-8 flex items-center">
               <Skeleton width="100%" height="14px" />
             </div>
-            {/* "Read Inline" button - foreground bg */}
-            <div className="bg-foreground rounded-md px-3 py-1.5 w-24 h-8 flex items-center">
-              <Skeleton width="100%" height="14px" className="bg-background" />
-            </div>
           </div>
         </div>
       </div>

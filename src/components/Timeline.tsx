@@ -7,31 +7,25 @@ type TimelineEvent = {
   description: string;
 };
 
-// Seeded from resume.txt
+// Seeded from CV_Yu-Chia_Huang.pdf
 const events: TimelineEvent[] = [
   {
-    period: 'Nov 2023 – Present',
-    title: 'Product Manager',
-    organization: 'Brobridge Co., Taipei',
-    description: 'Lead NPI for Gravity Portal; introduced Scrum; drove sprint efficiency; led PoCs; directed NHI Digital Transformation; stakeholder alignment.'
+    period: 'Feb 2025 – Present',
+    title: 'Application Engineer',
+    organization: 'Test Research Inc.',
+    description: 'First line technical support and system optimization for automated X-ray inspection systems; trained and deployed ML segmentation models improving inspection accuracy by 40%; developed inspection recipes and automation scripts.'
   },
   {
-    period: 'Jan 2023 – May 2023',
-    title: 'Industrial Engineer',
-    organization: 'MPI, Small Parts Inc., Indiana',
-    description: 'Optimized material flows and layouts; built Arena simulations; improved storage capacity and restocking efficiency.'
+    period: 'Nov 2023 – Jan 2025',
+    title: 'Product Engineer',
+    organization: 'Brobridge',
+    description: 'Led NPI for Gravity Portal; designed backend system architecture; conducted research and developed QA test plans; implemented CI pipelines with self-hosted runners for dockerized applications.'
   },
   {
-    period: 'Jun 2022 – Aug 2022',
-    title: 'Software Engineering Intern',
-    organization: 'Optoma Technology, Taipei',
-    description: 'Built a Python CLI to process Firebase data; automated reporting with pandas; scheduled GCP SQL jobs.'
-  },
-  {
-    period: 'May 2023',
+    period: '2019 — 2023',
     title: 'B.S. Industrial Engineering',
     organization: 'Purdue University',
-    description: 'Graduated; focus on OR, SCM, ML, Quality, Lean Six Sigma.'
+    description: 'Graduated with focus on operations research, supply chain management, machine learning, and quality engineering.'
   }
 ];
 
