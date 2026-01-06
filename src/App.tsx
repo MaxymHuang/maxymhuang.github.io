@@ -3,7 +3,6 @@ import { useMemo, useState, lazy, Suspense } from 'react';
 import { siteContent } from './data/siteContent';
 import LoadingImage from './components/LoadingImage';
 import { useCriticalImagePreloader } from './hooks/useImagePreloader';
-import MarkdownRenderer from './components/MarkdownRenderer';
 import { TimelineSkeleton, ProjectDetailsSkeleton, PDFViewerSkeleton } from './components/skeletons';
 import SkeletonImage from './components/SkeletonImage';
 
